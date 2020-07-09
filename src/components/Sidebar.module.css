@@ -1,0 +1,12 @@
+.sidebarContainer {
+    display: none
+}
+
+
+@media (min-width:1000px) {
+    .sidebarContainer{
+        display: block;
+        min-width: 20%;
+        max-width: 25%;
+    }
+}
