@@ -3,6 +3,9 @@ import styles from './Route1.module.css'
 import SecondChart from './charts/SecondChart';
 import ThirdChart from './charts/ThirdChart';
 import FirstChart from './charts/FirstChart';
+import FilterBar from './taskslist/FilterBar';
+import TasksList from './taskslist/TasksList';
+import TasksInfoBar from './taskslist/TasksInfoBar';
 
 
 export default function Route1() {
@@ -22,6 +25,12 @@ export default function Route1() {
                 <button className={styles.route1TasksNav_createDiv_button}>Create Task</button>
             </div>
         </section>
-        <section className={styles.route1TasksSection}>TASK SECTION</section>
+        <section className={styles.route1TasksSection}>
+            <FilterBar />
+            <div className={styles.route1TaskSectionTasks}>
+                <TasksInfoBar />
+                <TasksList />
+            </div>
+        </section>
     </div>
 } 

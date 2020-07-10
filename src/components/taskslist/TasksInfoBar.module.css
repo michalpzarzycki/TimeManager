@@ -1,0 +1,55 @@
+.tasksInfoBarContainer {
+    width: 90%;
+    min-height: 50px;
+    background-color: grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    align-items: center;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 5px;
+    margin:10px 0;
+}
+.id, .avatar, .importance, .deadline {
+    display: none;
+  
+}
+.avatar{
+    width: 30px;
+    height: 30px;
+    background-image: url('../../icons/avatar.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+@media (min-width:1000px) {
+    .checkbox {
+        width: 5%;
+       }
+       
+       .id {
+           width: 10%;
+           display: block;
+       }
+       .avatar {
+           width: 10%;
+           display: block;
+       }
+       .title {
+           width: 35%;
+       }
+       .importance {
+       width: 15%;
+       display: block;
+       }
+       .deadline {
+       width: 10%;
+       display: block;
+       }
+       .buttons {
+           width: 15%;
+       }
+}

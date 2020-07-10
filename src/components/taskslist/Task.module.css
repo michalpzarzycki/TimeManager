@@ -1,0 +1,76 @@
+.tasksInfoBarContainer {
+    width: 90%;
+    min-height: 50px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 5px;
+    margin: 2.5px 0;
+}
+.id, .avatar, .importance, .deadline {
+    display: none;
+}
+.avatar {
+    background-image: url('../../icons/task.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-width: 30px;
+    min-height: 30px;
+}
+.details, .edit, .delete {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.details {
+    background-image: url('../../icons/eye.png');
+}
+.edit {
+    background-image: url('../../icons/edit.png');
+}
+.delete {
+    background-image: url('../../icons/delete.png');
+}
+
+
+
+@media (min-width:1000px) {
+    .checkbox {
+        width: 5%;
+       }
+       
+       .id {
+           width: 10%;
+           display: block;
+       }
+       .avatar {
+           width: 10%;
+           display: block;
+       }
+       .title {
+           width: 35%;
+       }
+       .importance {
+       width: 15%;
+       display: block;
+       }
+       .deadline {
+       width: 10%;
+       display: block;
+       }
+       .buttons {
+           width: 15%;
+       }
+}
