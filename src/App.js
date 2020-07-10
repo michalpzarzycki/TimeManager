@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Switch, Route, BrowserRouter} from 'react-router-dom'
 import './App.css';
 import Navbar from './components/Navbar';
@@ -8,11 +8,16 @@ import Route2 from './components/Route2';
 import Route3 from './components/Route3';
 
 function App() {
+  const [toggle, setToggle] = useState(false)
+
+  function toggleSidebar() {
+    setToggle(!toggle)
+}
   return <div>
-    <Navbar />
+    <Navbar toggleSidebar={toggleSidebar} toggle={toggle}/>
     <BrowserRouter>
     <div className="routerDiv">
-    <Sidebar />
+    <Sidebar toggle={toggle}/>
       <Switch>
         <Route component={Route1} exact path='/'/>
         <Route component={Route2} path='/route2'/>

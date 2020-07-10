@@ -1,5 +1,20 @@
 .sidebarContainer {
-    display: none
+    display: block;
+    min-width: 20%;
+    max-width: 25%;
+    color: brown;
+}
+.block {
+    display: block;
+    min-width: 20%;
+    max-width: 25%;
+    color: brown;
+}
+.none {
+    display: none;
+    min-width: 20%;
+    max-width: 25%;
+    color: brown;
 }
 
 
@@ -8,5 +23,10 @@
         display: block;
         min-width: 20%;
         max-width: 25%;
+        color: brown;
     }
+    .none {
+        display: block;
+    }
+
 }
