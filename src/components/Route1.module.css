@@ -2,7 +2,74 @@
     width: 100%;
     height: 90vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+}
+
+.route1Charts, .route1TasksNav, .route1TasksSection {
+    width: 100%;
+    border: 1px solid blue;
+
+}
+.route1Charts {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.route1ChartFirst {
+    width: 100%;
+    border: 1px solid gold;
+    height: 33.33%;
+    text-align: center;
+
+    
+}
+.route1ChartSecond {
+    width: 100%;
+    border: 1px solid gold;
+    height: 33.33%;
+    text-align: center;
+
+
+}
+.route1ChartThird {
+    width: 100%;
+    border: 1px solid gold;
+    height: 33.33%;
+    text-align: center;
+
+
+}
+.route1TasksNav {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+}
+.route1TasksNav_searchDiv {
+    width: 50%;
+    height: 100%;
+    border: 1px solid fuchsia;
+}
+.route1TasksNav_createDiv {
+    width: 50%;
+    height: 100%;
+    border: 1px solid fuchsia;
+}
+.route1TasksSection {
+    height: 60%;
+    text-align: center;
+}
+
+@media (min-width:1000px) {
+    .route1Charts {
+        flex-direction: row;
+    }
+    .route1ChartFirst, .route1ChartSecond, .route1ChartThird {
+        width: 33.33%;
+        height: 100%;
+    }
 }
