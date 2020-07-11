@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import firebase from '../../../firebase/firebase'
+import TextInput from './Inputs/TextInput';
+import styles from './Login.module.css'
 
 export default function Login({isLoggedIn}) {
     const [user, setUser] = useState({email : '', password: ""});
@@ -32,13 +34,24 @@ export default function Login({isLoggedIn}) {
         })
     }
  
-    return <div>
-        <form>
-            <input type="email" placeholder="email" onChange={handleChange} name="email"/>
-            <input type="password" placeholder="password" onChange={handleChange} name="password"/>
+    return <div className={styles.mainDiv}>
+        <div className={styles.leftSide}>
+            <div className={styles.leftSideUserDiv}>
+                <div className={styles.leftSideUserDivHeader}>USERS</div>
+                <div className={styles.leftSideUserDivUsers}>
+                    <div className={styles.user1}></div>
+                    <div className={styles.user2}></div>
+                    <div className={styles.user3}></div>
+                </div>
+            </div>
+        </div>
+        <form className={styles.form}>
+            <TextInput type="email" placeholder="email" />
+            <TextInput type="password" placeholder="password" />
             <button onClick={handleSubmit}>ENTER</button>
+            <button onClick={handleSignOut}>SIGNOUT</button>
         </form>
-        <button onClick={handleSignOut}>SIGNOUT</button>
+       
 
     </div>
 }

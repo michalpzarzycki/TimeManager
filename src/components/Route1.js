@@ -17,7 +17,7 @@ export default function Route1() {
         </section>
         <section className={styles.route1TasksNav}>
             <div className={styles.route1TasksNav_searchDiv}>
-                <span>
+                <span className={styles.span}>
                 <input name="search" type="search" placeholder="Search Task" autoComplete="off" className={styles.route1TasksNav_searchDiv_input}/>
                 </span>
             </div>

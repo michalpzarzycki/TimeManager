@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './Register.module.css';
 import firebase from '../../../firebase/firebase'
 import Login from './Login';
+import TextInput from './Inputs/TextInput';
+import FileInput from './Inputs/FileInput';
 
 export default function Register() {
 const [user, setUser] = useState({email : '', password: ""});
@@ -17,12 +19,19 @@ const [user, setUser] = useState({email : '', password: ""});
 
     }
     return <div className={styles.mainDiv}>
-        <div>
-        <Login />
-        </div>
-        <form>
-            <input type="email" placeholder="email" onChange={handleChange} name="email"/>
-            <input type="password" placeholder="password" onChange={handleChange} name="password"/>
+      <h1 className={styles.header}>REGISTER FORM</h1>
+        <form className={styles.form}>
+            <TextInput type="email" placeholder="email" onChange={handleChange} name="email"/>
+            <TextInput type="password" placeholder="password" onChange={handleChange} name="password"/>
+            <TextInput placeholder="ResetPassword" type="password"/>
+            <TextInput placeholder="Name" backgroundImage='url("../../../../icons/delete.png")'/>
+            <TextInput placeholder="Surname"/>
+            <TextInput placeholder="Nickname"/>
+            <FileInput />
+            <TextInput placeholder="Telephone"/>
+            <TextInput placeholder="City"/>
+            <TextInput placeholder="Country"/>
+            <textarea  placeholder="opis"/>
             <button type="submit" onClick={handleSubmit}>REGISTER</button>
         </form>
     </div>
