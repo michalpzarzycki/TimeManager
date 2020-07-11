@@ -6,14 +6,16 @@ import Sidebar from './components/Sidebar';
 import Route1 from './components/Route1';
 import Route2 from './components/Route2';
 import Route3 from './components/Route3';
+import Register from './components/login/register/Register';
 
 function App() {
   const [toggle, setToggle] = useState(false)
+  const [user, setUser] = useState(false)
 
   function toggleSidebar() {
     setToggle(!toggle)
 }
-  return <div>
+  return  user ? <div>
     <Navbar toggleSidebar={toggleSidebar} toggle={toggle}/>
     <BrowserRouter>
     <div className="routerDiv">
@@ -25,7 +27,7 @@ function App() {
       </Switch>
       </div>
     </BrowserRouter>
-  </div>
+  </div> : <Register />
   
 }
 
