@@ -1,27 +1,37 @@
 .sidebarContainer {
-    display: block;
+    display: flex;
+    flex-direction: column;
     min-width: 20%;
     max-width: 25%;
-    color: brown;
+    min-height: 100vh;
+    background-color: grey;
 }
 
 .none {
     display: none;
     min-width: 20%;
     max-width: 25%;
-    color: brown;
+}
+.profile, .settings, .inbox, .contact, .help, .logout {
+    width: 100%;
+    min-height: 50px;
+    background-color: grey;
+    border-bottom: 1px solid black;
+    color: white;
+
 }
 
 
 @media (min-width:1000px) {
     .sidebarContainer{
-        display: block;
+        display: flex;
         min-width: 20%;
         max-width: 25%;
-        color: brown;
+        background-color: grey;
     }
     .none {
         display: block;
+        background-color: grey;
     }
 
 }

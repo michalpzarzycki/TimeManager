@@ -5,9 +5,9 @@ export default function Task() {
     <div className={styles.checkbox}>
         <input type="checkbox"/>
     </div>
-    <div className={styles.id}>ID</div>
+    <div className={styles.id}>{Math.floor(Math.random() * (999 - 100)) + 100}</div>
     <div className={styles.avatar}></div>
-    <div className={styles. title}>TYTUL</div>
+    <div className={styles.title}>TYTUL</div>
     <div className={styles.importance}>WAZNOSC</div>
     <div className={styles.deadline}>{Date.now()}</div>
     <div className={styles.buttons}>
