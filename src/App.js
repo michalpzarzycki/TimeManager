@@ -7,16 +7,23 @@ import Route1 from './components/Route1';
 import Route2 from './components/Route2';
 import Route3 from './components/Route3';
 import Register from './components/login/register/Register';
+import Login from './components/login/register/Login';
+import firebase from './firebase/firebase'
 
 function App() {
   const [toggle, setToggle] = useState(false)
   const [user, setUser] = useState(false)
+  const [userData, setUserData] = useState({})
 
   function toggleSidebar() {
     setToggle(!toggle)
 }
+function isLoggedIn(user) {
+    setUser(true)
+    setUserData({...user})
+}
   return  user ? <div>
-    <Navbar toggleSidebar={toggleSidebar} toggle={toggle}/>
+    <Navbar toggleSidebar={toggleSidebar} toggle={toggle} userData={userData}/>
     <BrowserRouter>
     <div className="routerDiv">
     <Sidebar toggle={toggle}/>
@@ -27,7 +34,7 @@ function App() {
       </Switch>
       </div>
     </BrowserRouter>
-  </div> : <Register />
+  </div> : <Login isLoggedIn={isLoggedIn}/>
   
 }
 

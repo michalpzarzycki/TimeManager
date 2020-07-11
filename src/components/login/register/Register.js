@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
 import firebase from '../../../firebase/firebase'
+import Login from './Login';
 
 export default function Register() {
 const [user, setUser] = useState({email : '', password: ""});
@@ -16,6 +17,9 @@ const [user, setUser] = useState({email : '', password: ""});
 
     }
     return <div className={styles.mainDiv}>
+        <div>
+        <Login />
+        </div>
         <form>
             <input type="email" placeholder="email" onChange={handleChange} name="email"/>
             <input type="password" placeholder="password" onChange={handleChange} name="password"/>

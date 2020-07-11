@@ -3,7 +3,7 @@ import styles from './Navbar.module.css'
 import SidebarButton from './SidebarButton'
 import Clock from './Clock'
 
-export default function Navbar({toggleSidebar, toggle}) {
+export default function Navbar({toggleSidebar, toggle, userData}) {
 
     return <div className={styles.navbarContainer}>
         <SidebarButton toggleSidebar={toggleSidebar}/>
@@ -14,7 +14,7 @@ export default function Navbar({toggleSidebar, toggle}) {
         <h1 className={styles.header}>TaskManager</h1>
         <div className={styles.userSection}>
             <div className={styles.picture}></div>
-            <div className={styles.user}>Selena</div>
+<div className={styles.user}>{userData.email}</div>
             <div className={styles.arrow}></div>
         </div>
     </div>
