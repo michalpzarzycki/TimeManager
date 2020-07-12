@@ -6,10 +6,11 @@ import FirstChart from './charts/FirstChart';
 import FilterBar from './taskslist/FilterBar';
 import TasksList from './taskslist/TasksList';
 import TasksInfoBar from './taskslist/TasksInfoBar';
+import { withRouter, Route } from 'react-router-dom';
 
 
-export default function Route1() {
-    return <div className={styles.route1Container}>
+function Route1() {
+    return <div className={styles.route1Container}>{console.log("HEHEHE")}
         <section className={styles.route1Charts}>
             <div className={styles.route1ChartFirst}><FirstChart /></div>
             <div className={styles.route1ChartSecond}><SecondChart /></div>
@@ -34,3 +35,6 @@ export default function Route1() {
         </section>
     </div>
 } 
+
+
+export default withRouter(Route1)

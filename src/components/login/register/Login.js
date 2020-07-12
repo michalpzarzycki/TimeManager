@@ -1,29 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import firebase from '../../../firebase/firebase'
 import TextInput from './Inputs/TextInput';
 import styles from './Login.module.css'
+import {withRouter} from 'react-router-dom'
 
-export default function Login({isLoggedIn}) {
-    const [user, setUser] = useState({email : '', password: ""});
-    firebase.auth().onAuthStateChanged(user => {
-        console.log("USER", user)
-    })
+ function Login(props) {
+
+ const [user, setUser] = useState({email:"", password:""})
     function handleChange(e) {
+        console.log("EE", e.target.value)
         setUser({...user, [e.target.name]: e.target.value})
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault()
-        console.log()
+      }
+      function handleSubmit(event) {
+        event.preventDefault()
+        console.log("SUBMIT")
         firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(() => {
-            console.log("SUCCESS")
-            isLoggedIn(user)
-            setUser(true)
-        }).catch(e => {
-            console.log("ERROR", e)
+          console.log("LOGGED IN!")
+        }).catch(error => {
+          console.log("OH NO, WE HAVE GOT AN ERROR ;(", error)
         })
-    
-    }
+        props.history.push("/")
+        
+      }
+
 
     function handleSignOut() {
         firebase.auth().signOut().then(() => {
@@ -45,13 +44,15 @@ export default function Login({isLoggedIn}) {
                 </div>
             </div>
         </div>
-        <form className={styles.form}>
-            <TextInput type="email" placeholder="email" />
-            <TextInput type="password" placeholder="password" />
-            <button onClick={handleSubmit}>ENTER</button>
-            <button onClick={handleSignOut}>SIGNOUT</button>
+        <form  onSubmit={handleSubmit} className={styles.form}>
+            <TextInput type="email" placeholder="email" name="email" value={user.name} handleChange={handleChange}/>
+            <TextInput type="password" placeholder="password" name="password" value={user.password} handleChange={handleChange}/>
+            <button type="submit">ENTER</button>
         </form>
        
 
     </div>
 }
+
+
+export default withRouter(Login)

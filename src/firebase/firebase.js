@@ -3,14 +3,15 @@ import 'firebase/firestore'
 
 var firebaseConfig = {
     apiKey: "AIzaSyBPQ-IZUnsjc9Vvrf-P6fiM54xMH16mW9I",
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_APP_ID
+    authDomain: "timemanager-c06e5.firebaseapp.com",
+    databaseURL: "https://timemanager-c06e5.firebaseio.com",
+    projectId: "timemanager-c06e5",
+    storageBucket: "timemanager-c06e5.appspot.com",
+    messagingSenderId:"559596498073",
+    appId: "1:559596498073:web:f6d124fdcf7f152c541c08"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  export const db = firebase.firestore()
+  export let db = firebase.firestore()
   export default firebase
+

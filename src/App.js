@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Switch, Route, BrowserRouter} from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
+import { BrowserRouter as Router, Switch, Route, BrowserRouter, Redirect, withRouter} from 'react-router-dom'
 import './App.css';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
@@ -8,44 +8,55 @@ import Route2 from './components/Route2';
 import Route3 from './components/Route3';
 import Register from './components/login/register/Register';
 import Login from './components/login/register/Login';
-import firebase from './firebase/firebase'
+import firebase, { db } from './firebase/firebase'
 import Profile from './components/Profile';
+import {useAuth} from './hooks/useAuth'
 
-function App() {
+
+function App(props) {
   const [toggle, setToggle] = useState(false)
-  const [user, setUser] = useState(false)
-  const [userData, setUserData] = useState({})
+  const [user, setUser] = useState({email:"", password:""})
+
 
   function toggleSidebar() {
     setToggle(!toggle)
 }
-function isLoggedIn(user) {
-    setUser(true)
-    setUserData({...user})
-}
-  return  user ? <div>
-    <Navbar toggleSidebar={toggleSidebar} toggle={toggle} userData={userData}/>
+
+
+const isLoggedIn = useAuth();
+// function getData() {
+//   db.collection('users').get().then(snapshot=>{
+//     console.log(snapshot.docs())
+//     setUserData({})
+//   })
+// }
+// isLoggedIn && getData()
+
+  return  isLoggedIn ? <div>
     <BrowserRouter>
+    <Navbar toggleSidebar={toggleSidebar} toggle={toggle} user={firebase.auth().currentUser}/>
     <div className="routerDiv">
     <Sidebar toggle={toggle}/>
       <Switch>
-        <Route component={Route1} exact path='/'/>
-        <Route component={Route2} path='/route2'/>
-        <Route component={Route3} path='/route3'/>
-        <Route component={Register} path='/register'/>
+        <Route exact path='/' component={Route1} />
+        <Route strict path='/profile' component={() => <Profile />}   />
+        <Route strict path='/route2' component={Route2} />
+        <Route strict path='/route3' component={Route3}  />
+        <Route strict path='/login' render={() => <Redirect to="/"/>} />
       </Switch>
       </div>
     </BrowserRouter>
   </div> :   <BrowserRouter>
     <div className="routerDiv">
       <Switch>
+        <Route exact path="/" render={()=><Redirect to="/login" />}/>
+        <Route path="/login" component={Login} />
         <Route component={Register} exact path='/register'/>
-        <Route component={Login} path='/login'/>
-        <Route component={Profile} path='/profile'/>
+        <Route component={Profile}  path='/profile'/>
       </Switch>
       </div>
     </BrowserRouter>
   
 }
 
-export default App;
+export default withRouter(App)

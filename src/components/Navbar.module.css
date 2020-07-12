@@ -16,6 +16,9 @@
 .clockAndWeather{
     display: none;
 }
+.link {
+    cursor: pointer;
+}
 .header {
     margin: 0;
     padding: 0;

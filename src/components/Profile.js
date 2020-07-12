@@ -1,7 +1,13 @@
-import React from 'react';
-import styles from './Profile.module.css'
 
-export default function Profile() {
+import React, { useEffect } from 'react';
+import styles from './Profile.module.css'
+import { withRouter } from 'react-router-dom';
+import firebase, { db } from '../firebase/firebase'
+
+ function Profile() {
+     useEffect(() => {
+         console.log("AUTH", db.collection('users').where('email', '==', firebase.auth().currentUser.email).get())
+     } ,[])
     return(
         <div className={styles.mainDiv}>
             <div className={styles.background}></div>
@@ -27,3 +33,6 @@ export default function Profile() {
         </div>
     )
 }
+
+
+export default withRouter(Profile)
