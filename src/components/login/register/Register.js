@@ -21,21 +21,28 @@ const INIT_STATE = {
 
 export default function Register() {
     const [user, setUser] = useState({INIT_STATE});
-    const { errors } = useRegisterValidate(user)
+    const { errors, isValidate } = useRegisterValidate(user)
+    let [buttonDisabled, setButtonDisabled] = useState(true)
 
 
     function handleChange(e) {
         console.log(e.target.value)
         setUser({...user, [e.target.name]: e.target.value})
         console.log("ERORS", errors)
+        console.log("IS VALIDATE", isValidate)
+        isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
     }
     function handleSubmit(e) {
         e.preventDefault()
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(() => {
+        if(isValidate) {
+            firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(() => {
        
-        }).catch(e => {
-            console.log("ERROR", e)
-        })
+            }).catch(e => {
+                console.log("ERROR", e)
+            })
+        } else {
+        }
+      
        
     
         db.collection("users").add({
@@ -72,8 +79,8 @@ export default function Register() {
             <TextInput error={errors.telephone} placeholder="Telephone" handleChange={handleChange} name="telephone"/>
             <TextInput error={errors.city} placeholder="City" handleChange={handleChange} name="city"/>
             <TextInput error={errors.country} placeholder="Country" handleChange={handleChange} name="country"/>
-            <textarea  placeholder="opis" name="description"/>
-            <button type="submit" onClick={handleSubmit}>REGISTER</button>
+            <textarea  placeholder="opis" name="description" onChange={handleChange}/>
+            <button disabled={buttonDisabled} type="submit" onClick={handleSubmit}>REGISTER</button>
         </form>
     </div>
 }

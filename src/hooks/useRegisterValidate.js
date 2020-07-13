@@ -38,10 +38,16 @@ export function useRegisterValidate(user) {
     if(user.description && !regex.description.test(user.description)) errors.description="Surname has to have from 2 to 20 characters"
 
 
-
-
+    function checkIfValidated() {
+        if(user.password && user.email && user.name && user.surname && user.nickname && user.repeatPassword) {
+            if(!errors.password && !errors.email && !errors.name && !errors.surname && !errors.nickname && !errors.repeatPassword)
+                return true
+        }
+        return false
+    }
+  let isValidate = checkIfValidated()
     
 
 
-    return { errors }
+    return { errors, isValidate }
 }
