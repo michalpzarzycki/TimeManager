@@ -11,6 +11,11 @@ import Login from './components/login/register/Login';
 import firebase, { db } from './firebase/firebase'
 import Profile from './components/Profile';
 import {useAuth} from './hooks/useAuth'
+import MyExcuses from './components/sidebarRoutes/MyExcuses';
+import Inspiration from './components/sidebarRoutes/Inspiration';
+import Notes from './components/sidebarRoutes/Notes';
+import Community from './components/sidebarRoutes/Community';
+
 
 
 function App(props) {
@@ -42,6 +47,10 @@ const isLoggedIn = useAuth();
         <Route strict path='/profile' component={() => <Profile />}   />
         <Route strict path='/route2' component={Route2} />
         <Route strict path='/route3' component={Route3}  />
+        <Route strict path='/myexcuses' component={MyExcuses}/>
+        <Route strict path='/notes' component={Notes}/>
+        <Route strict path='/insporation' component={Inspiration}/>
+        <Route strict path='/community' component={Community}/>
         <Route strict path='/login' render={() => <Redirect to="/"/>} />
       </Switch>
       </div>

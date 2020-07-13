@@ -5,6 +5,7 @@ import Login from './Login';
 import TextInput from './Inputs/TextInput';
 import FileInput from './Inputs/FileInput';
 import { useRegisterValidate } from '../../../hooks/useRegisterValidate'
+import SubmitButton from './Inputs/SubmitButton';
 
 const INIT_STATE = {
     email : '',
@@ -23,7 +24,7 @@ export default function Register() {
     const [user, setUser] = useState({INIT_STATE});
     const { errors, isValidate } = useRegisterValidate(user)
     let [buttonDisabled, setButtonDisabled] = useState(true)
-
+    let [buttonLoading, setButtonLoading] = useState(false)
 
     function handleChange(e) {
         console.log(e.target.value)
@@ -35,9 +36,11 @@ export default function Register() {
     function handleSubmit(e) {
         e.preventDefault()
         if(isValidate) {
+            setButtonLoading(true)
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(() => {
-       
+                setButtonLoading(false)
             }).catch(e => {
+                setButtonLoading(false)
                 console.log("ERROR", e)
             })
         } else {
@@ -80,7 +83,7 @@ export default function Register() {
             <TextInput error={errors.city} placeholder="City" handleChange={handleChange} name="city"/>
             <TextInput error={errors.country} placeholder="Country" handleChange={handleChange} name="country"/>
             <textarea  placeholder="opis" name="description" onChange={handleChange}/>
-            <button disabled={buttonDisabled} type="submit" onClick={handleSubmit}>REGISTER</button>
+            <SubmitButton buttonDisabled={buttonDisabled} buttonLoading={buttonLoading} placeholder="SUBMIT" handleSubmit={handleSubmit} />
         </form>
     </div>
 }
