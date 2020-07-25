@@ -16,10 +16,19 @@ export default function SecondChart() {
                     {
                         label: "Completed tasks",
                         data: [86, 67, 91,1,56,98,5],
+                        borderColor: "rgba(255,255,255, 1)",
+                        fontColor: "rgba(255,255,255, 1)"
+
+
                     }
                 ]
             },
             options: {
+                legend: {
+                    labels: {
+                        fontColor:"white"
+                    }
+                },
                 responsive: true,
                 maintainAspectRatio: false
             }

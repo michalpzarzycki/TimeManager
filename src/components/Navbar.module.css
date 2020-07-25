@@ -10,8 +10,10 @@
     justify-content: flex-end;
     align-items: center;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-
+    background-color: rgba(0,0,0,0.9);
+    color: white;
     position: relative;
+    text-shadow: 0px 0px 5px rgba(20, 167, 177, 1);
 }
 .clockAndWeather{
     display: none;
@@ -27,12 +29,18 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);   
+     text-shadow: 0px 0px 5px rgba(20, 167, 177, 1);
+     cursor: default;
+
+
 }
 .userSection {
     margin-right: 100px;
     display: flex;
     flex-direction: row;
+    text-shadow: 0px 0px 0px rgba(20, 167, 177, 1);
+
 
 }
 .user, .arrow{

@@ -15,20 +15,30 @@ import MyExcuses from './components/sidebarRoutes/MyExcuses';
 import Inspiration from './components/sidebarRoutes/Inspiration';
 import Notes from './components/sidebarRoutes/Notes';
 import Community from './components/sidebarRoutes/Community';
+import Inbox from './components/sidebarRoutes/Inbox';
+import Settings from './components/sidebarRoutes/Settings';
+import Contact from './components/sidebarRoutes/Contact';
 
 
 
 function App(props) {
   const [toggle, setToggle] = useState(false)
   const [user, setUser] = useState({email:"", password:""})
+  let [userId, setUserId] = useState('')
+  let [userEmail, setUserEmail] = useState('')
 
 
   function toggleSidebar() {
     setToggle(!toggle)
 }
+function userIdSetter(uid) {
+setUserId(uid)
+}
+function userEmailSetter(email) {
+  setUserEmail(email)
+  }
 
-
-const isLoggedIn = useAuth();
+const isLoggedIn = useAuth().isLoggedIn;
 // function getData() {
 //   db.collection('users').get().then(snapshot=>{
 //     console.log(snapshot.docs())
@@ -43,14 +53,17 @@ const isLoggedIn = useAuth();
     <div className="routerDiv">
     <Sidebar toggle={toggle}/>
       <Switch>
-        <Route exact path='/' component={Route1} />
+        <Route exact path='/' render={() => <Route1 userId={userId}/>} />
         <Route strict path='/profile' component={() => <Profile />}   />
         <Route strict path='/route2' component={Route2} />
         <Route strict path='/route3' component={Route3}  />
+        <Route strict path='/settings' component={Settings}/>
         <Route strict path='/myexcuses' component={MyExcuses}/>
         <Route strict path='/notes' component={Notes}/>
-        <Route strict path='/insporation' component={Inspiration}/>
-        <Route strict path='/community' component={Community}/>
+        <Route strict path='/inspiration' component={Inspiration}/>
+        <Route strict path='/contact' component={Contact} />
+        <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
+        <Route strict path='/inbox' render={() => <Inbox />}/>
         <Route strict path='/login' render={() => <Redirect to="/"/>} />
       </Switch>
       </div>
@@ -59,7 +72,7 @@ const isLoggedIn = useAuth();
     <div className="routerDiv">
       <Switch>
         <Route exact path="/" render={()=><Redirect to="/login" />}/>
-        <Route path="/login" component={Login} />
+        <Route path="/login" render={() => <Login userIdSetter={userIdSetter} userEmailSetter={userEmailSetter}/>} />
         <Route component={Register} exact path='/register'/>
         <Route component={Profile}  path='/profile'/>
       </Switch>

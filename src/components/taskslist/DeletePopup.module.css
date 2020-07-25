@@ -1,0 +1,75 @@
+@font-face {
+    src: url('../../fonts/AdventPro-ExtraLight.ttf');
+    font-family: Advent;
+}
+
+.deletePopupContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    font-family: Advent;
+    font-weight: bolder;
+    z-index: 25;
+
+}
+
+.formContainer {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.question {
+    width: 100%;
+    text-align: center;
+}
+
+.buttonsDiv {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.buttonsDiv > * {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.yesButton {
+    width: 30%;
+    height: 50px;
+    border: 1px solid green;
+    background-color: rgba(0,255,0,0.5);
+    color: green;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
+}
+.yesButton:hover {
+    background-color: rgba(0,255,0,0.2);
+    box-shadow: 0px 0px 5px 1px rgba(0,255,0,1);
+}
+.noButton:hover {
+    background-color: rgba(255,0,0,0.2);
+    box-shadow: 0px 0px 5px 1px rgba(255,0,0,1);
+
+}
+.noButton {
+    width: 30%;
+    height: 50px;
+    border: 1px solid red;
+    background-color: rgba(255,0,0,0.5);
+    color: red;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
+}

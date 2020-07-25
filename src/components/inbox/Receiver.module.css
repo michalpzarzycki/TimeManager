@@ -1,0 +1,10 @@
+.mainContainer {
+
+}
+
+.mainContainer:hover {
+    cursor: pointer;
+    background-color: black;
+    color: wheat;
+}
+

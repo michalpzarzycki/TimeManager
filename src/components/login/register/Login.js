@@ -4,7 +4,7 @@ import TextInput from './Inputs/TextInput';
 import styles from './Login.module.css'
 import {withRouter} from 'react-router-dom'
 
- function Login(props) {
+ function Login({history, userIdSetter, userEmailSetter}) {
 
  const [user, setUser] = useState({email:"", password:""})
     function handleChange(e) {
@@ -14,12 +14,14 @@ import {withRouter} from 'react-router-dom'
       function handleSubmit(event) {
         event.preventDefault()
         console.log("SUBMIT")
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(() => {
-          console.log("LOGGED IN!")
+        firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((x) => {
+          console.log("LOGGED IN!", x.user)
+          userIdSetter(x.user.uid)
+          userEmailSetter(x.user.email)
         }).catch(error => {
           console.log("OH NO, WE HAVE GOT AN ERROR ;(", error)
         })
-        props.history.push("/")
+        history.push("/")
         
       }
 

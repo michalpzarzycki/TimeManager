@@ -10,7 +10,7 @@ export default function FirstChart() {
         const myChartRef = chartRef.current.getContext("2d");
         
         new Chart(myChartRef, {
-            type: "radar",
+            type: "bar",
             data: {
                 //Bring in data
                 labels: ["Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -18,14 +18,19 @@ export default function FirstChart() {
                     {
                         label: "Total Tasks",
                         data: [86, 67, 91,88,66,32,15,28,96,34,75,96],
+                        backgroundColor: ["rgba(255,12,33,0.5)", "blue", "green", "blue", "red", "blue", 'white', 'black'],
+                        borderColor:'red',
+                        borderWidth: 2
                     }
-                ]
+                ],
+
             },
             tooltips: {
-                backgroundColor: "rgba(99,99,99,0.8)"
+                backgroundColor: "rgba(255,255,255, 1)"
 
             },
             options: {
+                backgroundColor: "rgba(255,255,255, 1)",
                 responsive: true,
                 maintainAspectRatio: false
                           }

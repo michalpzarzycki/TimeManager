@@ -8,7 +8,7 @@ export default function ThirdChart() {
         const myChartRef = chartRef.current.getContext("2d");
         
         new Chart(myChartRef, {
-            type: "pie",
+            type: "doughnut",
             data: {
                 //Bring in data
                 labels: ["Super Important", "Important", "Not Important"],

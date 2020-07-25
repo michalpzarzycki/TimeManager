@@ -1,0 +1,23 @@
+.mainContainer {
+min-width: 600px;
+min-height: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: white;
+}
+.photo {
+width: 60px;
+height: 60px;
+background-image: url('../../images/ariana.jpg');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+}
+
+.messege {
+    background-color: blue;
+    border: 0 20px;
+    min-width: 200px;
+    height: 100%;
+}

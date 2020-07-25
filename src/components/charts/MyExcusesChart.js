@@ -18,11 +18,13 @@ export default function MyExcusesChart() {
                     {
                         label: "Total Tasks",
                         data: [86, 67, 91,88,66,32,15,28,96,34,75,96],
+                        backgroundColor: ["rgba(255,12,33,0.5)", "blue", "green", "blue", "red", "blue", 'white', 'black'],
+                        borderColor:'red',
+                        borderWidth: 2
                     }
                 ]
             },
             tooltips: {
-                backgroundColor: "rgba(99,99,99,0.8)"
 
             },
             options: {
@@ -33,7 +35,7 @@ export default function MyExcusesChart() {
     }, []) 
     
         return (
-            <div className={styles.mainDiv}>
+            <div style={{background: 'rgba(255,255,255,0.8)'}} className={styles.mainDiv}>
                 <canvas
                     id="myChart"
                     ref={chartRef}
