@@ -13,7 +13,7 @@ export default function Notes({user}) {
     const [uniqueId, setUniqueId] = useState(uniqid())
     useEffect(() => {
       
-        db.collection('notes').onSnapshot(snapshot => {
+        db.collection('notes').where('userId', '==', user.uid).onSnapshot(snapshot => {
             let arr = []
             snapshot.forEach(doc => arr.push(doc.data()))
             setNotes([...arr])
