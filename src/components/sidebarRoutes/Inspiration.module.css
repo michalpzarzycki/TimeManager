@@ -1,3 +1,9 @@
+@font-face {
+    src: url(../../fonts/AgenzadaDemo-Italic.otf);
+    font-family: Agenzada;
+}
+
+
 .inspirationContainer {
     width: 100%;
     height: 100vh;
@@ -5,4 +11,69 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.navigationSection {
+    width: 100%;
+    height: 15%;
+    border: 1px solid white;
+}
+
+.quoteOfTheDaySection {
+    width: 100%;
+    height: 50%;
+    border: 1px solid white;
+    position: relative;
+
+}
+.quoteHeader {
+    position: absolute;
+    top: calc(50% - 100px);
+    left: calc(50% - 250px);
+    transform: translate(-50%, -50%);
+    border: 1px solid blue;
+
+}
+.quoteContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 200px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote {
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+.quote > p {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Agenzada;
+    font-size: 50px;
+
+}
+.author {
+    width: 100%;
+    height: 20%;
+    text-align: right;
+    font-family: Agenzada;
+    font-size: 10px;
+    padding-right: 10px;
+}
+
+.randomQuotesSection {
+    width: 100%;
+    height: 35%;
+    border: 1px solid white;
 }

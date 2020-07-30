@@ -3,31 +3,32 @@ import {db} from '../../firebase/firebase'
 import styles from './Inspiration.module.css'
 
 export default function Inspiration() {
-    const [inspiration, setInspiration] = useState({})
+    // const [inspiration, setInspiration] = useState({})
 
-    function handleChange(event) {
-        setInspiration({...inspiration, [event.target.name]: event.target.value, date:Date.now()})
-    }
-    function handleSubmit(event) {
-        event.preventDefault()
-        db.collection('inspirations').add({inspiration}).then(() => {
-            console.log("Inspiration Added")
-        }).catch(error => {
-            console.log("Error inspirations", error)
-        })
-    }
+    // function handleChange(event) {
+    //     setInspiration({...inspiration, [event.target.name]: event.target.value, date:Date.now()})
+    // }
+    // function handleSubmit(event) {
+    //     event.preventDefault()
+    //     db.collection('inspirations').add({inspiration}).then(() => {
+    //         console.log("Inspiration Added")
+    //     }).catch(error => {
+    //         console.log("Error inspirations", error)
+    //     })
+    // }
 
 
     return(
         <div className={styles.inspirationContainer}>
-            <div className={styles.addQuote}>
-                <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder="Quote" name="quote" onChange={handleChange}/>
-                    <input type="text" placeholder="Author" name="author" onChange={handleChange}/>
-                    <button type="submit">Add</button>
-                </form>
-
-            </div>
+         <section className={styles.navigationSection}></section>
+         <section className={styles.quoteOfTheDaySection}>
+             <div className={styles.quoteHeader}>Quote of the day</div>
+             <div className={styles.quoteContainer}>
+                 <div className={styles.quote}><p>NEVER GIVE UP</p></div>
+                 <div className={styles.author}>"SOKRATES"</div>
+             </div>
+         </section>
+         <section className={styles.randomQuotesSection}></section>
         </div>
     )
 }
