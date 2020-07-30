@@ -12,7 +12,7 @@ export default function MyExcuses({user}) {
     useEffect(() => {
         db.collection('excuses').where('userId', '==', user.uid).onSnapshot(snapshot => {
             let arr =[]
-            snapshot.forEach(doc => arr.push(doc.data()))
+            snapshot.forEach(doc => arr.push({...doc.data(), docId: doc.id}))
             setExcuses([...arr])
         })
     }, [])
@@ -36,7 +36,12 @@ function handleSubmit(event) {
     })
 
 }
- 
+ function handleCounter(docId, counter) {
+
+    db.collection('excuses').doc(docId).update({
+        excuseCounter: counter+1 
+    })
+ }
 
     return(
         <div className={styles.myExcusesContainer}>
@@ -51,6 +56,13 @@ function handleSubmit(event) {
                 <div className={styles.newest}>NEWEST</div>
                 <div className={styles.top10}>TOP 10</div>
                 <div className={styles.all}>ALL</div>
+                {excuses.map(elem => {
+                  
+                    return <div>
+                        <div>{elem.excuse}</div>
+                        <div onClick={() => handleCounter(elem.docId, elem.excuseCounter)}>UP {elem.excuseCounter}</div>
+                    </div>
+                })}
             </section>
         </div>
     )
