@@ -22,8 +22,8 @@ export default function Inspiration() {
         <div className={styles.inspirationContainer}>
          <section className={styles.navigationSection}></section>
          <section className={styles.quoteOfTheDaySection}>
-             <div className={styles.quoteHeader}>Quote of the day</div>
              <div className={styles.quoteContainer}>
+             <div className={styles.quoteHeader}>Quote of the day</div>
                  <div className={styles.quote}><p>NEVER GIVE UP</p></div>
                  <div className={styles.author}>"SOKRATES"</div>
              </div>

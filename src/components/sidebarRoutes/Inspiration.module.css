@@ -23,14 +23,21 @@
     height: 50%;
     border: 1px solid white;
     position: relative;
+    background-color: grey;
 
 }
 .quoteHeader {
     position: absolute;
-    top: calc(50% - 100px);
-    left: calc(50% - 250px);
+    top: 0;
+    left: 20%;
+    padding-left: 5px;
+    padding-right: 5px;
     transform: translate(-50%, -50%);
-    border: 1px solid blue;
+    border: 2px solid red;
+    border-radius: 10px;
+    background-color: gray;
+    z-index: 5;
+
 
 }
 .quoteContainer {
@@ -40,17 +47,41 @@
     transform: translate(-50%, -50%);
     width: 500px;
     height: 200px;
-    border: 1px solid white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: gray;
 }
 
 .quote {
     width: 100%;
     height: 80%;
     position: relative;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+.quote::after {
+    content: "";
+    position: absolute;
+    border: 2px solid red;
+    border-radius: 0 50px 0 0;
+    width: 60px;
+    height: 60px;
+    border-bottom: none;
+    border-left: none;
+    top: calc(100% - 1px);
+
+    left: 59px;
+}
+.quote::before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: -3px;
+    left: 60px;
+    border: 6px solid grey;
 }
 .quote > p {
     margin: 0;
@@ -66,10 +97,12 @@
 .author {
     width: 100%;
     height: 20%;
-    text-align: right;
+    text-align: left;
     font-family: Agenzada;
     font-size: 10px;
-    padding-right: 10px;
+    margin-left: 270px;
+    margin-top: 20px;
+
 }
 
 .randomQuotesSection {
