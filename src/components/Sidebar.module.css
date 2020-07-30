@@ -1,16 +1,22 @@
 .sidebarContainer {
     display: flex;
     flex-direction: column;
-    min-width: 20%;
-    max-width: 25%;
+   
+    min-width: 35%;
     min-height: 100vh;
     background-color: grey;
+    z-index: 20;
+    border: 0 2px 0 0;
+    border-color: white;
+    opacity: 1;
+    transition: all 0.6s cubic-bezier(0.68, 0.44, 0.265, 1);
 }
 
 .none {
-    display: none;
-    min-width: 20%;
-    max-width: 25%;
+   opacity: 0;
+   transform: translate(-35%,0);
+   width: 0;
+
 }
 .profile, .settings, .inbox, .contact, .help, .logout {
     width: 100%;
@@ -45,7 +51,11 @@
     }
     .none {
         display: block;
+        opacity: 1;
+        visibility: visible;
         background-color: grey;
+        width: 25%;
+        transform: translate(0,0);
     }
 
 }

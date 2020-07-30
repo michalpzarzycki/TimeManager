@@ -17,10 +17,9 @@ import SearchInput from './SearchInput';
 
 
 
-function Route1({userId}) {
+function Route1({user}) {
     let [popup, setPopup] = useState(false)
     let [deletePopup, setDeletePopup] = useState(false)
-    let [user, setUser] = useState(useAuth())
     const [task, setTask] = useState({
         id:"",
         photo:"",
@@ -38,15 +37,15 @@ function Route1({userId}) {
     let [taskToDelete, setTaskToDel] = useState("")
     let [taskDetails, setTaskDetails] = useState("")
     let [searchValue, setSearchValue] = useState("")
-    let arr = []
+   
  
     useEffect(()=>{
         console.log("CURRUSER", user)
-        console.log("USERID", userId)
-        console.log("ROUTER!", userId)
-        db.collection("tasks").where("userId", "==", `${userId}`)
+        console.log("USERID", user.uid)
+        console.log("ROUTER!", user.uid)
+        db.collection("tasks").where("userId", "==", `${user.uid}`)
     .onSnapshot(function(querySnapshot) {
-            arr.length = 0
+            let arr=[]
         querySnapshot.forEach(function(doc) {
             arr.push(doc.data())
         });
@@ -81,7 +80,7 @@ function Route1({userId}) {
         setUniqueId(uniqid())
         tasksRef.doc(`${uniqueId}`).set({
             dataId: uniqueId,
-            userId: userId,
+            userId: user.uid,
             id: uniqueId,
             photo: task.photo,
             task: task.task,

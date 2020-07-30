@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {db} from '../../firebase/firebase'
 import styles from './Inspiration.module.css'
 
 export default function Inspiration() {
+    let [count, setCount] = useState(true)
     // const [inspiration, setInspiration] = useState({})
 
     // function handleChange(event) {
@@ -16,7 +17,20 @@ export default function Inspiration() {
     //         console.log("Error inspirations", error)
     //     })
     // }
-
+useEffect(() => {
+    let count = true;
+       let interval = setInterval(()=>{
+            count = !count
+            console.log("COUNT", count)
+            document.querySelector(`#random1`).style.transform = count ? 'translate(-200%,0)': "translate(100%, 0)"
+        }, 10000)
+    
+ return () => {
+    clearInterval(interval)
+    
+ }
+    
+}, [])
 
     return(
         <div className={styles.inspirationContainer}>
@@ -28,7 +42,10 @@ export default function Inspiration() {
                  <div className={styles.author}>"SOKRATES"</div>
              </div>
          </section>
-         <section className={styles.randomQuotesSection}></section>
+         <section className={styles.randomQuotesSection}>
+             <div className={styles.one} id="random1"></div>
+             <div className={styles.two} id="random2"></div>
+         </section>
         </div>
     )
 }

@@ -53,7 +53,7 @@ const isLoggedIn = useAuth().isLoggedIn;
     <div className="routerDiv">
     <Sidebar toggle={toggle}/>
       <Switch>
-        <Route exact path='/' render={() => <Route1 userId={userId}/>} />
+        <Route exact path='/' render={() => <Route1 user={firebase.auth().currentUser}/>} />
         <Route strict path='/profile' component={() => <Profile />}   />
         <Route strict path='/route2' component={Route2} />
         <Route strict path='/route3' component={Route3}  />

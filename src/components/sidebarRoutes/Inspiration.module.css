@@ -45,7 +45,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
+    width: 70%;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -106,7 +106,30 @@
 }
 
 .randomQuotesSection {
+
     width: 100%;
     height: 35%;
     border: 1px solid white;
+    overflow: hidden;
+    position: relative;
+    
+
+}
+
+.one {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    transform: translate(-50%, 0);
+    width: 100%;
+    height: 100%;
+    background-color: green;
+   transition: all 5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.two {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    transition: all 5s cubic-bezier(0.165, 0.84, 0.44, 1);
+
 }
