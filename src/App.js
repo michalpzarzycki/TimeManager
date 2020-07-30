@@ -59,7 +59,7 @@ const isLoggedIn = useAuth().isLoggedIn;
         <Route strict path='/route3' component={Route3}  />
         <Route strict path='/settings' component={Settings}/>
         <Route strict path='/myexcuses' component={MyExcuses}/>
-        <Route strict path='/notes' component={Notes}/>
+        <Route strict path='/notes' render={() => <Notes user={firebase.auth().currentUser}/>}/>
         <Route strict path='/inspiration' component={Inspiration}/>
         <Route strict path='/contact' component={Contact} />
         <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
