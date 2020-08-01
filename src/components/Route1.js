@@ -141,7 +141,7 @@ function Route1({user}) {
     </section>
         <section className={styles.route1Charts}>
             <div className={styles.route1ChartFirst}><FirstChart userId={user.uid}/></div>
-            <div className={styles.route1ChartSecond}><SecondChart /></div>
+            <div className={styles.route1ChartSecond}><SecondChart  userId={user.uid}/></div>
             <div className={styles.route1ChartThird}><ThirdChart /></div>
         </section>
         <section className={styles.route1TasksNav}>

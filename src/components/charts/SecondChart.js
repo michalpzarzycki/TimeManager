@@ -1,46 +1,46 @@
-import React, { Component, useEffect } from 'react'
-import Chart from "chart.js";
+import React, { useState, useEffect } from 'react'
+import {Line} from "react-chartjs-2";
+import {db} from '../../firebase/firebase'
 
-export default function SecondChart() {
-    let chartRef = React.createRef();
-    
+export default function SecondChart({userId}) {
+    let [doneTasks, setDoneTasks] = useState([])
+    const [chartData, setChartData] = useState({})
     useEffect(()=>{
-        const myChartRef = chartRef.current.getContext("2d");
-        
-        new Chart(myChartRef, {
-            type: "line",
-            data: {
-                //Bring in data
-                labels: ["Mon", "Tue", "Wed", "thu", "fri", "sat", "sun"],
+        //FIRESTORE
+        db.collection('doneTasks').where('userId', '==', userId).onSnapshot(snapshot => {
+            let arr = [];
+            snapshot.forEach(doc => arr.push(doc.data()))
+            setDoneTasks([...arr])
+        })
+    }, []) 
+    useEffect(()=>{
+        charts()
+    }, [doneTasks])
+function charts() {
+    let arr = [0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    doneTasks.forEach(doneTask => {
+        let date = new Date(Number(doneTask.doneDate));
+        arr[date.getDay()-1] += 1
+    })
+    console.log("CHARTS")
+    setChartData({
+        labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
                 datasets: [
                     {
-                        label: "Completed tasks",
-                        data: [86, 67, 91,1,56,98,5],
-                        borderColor: "rgba(255,255,255, 1)",
-                        fontColor: "rgba(255,255,255, 1)"
-
-
+                        label: "COMPLETED TASKS/WEEK",
+                        data: [...arr],
+                        backgroundColor: ["rgba(255,12,33,0.5)", "blue", "green", "blue", "red", "blue", 'white', 'black'],
+                        borderColor:'transparent',
+                        borderWidth: 2
                     }
                 ]
-            },
-            options: {
-                legend: {
-                    labels: {
-                        fontColor:"white"
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-    }, []) 
-    
+}
+    )
+}
         return (
             <div>
-                <canvas
-                    id="myChart"
-                    ref={chartRef}
-                />
+                               <Line data={chartData} options={{ maintainAspectRatio: false }}/>
             </div>
         )
     }
