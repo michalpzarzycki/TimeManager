@@ -61,6 +61,29 @@ function handleChecked(task) {
     }).then(() => {
     })
 }
+
+function setDoneTask(task) {
+    let doneTask = {
+        ...task,
+        doneDate: Date.now()
+    }
+    console.log("TASKTASK", task)
+    db.collection('doneTasks').add({...doneTask})
+
+    db.collection('tasks').doc(task.docId).delete()
+}
+
+function setUncompletedTask(task) {
+    let uncompletedTask = {
+        ...task,
+        uncompletedDate: Date.now()
+    }
+  
+    db.collection('uncompletedTasks').add({...Task})
+
+    db.collection('tasks').doc(task.docId).delete()
+}
+
     return <div className={styles.tasksInfoBarContainer}>
         <div className={isLoading ? styles.loader : ''}>
             <span className={isLoading ? styles.loadIcon : ''}></span>
@@ -108,7 +131,9 @@ function handleChecked(task) {
     <div className={styles.checkbox}>
         <input type="checkbox" checked={task.done} onClick={() => handleChecked(task)}/>
     </div>
-    <div className={styles.id}>{}</div>
+    <div className={styles.id}>
+        {task.done ? <button onClick={() => setDoneTask(task)}>DONE</button> : <button onClick={() => setUncompletedTask(task)}>Not done</button>}
+    </div>
     <div className={task.done ? styles.done : styles.notDone}></div>
     <div className={styles.title}>{task.task}</div>
     <div className={styles.importance}>WAZNOSC</div>

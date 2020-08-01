@@ -47,7 +47,8 @@ function Route1({user}) {
     .onSnapshot(function(querySnapshot) {
             let arr=[]
         querySnapshot.forEach(function(doc) {
-            arr.push(doc.data())
+            arr.push()
+            arr.push({...doc.data(), docId: doc.id})
         });
 
        setTaskList([...arr])
@@ -113,6 +114,8 @@ function Route1({user}) {
         setTaskDetails(task)
     
  }
+
+ 
     
     return <div className={styles.route1Container}>
           <div className={detailsPopup ? styles.deletePopupContainer : styles.none}>
@@ -137,7 +140,7 @@ function Route1({user}) {
             isEdited={isEdited}/>
     </section>
         <section className={styles.route1Charts}>
-            <div className={styles.route1ChartFirst}><FirstChart /></div>
+            <div className={styles.route1ChartFirst}><FirstChart userId={user.uid}/></div>
             <div className={styles.route1ChartSecond}><SecondChart /></div>
             <div className={styles.route1ChartThird}><ThirdChart /></div>
         </section>
