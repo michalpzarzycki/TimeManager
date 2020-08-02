@@ -168,6 +168,9 @@
 .infoSectionBox > div {
     display: flex;
 }
+.progress {
+    height: 30px;
+}
 .infoSpanDetail {
     color: blue;
     letter-spacing: 2px;

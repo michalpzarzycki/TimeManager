@@ -19,28 +19,46 @@ import firebase, { db, storage } from '../firebase/firebase'
                 setUserData({...doc.data(), docId: doc.id})})
             console.log("MISSION COMPLETE")
         }).catch(err => console.log("ERR", err))
+        console.log("aaa", user)
+  
     }
         
-        
-        storage.ref().child('profiles/michal50166@wp.pl.jpg').getDownloadURL().then((url) => {
-            console.log("URL", url)
-            document.getElementById('picturePopup').style.backgroundImage=`url(${url})`
-        }).catch(err => console.log("ERROR", err))
+
         //  console.log("AUTH", db.collection('users').where('email', '==', firebase.auth().currentUser.email).get())
      } ,[isNew])
+     useEffect(() =>{
+        if(user) {
+            storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL().then((url) => {
+                console.log("URL", url)
+                document.getElementById('picturePopup').style.backgroundImage=`url(${url})`
+                document.getElementById('mainPicture').style.backgroundImage=`url(${url})`
+
+            }).catch(err => console.log("ERROR", err))
+        }
+     }, [])
      function handlePictureChange() {
         setOpenPopup(true)
      }
      function handleFile(event) {
         console.log("filr", event.target.files[0])
         let file = event.target.files[0]
-        storage.ref().child('profiles/michal50166@wp.pl.jpg').put(file).then(() => {
-            console.log("POSZEDL")
-            setIsNewPic(!isNew)
-        }).catch(
-            console.log("NIE POSZEDL")
-        )
+        storage.ref().child(`profiles/${user.email}.jpg`).put(file)
+        .on('state_changed',
+            function progress(snapshot) {
+                let percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+                console.log("%%%", percentage)
+                document.getElementById('uploader').value = percentage
+            },
+            function error() {
 
+            },
+            function complete() {
+                setIsNewPic(!isNew)
+
+            }
+        )
+       
+   
     }
 
     function handelDoubleClick(e) {
@@ -74,7 +92,7 @@ import firebase, { db, storage } from '../firebase/firebase'
                         <input type="file" onChange={handleFile}/>
                     </div>
                     <div className={styles.inputDivLoader}>
-                        LOADER
+                        <progress className={styles.progress} value="0" max="100" id="uploader">0%</progress>
                     </div>
                 </section>
                 <section className={styles.buttonsSectionPopup}>
@@ -86,7 +104,7 @@ import firebase, { db, storage } from '../firebase/firebase'
             </div>
             <div className={styles.background}></div>
             <section className={styles.photoSection}>
-                <div className={styles.picture}></div>
+                <div className={styles.picture} id="mainPicture"></div>
                 <div className={styles.name}>Selena Gomez</div>
                 <button onClick={handlePictureChange}>CHANGE PROFILE PICTURE</button>
             </section>
