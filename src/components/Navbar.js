@@ -11,7 +11,7 @@ export default function Navbar({toggleSidebar, user}) {
     let [date, setDate] = useState('')
 useEffect(() => {
     console.log("USE EFF")
-    storage.ref().child('profiles/michal50166@wp.pl.jpg').getDownloadURL().then((url) => {
+    storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL().then((url) => {
         console.log("URL", url)
         document.getElementById('userPicture').style.backgroundImage=`url(${url})`
     }).catch(err => console.log("ERROR", err))
