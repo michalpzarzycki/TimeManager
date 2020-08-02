@@ -4,10 +4,22 @@ import styles from './Profile.module.css'
 import { withRouter } from 'react-router-dom';
 import firebase, { db, storage } from '../firebase/firebase'
 
- function Profile() {
+ function Profile({user}) {
+     let [userEmail, setUserEmail] = useState('')
      let [openPopup, setOpenPopup] = useState(false)
      let [isNew, setIsNewPic] = useState(false)
+     let [userData, setUserData] = useState({})
      useEffect(() => {
+         if(user) {
+        db.collection('users').where('email', '==', user.email).get().then((doc) => {
+            doc.forEach(doc => {
+                console.log("DOC", doc.data())
+                setUserData({...doc.data()})})
+            console.log("MISSION COMPLETE")
+        }).catch(err => console.log("ERR", err))
+    }
+        
+        
         storage.ref().child('profiles/michal50166@wp.pl.jpg').getDownloadURL().then((url) => {
             console.log("URL", url)
             document.getElementById('picturePopup').style.backgroundImage=`url(${url})`
@@ -60,16 +72,16 @@ import firebase, { db, storage } from '../firebase/firebase'
             </section>
             <section className={styles.infoSection}>
                 <div className={styles.infoSectionBox}>
-                <div>Email: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Imie: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Nazwisko: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Nickname: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Nr tel: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Miejscowosc: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Kraj: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Opis: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Ilosc zrobionych taskow: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
-                <div>Znajomi: <span className={styles.infoSpanDetail}>selena.gomez@wp.pl</span></div>
+                <div>Email: <span className={styles.infoSpanDetail}>{userData.email}</span></div>
+                <div>Imie: <span className={styles.infoSpanDetail}>{userData.name}</span></div>
+                <div>Nazwisko: <span className={styles.infoSpanDetail}>{userData.surname}</span></div>
+                <div>Nickname: <span className={styles.infoSpanDetail}>{userData.nickname}</span></div>
+                <div>Nr tel: <span className={styles.infoSpanDetail}>{userData.telephone}</span></div>
+                <div>Miejscowosc: <span className={styles.infoSpanDetail}>{userData.city}</span></div>
+                <div>Kraj: <span className={styles.infoSpanDetail}>{userData.country}</span></div>
+                <div>Opis: <span className={styles.infoSpanDetail}>{userData.description}</span></div>
+                <div>Ilosc zrobionych taskow: <span className={styles.infoSpanDetail}>NIE WIEM JESZCZE</span></div>
+                <div>Znajomi: <span className={styles.infoSpanDetail}>....</span></div>
                 </div>
             </section>
             <section className={styles.restSection}></section>
