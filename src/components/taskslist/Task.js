@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './Task.module.css'
 import { db } from '../../firebase/firebase'
+import {formatDistance} from 'date-fns'
 
 export default function Task({task, handleDeletePopup, handleDetailsPopup}) {
     let [popup, setPopup] = useState(false);
@@ -137,7 +138,11 @@ function setUncompletedTask(task) {
     <div className={task.done ? styles.done : styles.notDone}></div>
     <div className={styles.title}>{task.task}</div>
     <div className={styles.importance}>WAZNOSC</div>
-    <div className={styles.deadline}>{Date.now()}</div>
+    <div className={styles.deadline}>{formatDistance(
+  Date.now(),
+  new Date(1986, 3, 4, 11, 32, 0),
+  { addSuffix: true }
+)}</div>
     <div className={styles.buttons}>
         <div className={styles.details} onClick={() => handleDetailsPopup(task)}></div>
         <div className={styles.edit} onClick={() => handleEdit(task.id)}></div>

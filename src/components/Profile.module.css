@@ -13,6 +13,83 @@
     font-family: Advent;
     font-weight: bolder;
 }
+.popup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    background-color: green;
+}
+.pictureSectionPopup {
+    width: 100%;
+    border: 1px solid black;
+    height: 60%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.exit {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.picturePopup {
+   width: 300PX;       
+   height: 300PX;
+   BORDER:2PX SOLID WHITE;
+   BORDER-RADIUS: 50%;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover; 
+}
+.inputSectionPopup {
+    width: 100%;
+    border: 1px solid black;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.buttonsSectionPopup {
+    width: 100%;
+    border: 1px solid black;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.buttons {
+    width: 70%;
+    display: flex;
+    justify-content: space-around
+}
+.confirmButton {
+    width: 40%;
+    background-color: green;
+}
+.cancelButton {
+    width: 40%;
+    background-color: red;
+}
+.none {
+    display: none;
+}
 .background {
     position: absolute;
     top: 0;

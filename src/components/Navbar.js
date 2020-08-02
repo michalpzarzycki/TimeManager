@@ -5,10 +5,16 @@ import Clock from './Clock'
 import { fromUnixTime } from 'date-fns'
 import { Link, BrowserRouter, withRouter } from 'react-router-dom'
 import firebase from '../firebase/firebase'
+import { storage } from '../firebase/firebase'
 
 export default function Navbar({toggleSidebar, user}) {
     let [date, setDate] = useState('')
 useEffect(() => {
+    console.log("USE EFF")
+    storage.ref().child('profiles/michal50166@wp.pl.jpg').getDownloadURL().then((url) => {
+        console.log("URL", url)
+        document.getElementById('userPicture').style.backgroundImage=`url(${url})`
+    }).catch(err => console.log("ERROR", err))
     console.log("sadasd", date )
     setInterval(() => {
         let obj = new Date()
@@ -32,7 +38,7 @@ useEffect(() => {
         <h1 className={styles.header}>TaskManager</h1>
     <Link to="/profile">
     <div className={styles.userSection}>
-            <div className={styles.picture}></div>
+            <div id="userPicture" className={styles.picture}></div>
 <div className={styles.user}>{user.email}</div>
             <div className={styles.arrow}></div>
         </div>

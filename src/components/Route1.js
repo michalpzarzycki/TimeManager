@@ -10,7 +10,7 @@ import { withRouter, Route } from 'react-router-dom';
 import uniqid from 'uniqid'
 import firebase, {db} from '../firebase/firebase'
 import {useAuth} from '../hooks/useAuth'
-import AddEditPopup from './taskslist/AddEditPopup';
+import AddPopup from './taskslist/AddPopup';
 import DeletePopup from './taskslist/DeletePopup';
 import Details from './taskslist/Details';
 import SearchInput from './SearchInput';
@@ -70,6 +70,7 @@ function Route1({user}) {
         setTaskToDel(taskId)
     }
     function handleChange(event) {
+        console.log("VALUE", event.target.value)
         setTask({...task, [event.target.name]:event.target.value})
         console.log("TASK", task)
         console.log("UNIQ", uniqid())
@@ -128,12 +129,7 @@ function Route1({user}) {
 
     <section className={popup ? styles.createTaskPopup : styles.none}>
         
-        <AddEditPopup 
-            names={['task', 'deadline', 'importance', 'photo']}
-            placeholders={['Your task', 'Deadline', 'Importance', 'Photo URL']} 
-            title={"Add Task"} 
-            description={"Let's save it ! =>"}
-            labels={["Task", "Deadline", "Importance", "Photo"]}
+        <AddPopup 
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             isLoading={isLoading}

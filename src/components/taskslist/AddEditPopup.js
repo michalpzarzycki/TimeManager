@@ -35,7 +35,7 @@ export default function AddEditPopup({task, names, placeholders, title, descript
          })}   
             <div className={styles.buttonContainer}>
                 <p className={isEdited ? styles.isEdited : ''}>{description}</p>
-                <button type="sybmit">SUBMIT</button>
+                <button type="submit">SUBMIT</button>
             </div>
            
         </form>

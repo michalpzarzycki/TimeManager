@@ -124,6 +124,9 @@
 .inputBox > input {
     padding-left: 40px;
 }
+.inputBox > select {
+    padding-left: 40px;
+}
 .isEdited {
     color: green;
 }
