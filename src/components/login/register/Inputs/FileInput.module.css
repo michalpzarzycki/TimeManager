@@ -22,6 +22,9 @@
     
   
 }
+.error {
+    border: 2px solid red;
+}
 .div::after {
     background-image: url('../../../../icons/upload.png');
     background-position: center;

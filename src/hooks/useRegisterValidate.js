@@ -12,7 +12,8 @@ export function useRegisterValidate(user) {
         telephone:"",
         city:"",
         country:"",
-        description:""
+        description:"",
+        file:""
 
     }
     let regex = {
@@ -27,6 +28,7 @@ export function useRegisterValidate(user) {
         country:/^\w{2,20}$/,
         description:/^\w{5,140}$/
     }
+    console.log("USER",user, "USERFILE", user)
     if(user.password && !regex.password.test(user.password)) errors.password="ZA KROTKIE"
     if(user.repeatPassword && user.password !== user.repeatPassword) errors.repeatPassword="HASLA MUSZA BYC TAKIE SAME"
     if(user.name && !regex.name.test(user.name)) errors.name="Name has to have from 2 to 20 characters"
@@ -36,7 +38,7 @@ export function useRegisterValidate(user) {
     if(user.city && !regex.city.test(user.city)) errors.city="City has to have from 2 to 20 characters"
     if(user.country && !regex.country.test(user.country)) errors.country="Country has to have from 2 to 20 characters"
     if(user.description && !regex.description.test(user.description)) errors.description="Surname has to have from 2 to 20 characters"
-
+    if(user.file !== 'image/jpeg') errors.file="We require .jpg files. Check your file type"
 
     function checkIfValidated() {
         if(user.password && user.email && user.name && user.surname && user.nickname && user.repeatPassword) {

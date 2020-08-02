@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
-import firebase, { db } from '../../../firebase/firebase'
+import firebase, { db, storage } from '../../../firebase/firebase'
 import Login from './Login';
 import TextInput from './Inputs/TextInput';
 import FileInput from './Inputs/FileInput';
@@ -17,7 +17,8 @@ const INIT_STATE = {
     telephone:"",
     city:"",
     country:"",
-    description:""
+    description:"",
+    file:''
             }
 
 export default function Register() {
@@ -25,12 +26,22 @@ export default function Register() {
     const { errors, isValidate } = useRegisterValidate(user)
     let [buttonDisabled, setButtonDisabled] = useState(true)
     let [buttonLoading, setButtonLoading] = useState(false)
+    let [file, setFile] = useState('')
+    
 
     function handleChange(e) {
         console.log(e.target.value)
         setUser({...user, [e.target.name]: e.target.value})
         console.log("ERORS", errors)
         console.log("IS VALIDATE", isValidate)
+        isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
+    }
+    function handleFileChange(e) {
+        console.log("jsahfkas", e.target.files[0])
+        setUser({...user, 'file': e.target.files[0].type})
+        console.log("ERORS", errors)
+        console.log("IS VALIDATE", isValidate)
+        setFile(e.target.files[0])
         isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
     }
     function handleSubmit(e) {
@@ -43,6 +54,11 @@ export default function Register() {
                 setButtonLoading(false)
                 console.log("ERROR", e)
             })
+            storage.ref().child(`profiles/${user.email}.jpg`).put(file).then(() => {
+                console.log("POSZEDL")
+            }).catch(
+                console.log("NIE POSZEDL")
+            )
         } else {
         }
       
@@ -78,7 +94,7 @@ export default function Register() {
             <TextInput error={errors.name} placeholder="Name" handleChange={handleChange} name="name"/>
             <TextInput error={errors.surname} placeholder="Surname" handleChange={handleChange} name="surname"/>
             <TextInput error={errors.nickname} placeholder="Nickname" handleChange={handleChange} name="nickname"/>
-            <FileInput />
+            <FileInput error={errors.file} handleFileChange={handleFileChange} name="file" file={file}/>
             <TextInput error={errors.telephone} placeholder="Telephone" handleChange={handleChange} name="telephone"/>
             <TextInput error={errors.city} placeholder="City" handleChange={handleChange} name="city"/>
             <TextInput error={errors.country} placeholder="Country" handleChange={handleChange} name="country"/>
