@@ -9,12 +9,14 @@ import firebase, { db, storage } from '../firebase/firebase'
      let [openPopup, setOpenPopup] = useState(false)
      let [isNew, setIsNewPic] = useState(false)
      let [userData, setUserData] = useState({})
+     let [allowToChange, setAllowToChange] = useState(false)
+     let [isChanged, setIsChanged] = useState(false)
      useEffect(() => {
          if(user) {
         db.collection('users').where('email', '==', user.email).get().then((doc) => {
             doc.forEach(doc => {
-                console.log("DOC", doc.data())
-                setUserData({...doc.data()})})
+                console.log("DOC", doc.data(), doc.id)
+                setUserData({...doc.data(), docId: doc.id})})
             console.log("MISSION COMPLETE")
         }).catch(err => console.log("ERR", err))
     }
@@ -39,6 +41,24 @@ import firebase, { db, storage } from '../firebase/firebase'
             console.log("NIE POSZEDL")
         )
 
+    }
+
+    function handelDoubleClick(e) {
+        e.target.readOnly=false
+        document.getElementById(e.target.name).style.display = 'block'
+    }
+
+    function handleEdit() {
+        db.collection('users').doc(userData.docId).update({
+            ...userData
+        }).then(() => {
+            console.log("UPDATED")
+        }).catch(err => console.log(err))
+    }
+
+    function handleChange(e) {
+        setIsChanged(true)
+        setUserData({...userData, [e.target.name]: e.target.value })
     }
     return(
         <div className={styles.mainDiv}>
@@ -75,13 +95,70 @@ import firebase, { db, storage } from '../firebase/firebase'
                 <div>Email: <span className={styles.infoSpanDetail}>{userData.email}</span></div>
                 <div>Imie: <span className={styles.infoSpanDetail}>{userData.name}</span></div>
                 <div>Nazwisko: <span className={styles.infoSpanDetail}>{userData.surname}</span></div>
-                <div>Nickname: <span className={styles.infoSpanDetail}>{userData.nickname}</span></div>
-                <div>Nr tel: <span className={styles.infoSpanDetail}>{userData.telephone}</span></div>
-                <div>Miejscowosc: <span className={styles.infoSpanDetail}>{userData.city}</span></div>
-                <div>Kraj: <span className={styles.infoSpanDetail}>{userData.country}</span></div>
-                <div>Opis: <span className={styles.infoSpanDetail}>{userData.description}</span></div>
+                <div>Nickname: 
+                     <input name='nickname'
+                            className={styles.infoSpanDetail} 
+                            value={userData.nickname} 
+                            readOnly 
+                            onDoubleClick={event => handelDoubleClick(event)}
+                            onChange = {(event) => handleChange(event)}
+                            />
+                    <span id='nickname' 
+                            onClick={e => handleEdit(e)} 
+                            className={styles.noneEdit}
+                    ></span></div>
+                <div>Nr tel: 
+                    <input name='telephone' 
+                            className={styles.infoSpanDetail} 
+                            value={userData.telephone} 
+                            readOnly 
+                            onDoubleClick={event => handelDoubleClick(event)}
+                            onChange = {(event) => handleChange(event)}
+                            />
+                    <span id='telephone' 
+                            onClick={e => handleEdit(e)}  
+                            className={styles.noneEdit}
+                            ></span></div>
+                <div>Miejscowosc:
+                    <input name='city' 
+                            className={styles.infoSpanDetail} 
+                            value={userData.city} 
+                            readOnly 
+                            onDoubleClick={event => handelDoubleClick(event)}
+                            onChange = {(event) => handleChange(event)}
+                            />
+                    <span id='city' 
+                            onClick={e => handleEdit(e)} 
+                            className={styles.noneEdit}
+                            ></span></div>
+                <div>Kraj: 
+                    <input name='city' 
+                            className={styles.infoSpanDetail} 
+                            value={userData.country} 
+                            readOnly 
+                            onDoubleClick={event => handelDoubleClick(event)}
+                            onChange = {(event) => handleChange(event)}
+                            />
+                    <span id='city'
+                            onClick={e => handleEdit(e)}
+                            className={styles.noneEdit}
+                            ></span></div>
+                <div>Opis: 
+                    <input name='description' 
+                            className={styles.infoSpanDetail} 
+                            value={userData.description} 
+                            readOnly 
+                            onDoubleClick={event => handelDoubleClick(event)}
+                            onChange = {(event) => handleChange(event)}
+                            />
+                    <span id='description' 
+                            onClick={e => handleEdit(e)} 
+                            className={styles.noneEdit}
+                            ></span>
+                    </div>
                 <div>Ilosc zrobionych taskow: <span className={styles.infoSpanDetail}>NIE WIEM JESZCZE</span></div>
                 <div>Znajomi: <span className={styles.infoSpanDetail}>....</span></div>
+                {isChanged && <button onClick={handleEdit}>SUBMIT CHANGES</button>}
                 </div>
             </section>
             <section className={styles.restSection}></section>

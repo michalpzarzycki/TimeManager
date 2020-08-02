@@ -89,6 +89,18 @@
 }
 .none {
     display: none;
+    color: white;
+}
+.noneEdit {
+    display: none;
+    background-image: url('../icons/editProfile.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+
+
 }
 .background {
     position: absolute;
@@ -148,12 +160,20 @@
     justify-content: flex-start;
     align-items: flex-start;
     box-shadow: 0px 0px 10px 0px rgba(15,27,255,1);
-    background-color: black;
+    background-color: blue;
     color: white;
     letter-spacing: 2px;
 
 }
+.infoSectionBox > div {
+    display: flex;
+}
 .infoSpanDetail {
     color: blue;
     letter-spacing: 2px;
+}
+
+.changeConfirm {
+    display: inline;
+    color: white;
 }
