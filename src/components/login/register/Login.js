@@ -3,6 +3,7 @@ import firebase from '../../../firebase/firebase'
 import TextInput from './Inputs/TextInput';
 import styles from './Login.module.css'
 import {withRouter} from 'react-router-dom'
+import Hexagon from '../../Hexagon';
 
  function Login({history, userIdSetter, userEmailSetter}) {
 
@@ -37,6 +38,7 @@ import {withRouter} from 'react-router-dom'
  
     return <div className={styles.mainDiv}>
         <div className={styles.leftSide}>
+            <Hexagon />
             <div className={styles.leftSideUserDiv}>
                 <div className={styles.leftSideUserDivHeader}>USERS</div>
                 <div className={styles.leftSideUserDivUsers}>
@@ -46,7 +48,7 @@ import {withRouter} from 'react-router-dom'
                 </div>
             </div>
         </div>
-        <form  onSubmit={handleSubmit} className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit} className={styles.form}>
             <TextInput type="email" placeholder="email" name="email" value={user.name} handleChange={handleChange}/>
             <TextInput type="password" placeholder="password" name="password" value={user.password} handleChange={handleChange}/>
             <button type="submit">ENTER</button>

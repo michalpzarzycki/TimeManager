@@ -18,6 +18,7 @@ import Community from './components/sidebarRoutes/Community';
 import Inbox from './components/sidebarRoutes/Inbox';
 import Settings from './components/sidebarRoutes/Settings';
 import Contact from './components/sidebarRoutes/Contact';
+import Hexagon from './components/Hexagon';
 
 
 
@@ -64,6 +65,7 @@ const isLoggedIn = useAuth().isLoggedIn;
         <Route strict path='/contact' component={Contact} />
         <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
         <Route strict path='/inbox' render={() => <Inbox />}/>
+        <Route strict path='/hexagon' component={Hexagon} />
         <Route strict path='/login' render={() => <Redirect to="/"/>} />
       </Switch>
       </div>
