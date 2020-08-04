@@ -19,6 +19,7 @@ import Inbox from './components/sidebarRoutes/Inbox';
 import Settings from './components/sidebarRoutes/Settings';
 import Contact from './components/sidebarRoutes/Contact';
 import Hexagon from './components/Hexagon';
+import Loader from './components/Loader'
 
 
 
@@ -59,13 +60,14 @@ const isLoggedIn = useAuth().isLoggedIn;
         <Route strict path='/route2' component={Route2} />
         <Route strict path='/route3' component={Route3}  />
         <Route strict path='/settings' component={Settings}/>
-  ``````<Route strict path='/myexcuses' render={() => <MyExcuses user={firebase.auth().currentUser} />}/>
+        <Route strict path='/myexcuses' render={() => <MyExcuses user={firebase.auth().currentUser} />}/>
         <Route strict path='/notes' render={() => <Notes user={firebase.auth().currentUser}/>}/>
         <Route strict path='/inspiration' component={Inspiration}/>
         <Route strict path='/contact' component={Contact} />
         <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
         <Route strict path='/inbox' render={() => <Inbox />}/>
         <Route strict path='/hexagon' component={Hexagon} />
+        <Route strict path='/loader' component={Loader} />
         <Route strict path='/login' render={() => <Redirect to="/"/>} />
       </Switch>
       </div>
