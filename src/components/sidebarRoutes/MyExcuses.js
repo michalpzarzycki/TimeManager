@@ -3,6 +3,9 @@ import MyExcusesChart from '../charts/MyExcusesChart'
 import styles from './MyExcuses.module.css'
 import {db} from '../../firebase/firebase'
 import uniqId from 'uniqid'
+import TopExcuses from './excuses/TopExcuses';
+import NewestExcuses from './excuses/NewestExcuses';
+import AllExcuses from './excuses/AllExcuses';
 
 export default function MyExcuses({user}) {
     const [excuse, setExcuse] = useState([]);
@@ -53,9 +56,9 @@ function handleSubmit(event) {
                 </form>
             </section>
             <section className={styles.excusesLists}>
-                <div className={styles.newest}>NEWEST</div>
-                <div className={styles.top10}>TOP 10</div>
-                <div className={styles.all}>ALL</div>
+                <TopExcuses excuses={excuses} handleCounter={handleCounter}/>
+                <NewestExcuses excuses={excuses} handleCounter={handleCounter}/>
+                <AllExcuses  excuses={excuses} handleCounter={handleCounter}/>
                 {excuses.map(elem => {
                   
                     return <div>

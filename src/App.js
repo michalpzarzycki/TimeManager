@@ -28,6 +28,7 @@ function App(props) {
   const [user, setUser] = useState({email:"", password:""})
   let [userId, setUserId] = useState('')
   let [userEmail, setUserEmail] = useState('')
+  let [load, setLoad] = useState(false)
 
 
   function toggleSidebar() {
@@ -49,7 +50,35 @@ const isLoggedIn = useAuth().isLoggedIn;
 // }
 // isLoggedIn && getData()
 
-  return  isLoggedIn ? <div>
+  if(isLoggedIn===null) {
+    return <div>
+    <BrowserRouter>
+    <Navbar toggleSidebar={() => {}} toggle={{}} user={{}}/>
+
+    <div className="routerDiv">
+    <Sidebar toggle={toggle}/>
+      <Switch>
+        <Route path='/' component={Loader}/>
+        <Route strict path='/profile' render={() => <Profile user={firebase.auth().currentUser} />} />
+        <Route strict path='/route2' component={Route2} />
+        <Route strict path='/route3' component={Route3}  />
+        <Route strict path='/settings' component={Settings}/>
+        <Route strict path='/myexcuses' render={() => <MyExcuses user={firebase.auth().currentUser} />}/>
+        <Route strict path='/notes' render={() => <Notes user={firebase.auth().currentUser}/>}/>
+        <Route strict path='/inspiration' component={Inspiration}/>
+        <Route strict path='/contact' component={Contact} />
+        <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
+        <Route strict path='/inbox' render={() => <Inbox />}/>
+        <Route strict path='/hexagon' component={Hexagon} />
+        <Route strict path='/loader' component={Loader} />
+        <Route strict path='/login' render={() => <Redirect to="/"/>} />
+      </Switch>
+      </div>
+    </BrowserRouter>
+  </div> 
+  } 
+  else if(isLoggedIn===true) {
+   return  <div>
     <BrowserRouter>
     <Navbar toggleSidebar={toggleSidebar} toggle={toggle} user={firebase.auth().currentUser}/>
     <div className="routerDiv">
@@ -72,7 +101,10 @@ const isLoggedIn = useAuth().isLoggedIn;
       </Switch>
       </div>
     </BrowserRouter>
-  </div> :   <BrowserRouter>
+  </div> 
+  }  
+  else if(isLoggedIn===false) {
+    return  <BrowserRouter>
     <div className="routerDiv">
       <Switch>
         <Route exact path="/" render={()=><Redirect to="/login" />}/>
@@ -82,6 +114,8 @@ const isLoggedIn = useAuth().isLoggedIn;
       </Switch>
       </div>
     </BrowserRouter>
+  }
+ 
   
 }
 

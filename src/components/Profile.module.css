@@ -54,6 +54,12 @@
    background-repeat: no-repeat;
    background-size: cover; 
 }
+.loader {
+    width: 300PX;       
+    height: 300PX;
+    BORDER:2PX SOLID WHITE;
+    BORDER-RADIUS: 50%;
+}
 .inputSectionPopup {
     width: 100%;
     border: 1px solid black;

@@ -1,11 +1,13 @@
 .sidebarContainer {
     display: flex;
     flex-direction: column;
-   
-    min-width: 35%;
+    position: fixed;
+   top: 10vh;
+   left: 0;
+   z-index: 5;
+    width: 20%;
     min-height: 100vh;
     background-color: grey;
-    z-index: 20;
     border: 0 2px 0 0;
     border-color: white;
     opacity: 1;
@@ -29,7 +31,7 @@
 .logout {
     cursor: pointer;
 }
-.logout:hover {
+.logout:hover, .settings:hover, .inbox:hover, .contact:hover, .help:hover, .profile:hover {
     color: black;
     background-color: white;
 }
@@ -45,8 +47,11 @@
 @media (min-width:1000px) {
     .sidebarContainer{
         display: flex;
-        min-width: 20%;
-        max-width: 25%;
+     width: 20%;
+     height: 90vh;
+        position: fixed;
+        top: 10vh;
+        left: 0;
         background-color: grey;
     }
     .none {
@@ -54,7 +59,12 @@
         opacity: 1;
         visibility: visible;
         background-color: grey;
-        width: 25%;
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        z-index: 10;
+        height: 90vh;
+        width: 20%;
         transform: translate(0,0);
     }
 

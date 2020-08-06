@@ -5,6 +5,7 @@
   flex-direction: row;
   overflow-y: scroll;
   background-color: gray;
+  position: relative;
 }
 @media (min-width:1000px) {
 

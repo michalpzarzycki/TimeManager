@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.css'
 import { withRouter } from 'react-router-dom';
 import firebase, { db, storage } from '../firebase/firebase'
+import Loader from './Loader';
 
  function Profile({user}) {
      let [userEmail, setUserEmail] = useState('')
@@ -11,11 +12,13 @@ import firebase, { db, storage } from '../firebase/firebase'
      let [userData, setUserData] = useState({})
      let [allowToChange, setAllowToChange] = useState(false)
      let [isChanged, setIsChanged] = useState(false)
+     let [isPictureLoaded, setIsPictureLoaded] = useState(false)
      useEffect(() => {
          if(user) {
         db.collection('users').where('email', '==', user.email).get().then((doc) => {
             doc.forEach(doc => {
                 console.log("DOC", doc.data(), doc.id)
+                
                 setUserData({...doc.data(), docId: doc.id})})
             console.log("MISSION COMPLETE")
         }).catch(err => console.log("ERR", err))
@@ -27,9 +30,12 @@ import firebase, { db, storage } from '../firebase/firebase'
         //  console.log("AUTH", db.collection('users').where('email', '==', firebase.auth().currentUser.email).get())
      } ,[isNew])
      useEffect(() =>{
+
         if(user) {
+            setIsPictureLoaded(true)
             storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL().then((url) => {
                 console.log("URL", url)
+                
                 document.getElementById('picturePopup').style.backgroundImage=`url(${url})`
                 document.getElementById('mainPicture').style.backgroundImage=`url(${url})`
 
@@ -85,7 +91,7 @@ import firebase, { db, storage } from '../firebase/firebase'
                 <div className={styles.exit} onClick={() => setOpenPopup(false)}>
                     <span>X</span>
                 </div>
-                <div id="picturePopup" className={styles.picturePopup}></div>
+               {isPictureLoaded ?  <div id="picturePopup" className={styles.picturePopup}></div> : <div className={styles.loader}><Loader /></div>}
                 </section>
                 <section className={styles.inputSectionPopup}>
                     <div className={styles.inputDivInput}>

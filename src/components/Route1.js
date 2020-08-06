@@ -43,7 +43,7 @@ function Route1({user}) {
         console.log("CURRUSER", user)
         console.log("USERID", user.uid)
         console.log("ROUTER!", user.uid)
-        db.collection("tasks").where("userId", "==", `${user.uid}`)
+       let unsubscribe =  db.collection("tasks").where("userId", "==", `${user.uid}`)
     .onSnapshot(function(querySnapshot) {
             let arr=[]
         querySnapshot.forEach(function(doc) {
@@ -53,7 +53,7 @@ function Route1({user}) {
 
        setTaskList([...arr])
     });
-          
+     return unsubscribe()
     }, [user])
     function searchValueSetter(value) {
         setSearchValue(value)

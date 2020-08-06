@@ -8,10 +8,12 @@ export const useAuth = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(() => {
       console.log("CHANGES")
+      console.log('isLOGGEDIN', isLoggedIn)
       if (firebase.auth().currentUser) {
-        console.log("LOGGEDIN")
           setUser(firebase.auth().currentUser)
         setIsLoggedIn(true);
+        console.log("TRsUE", isLoggedIn)
+
       } else {
         setIsLoggedIn(false);
       }
