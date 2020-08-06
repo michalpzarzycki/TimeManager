@@ -4,6 +4,7 @@ import styles from './AddEditPopup.module.css';
 import DatePicker from "react-datepicker";
 import { storage } from '../../firebase/firebase';
 import uniquid from 'uniqid'
+import TextInput from '../login/register/Inputs/TextInput';
 
 
 export default function AddPopup({task, handleChange, handleSubmit, isLoading, isEdited}) {
@@ -14,6 +15,7 @@ export default function AddPopup({task, handleChange, handleSubmit, isLoading, i
     const [editedDeadline, setEditedDeadline] = useState("")
     const [editedImportance, setEditedImportance] = useState("")
     const [editedPhoto, setEditedPhoto] = useState("")
+    let [time, setTime] = useState('')
  
 
     function handelFile(event) {
@@ -60,21 +62,25 @@ export default function AddPopup({task, handleChange, handleSubmit, isLoading, i
                         <span className={styles.inputBox}>
                             <span className={styles.icon}></span>
                             <DatePicker 
+                                selected={time}
                                 minDate={Date.now()}
+                                customInput={<TextInput value={time} onChange={() => handleChange} />}
+                                name='deadline'
                                 onChange={(e) => {
+                                    handleChange(e, 'deadline')
                                     let x = new Date(e)
-                                    console.log(x.getTime())
+                                    setTime(x)
                                 }}
                                 
                             />
                         </span>
                     </div>
-                    <div className={styles.inputContainer}>
+                    {/* <div className={styles.inputContainer}>
                         <span className={styles.label}>Task</span>
                         <span className={styles.inputBox}>
-                           <input type="file" placeholder="Add file" id="file" onChange={handelFile}/>
+                           <input type="file" placeholder="Add file" id="file" onChange={handleChange}/>
                         </span>
-                    </div>
+                    </div> */}
               
             <div className={styles.buttonContainer}>
                 <p className={isEdited ? styles.isEdited : ''}>Ready? Vamos =></p>

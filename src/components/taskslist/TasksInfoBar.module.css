@@ -1,3 +1,8 @@
+@font-face {
+    src: url('../../fonts/Abel-Regular.ttf');
+    font-family: Abel;
+}
+
 .tasksInfoBarContainer {
     width: 90%;
     min-height: 50px;
@@ -10,6 +15,7 @@
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     border-radius: 5px;
     margin:10px 0;
+    font-family: Abel;
 }
 .id, .avatar, .importance, .deadline {
     display: none;

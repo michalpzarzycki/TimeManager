@@ -8,7 +8,7 @@ import TasksList from './taskslist/TasksList';
 import TasksInfoBar from './taskslist/TasksInfoBar';
 import { withRouter, Route } from 'react-router-dom';
 import uniqid from 'uniqid'
-import firebase, {db} from '../firebase/firebase'
+import firebase, {db, storage} from '../firebase/firebase'
 import {useAuth} from '../hooks/useAuth'
 import AddPopup from './taskslist/AddPopup';
 import DeletePopup from './taskslist/DeletePopup';
@@ -24,7 +24,7 @@ function Route1({user}) {
         id:"",
         photo:"",
         task:"",
-        importance:"",
+        importance:"1",
         deadline:""
     })
     const [taskList, setTaskList] = useState([])
@@ -37,13 +37,15 @@ function Route1({user}) {
     let [taskToDelete, setTaskToDel] = useState("")
     let [taskDetails, setTaskDetails] = useState("")
     let [searchValue, setSearchValue] = useState("")
+    let [file, setFile] = useState({})
+    let [isAllChecked, setIsAllChecked] = useState(false)
    
  
     useEffect(()=>{
         console.log("CURRUSER", user)
         console.log("USERID", user.uid)
         console.log("ROUTER!", user.uid)
-       let unsubscribe =  db.collection("tasks").where("userId", "==", `${user.uid}`)
+         db.collection("tasks").where("userId", "==", `${user.uid}`)
     .onSnapshot(function(querySnapshot) {
             let arr=[]
         querySnapshot.forEach(function(doc) {
@@ -53,7 +55,7 @@ function Route1({user}) {
 
        setTaskList([...arr])
     });
-     return unsubscribe()
+    //  return unsubscribe()
     }, [user])
     function searchValueSetter(value) {
         setSearchValue(value)
@@ -69,15 +71,24 @@ function Route1({user}) {
         console.log("handle delete")
         setTaskToDel(taskId)
     }
-    function handleChange(event) {
-        console.log("VALUE", event.target.value)
-        setTask({...task, [event.target.name]:event.target.value})
-        console.log("TASK", task)
-        console.log("UNIQ", uniqid())
+    function handleChange(event, name='') {
+        if(name==='deadline') {
+            let x = new Date(event)
+
+            setTask({...task, 'deadline':x.getTime()})
+        } else {
+            setTask({...task, [event.target.name]:event.target.value})
+        }
+  
+        
     }
-    function handleSubmit(e) {  
-        e.preventDefault() 
+    function handleSubmit(e) {
+        e.preventDefault()
+    
+            console.log("WE HAVE FILE", e.target.value)
+     
         setIsLoading(true)
+    
         const tasksRef = db.collection('tasks');
         setUniqueId(uniqid())
         tasksRef.doc(`${uniqueId}`).set({
@@ -115,7 +126,9 @@ function Route1({user}) {
         setTaskDetails(task)
     
  }
-
+ function handleAllChecked(e) {
+    e.target.checked ? setIsAllChecked(true) : setIsAllChecked(false)
+}
  
     
     return <div className={styles.route1Container}>
@@ -147,10 +160,10 @@ function Route1({user}) {
             </div>
         </section>
         <section className={styles.route1TasksSection}>
-            <FilterBar />
+            <FilterBar handleAllChecked = {handleAllChecked}/>
             <div className={styles.route1TaskSectionTasks}>
-                <TasksInfoBar />
-                <TasksList taskList={taskList} searchValue={searchValue} handleDeletePopup={handleDeletePopup} handleDetailsPopup={handleDetailsPopup}/>
+                <TasksInfoBar handleAllChecked={handleAllChecked}/>
+                <TasksList isAllChecked={isAllChecked} taskList={taskList} searchValue={searchValue} handleDeletePopup={handleDeletePopup} handleDetailsPopup={handleDetailsPopup}/>
             </div>
         </section>
     </div>

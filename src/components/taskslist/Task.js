@@ -3,7 +3,7 @@ import styles from './Task.module.css'
 import { db } from '../../firebase/firebase'
 import {formatDistance} from 'date-fns'
 
-export default function Task({task, handleDeletePopup, handleDetailsPopup}) {
+export default function Task({task, handleDeletePopup, handleDetailsPopup, isAllChecked}) {
     let [popup, setPopup] = useState(false);
     const [editedTask, setEditedTask] = useState("")
     const [editedDeadline, setEditedDeadline] = useState("")
@@ -12,6 +12,12 @@ export default function Task({task, handleDeletePopup, handleDetailsPopup}) {
     let [isEdited, setIsEdited] = useState(false)
     let [isLoading, setIsLoading] = useState(false)
 
+
+    useEffect(()=>{
+        document.getElementsByName('997')[0].getAttribute('checked', 'checked');
+
+    console.log("JEJE")
+    }, [isAllChecked])
     function handleEdit(elemId) {
         setPopup(true)
         console.log("Handle edit",elemId)
@@ -130,17 +136,21 @@ function setUncompletedTask(task) {
             
         </div>
     <div className={styles.checkbox}>
-        <input type="checkbox" checked={task.done} onClick={() => handleChecked(task)}/>
+        <input type="checkbox" checked={task.done} name = "997" onClick={() => handleChecked(task)}/>
     </div>
     <div className={styles.id}>
         {task.done ? <button onClick={() => setDoneTask(task)}>DONE</button> : <button onClick={() => setUncompletedTask(task)}>Not done</button>}
     </div>
     <div className={task.done ? styles.done : styles.notDone}></div>
     <div className={styles.title}>{task.task}</div>
-    <div className={styles.importance}>WAZNOSC</div>
+    <div className={styles.importance}>{
+        task.importance==1 &&  "normal" ||
+        task.importance==2 &&  "important" ||
+        task.importance==3 &&  "very important"
+    }</div>
     <div className={styles.deadline}>{formatDistance(
+  new Date(task.deadline),
   Date.now(),
-  new Date(1986, 3, 4, 11, 32, 0),
   { addSuffix: true }
 )}</div>
     <div className={styles.buttons}>
