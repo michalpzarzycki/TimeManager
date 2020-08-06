@@ -146,7 +146,8 @@ function Route1({user}) {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             isLoading={isLoading}
-            isEdited={isEdited}/>
+            isEdited={isEdited}
+            isPopup={popup} />
     </section>
         <section className={styles.route1Charts}>
             <div className={styles.route1ChartFirst}><FirstChart userId={user.uid}/></div>
@@ -163,7 +164,7 @@ function Route1({user}) {
             <FilterBar handleAllChecked = {handleAllChecked}/>
             <div className={styles.route1TaskSectionTasks}>
                 <TasksInfoBar handleAllChecked={handleAllChecked}/>
-                <TasksList isAllChecked={isAllChecked} taskList={taskList} searchValue={searchValue} handleDeletePopup={handleDeletePopup} handleDetailsPopup={handleDetailsPopup}/>
+                <TasksList popup={popup} isAllChecked={isAllChecked} taskList={taskList} searchValue={searchValue} handleDeletePopup={handleDeletePopup} handleDetailsPopup={handleDetailsPopup}/>
             </div>
         </section>
     </div>

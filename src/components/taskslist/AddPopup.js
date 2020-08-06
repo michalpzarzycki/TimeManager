@@ -7,10 +7,10 @@ import uniquid from 'uniqid'
 import TextInput from '../login/register/Inputs/TextInput';
 
 
-export default function AddPopup({task, handleChange, handleSubmit, isLoading, isEdited}) {
+export default function AddPopup({task, handleChange, handleSubmit, isLoading, isEdited, isPopup}) {
     
     
-    let [popup, setPopup] = useState(false);
+    let [popup, setPopup] = useState(isPopup);
     const [editedTask, setEditedTask] = useState("")
     const [editedDeadline, setEditedDeadline] = useState("")
     const [editedImportance, setEditedImportance] = useState("")
@@ -34,8 +34,8 @@ export default function AddPopup({task, handleChange, handleSubmit, isLoading, i
         <div className={isLoading ? styles.loader : ''}>
         <span className={isLoading ? styles.loadIcon : ''}></span>
     </div>
-    <div className={true ? styles.popup : styles.none}>
-    <h1><span className={isEdited ? styles.editSuccess : styles.edit}></span>Create Task</h1>
+    <div className={popup ? styles.popup : styles.none}>
+    <h1><span className={isEdited ? styles.editSuccess : styles.edit} ></span>Create Task</h1>
         <div className={styles.closePopup} onClick={() => setPopup(false)}></div>
         <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.inputContainer}>
