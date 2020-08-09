@@ -3,26 +3,16 @@ import styles from './InboxMesseges.module.css';
 import Conversation from './Conversation';
 import firebase, { db } from '../../firebase/firebase';
 
-export default function InboxMesseges({openConversationPopup, setOpenConversationPopup}) {
-
-    let [conversationList, setConversationList] = useState([])
-
+export default function InboxMesseges({openConversationPopup, setOpenConversationPopup, allUserConversations}) {
     useEffect(() => {
-        
-        db.collection('conversations').where('users', 'array-contains', firebase.auth().currentUser.email).onSnapshot(snapshot => {
-            let arr = [];
-            snapshot.forEach(doc => {
-                arr.push(doc.data())
-                console.log("arr",arr)
-            })
-            setConversationList([...arr])
-        })
-    }, [])
+        console.log("WORK")
+        console.log("ALL", allUserConversations)
+    }, [allUserConversations])
     return(
         <div className={styles.mainContainer}>
-            {conversationList.length>0 && conversationList.map(elem => {
+            {allUserConversations.length>0 && allUserConversations.map(conversation => {
                 return(
-                    <Conversation conversationList={conversationList} openConversationPopup={openConversationPopup} setOpenConversationPopup={setOpenConversationPopup}/>
+                    <Conversation conversation={conversation} />
                 )
             })}
         </div>

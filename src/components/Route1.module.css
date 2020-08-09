@@ -20,6 +20,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    overflow-y: scroll;
 }
 
 .route1Charts, .route1TasksNav, .route1TasksSection {
@@ -33,6 +34,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     
 }
 .deletePopupContainer {
@@ -198,7 +200,7 @@ span{
     .route1Charts {
         flex-direction: row;
         height: auto;
-        margin-top: 80px;
+        padding-top: 20vh;
     }
     .route1ChartFirst, .route1ChartSecond, .route1ChartThird {
         width: 30%;

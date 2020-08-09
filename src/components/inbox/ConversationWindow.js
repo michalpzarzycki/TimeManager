@@ -8,25 +8,19 @@ import { animateScroll } from "react-scroll";
 
 export default function ConversationWindow({conversation, setOpenConversationPopup, openConversationPopup}) {
     let [newMessege, setNewMessege] = useState({})
-    // useEffect(() => {
-    //     console.log("KOC", conversation)
-    // },[conversation])
+
     useEffect(() => {
         scrollToBottom()
-        console.log("OPEN WW", openConversationPopup)
     })
     useEffect(() => {
         // db.collection('conversations').doc('SoeqbxLBTpo5JEcORI1d').update({
         //     messeges: [{author:"ja", messege:"hej", date: Date.now()}, {author:"ty", messege:"co jest", date: Date.now()}]
         // })
 
-        console.log('idid', conversation)
+        console.log("NOWA", conversation)
         scrollToBottom()
-    }, [conversation])
-    useEffect(() => {
-
-        console.log("KLUCZ DO SZCZESCIA",[ newMessege])
-    }, [newMessege])
+    }, [openConversationPopup])
+   
 
     function scrollToBottom() {
         animateScroll.scrollToBottom({
@@ -39,40 +33,43 @@ export default function ConversationWindow({conversation, setOpenConversationPop
     function handleSubmit(event) {
         event.preventDefault()
         let nuevo = { ...newMessege, author: firebase.auth().currentUser.email, date: Date.now()}
-      
-            // setNewMessege([...conversation.messeges, nuevo])
-            db.collection('conversations').doc('SoeqbxLBTpo5JEcORI1d').update({
-                messeges: [...conversation.messeges, nuevo]
-            }).then(() => {
-                console.log("UDALO SIE")
-            })
+
+     
+                db.collection('conversations').doc(conversation.id).update({
+                    messages: [...conversation.messages, nuevo]
+                }).then(() => {
+                    console.log("UDALO SIE a nie bylo")
+                }) 
         
-    }
+            }
+        
+        
+    
     return(
         <div className={openConversationPopup ? styles.conversationWindow : styles.none}>
         <div className={styles.mainDiv}>
             <div className={styles.exit} onClick={() =>setOpenConversationPopup(false) }></div>
-    <div id="container" className={styles.conversationWindow}>{conversation && conversation.messeges.map(messege => {
+    <div id="container" className={styles.conversationWindow}>{conversation && conversation.messages.map(message => {
+        console.log("MESSEGE!!!", conversation)
         return (
-            <div className={firebase.auth().currentUser.email === messege.author ? styles.isCurrentUser : styles.messege}>
+            <div className={firebase.auth().currentUser.email === message.author ? styles.isCurrentUser : styles.messege}>
                 <div className={styles.messegeContainer}>
                <div className={styles.author}> </div>
                <div className={styles.text}>
-                  <div className={styles.textMessege}>{messege.messege}</div>
-                  <div className={styles.date}>{formatDistanceToNow(messege.date)}</div>
+                  <div className={styles.textMessege}>{message.message}</div>
+                  <div className={styles.date}>{formatDistanceToNow(message.date)}</div>
                </div>
                
                </div>
-            </div>
+            </div> 
         )
     })}
     </div>
         <form onSubmit={handleSubmit} className={styles.form}>
-        <input type="text" placeholder="Messege..." onChange={handleChange} name="messege" autoComplete="off"/>
+        <input type="text" placeholder="Messege..." onChange={handleChange} name="message" autoComplete="off"/>
         <button type="submit">SEND</button>
     </form>
     </div>
     </div>
-    
     )
 }
