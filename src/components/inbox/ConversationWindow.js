@@ -49,7 +49,7 @@ export default function ConversationWindow({conversation, setOpenConversationPop
         <div className={openConversationPopup ? styles.conversationWindow : styles.none}>
         <div className={styles.mainDiv}>
             <div className={styles.exit} onClick={() =>setOpenConversationPopup(false) }></div>
-    <div id="container" className={styles.conversationWindow}>{conversation && conversation.messages.map(message => {
+    <div id="container" className={styles.conversationDiv}>{conversation && conversation.messages.map(message => {
         console.log("MESSEGE!!!", conversation)
         return (
             <div className={firebase.auth().currentUser.email === message.author ? styles.isCurrentUser : styles.messege}>

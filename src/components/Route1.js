@@ -147,7 +147,8 @@ function Route1({user}) {
             handleSubmit={handleSubmit}
             isLoading={isLoading}
             isEdited={isEdited}
-            isPopup={popup} />
+            isPopup={popup} 
+            handlePopup = {handlePopup}/>
     </section>
         <section className={styles.route1Charts}>
             <div className={styles.route1ChartFirst}><FirstChart userId={user.uid}/></div>

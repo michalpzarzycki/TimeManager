@@ -8,6 +8,7 @@ export default function SearchUserPopup({isUserSearch, allUsers, handleClick, co
     let [openConversationPopup, setOpenConversationPopup] = useState(false)
     let [urls, setUrls] = useState('')
 useEffect(() => {
+
     console.log("ALLPP", allUsers)
     let arr = []
     for(let i=0; i<allUsers.length; i++) {
@@ -25,7 +26,6 @@ useEffect(() => {
 setUrls(...arr)
 
     }
-
     // let arr = []
     // allUsers.forEach(user => {
     //     
@@ -35,10 +35,10 @@ setUrls(...arr)
 })
     return(
         <div className={isUserSearch ? styles.mainDiv : styles.none}>
-            <form>
+            {/* <form>
                 <input type="text" />
                 <button type="submit">SEARCH</button>
-            </form>
+            </form> */}
             <div>
                 {allUsers && allUsers.map(user => {
                     return <div className={styles.userDiv} style={{color:'white'}} onClick={() => {

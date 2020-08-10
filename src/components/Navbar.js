@@ -10,17 +10,21 @@ import { storage } from '../firebase/firebase'
 export default function Navbar({toggleSidebar, user}) {
     let [date, setDate] = useState('')
 useEffect(() => {
-    console.log("USE EFF")
-    storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL().then((url) => {
-        console.log("URL", url)
-        document.getElementById('userPicture').style.backgroundImage=`url(${url})`
-    }).catch(err => console.log("ERROR", err))
-    console.log("sadasd", date )
-    setInterval(() => {
-        let obj = new Date()
-        setDate(`${obj.getHours()}:${obj.getMinutes()}:${obj.getSeconds()}`)
-    }, 1000)
-},[])
+    if(user) {
+        console.log("JESTJES ")
+        console.log("KKKKKK", user)
+        storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL().then((url) => {
+            console.log("URLaaa", url, user.email)
+            document.getElementById('userPicture').style.backgroundImage = `url(${url})`
+        }).catch(err => console.log("ERROR", err))
+        console.log("sadasd", date )
+        setInterval(() => {
+            let obj = new Date()
+            setDate(`${obj.getHours()}:${obj.getMinutes()}:${obj.getSeconds()}`)
+        }, 1000)
+    }
+  
+},[user])
     function handleSignOut() {
         firebase.auth().signOut().then(() => {
             console.log("SignOutSuccf")
@@ -39,7 +43,7 @@ useEffect(() => {
     <Link to="/profile">
     <div className={styles.userSection}>
             <div id="userPicture" className={styles.picture}></div>
-<div className={styles.user}>{user.email}</div>
+<div className={styles.user}>{user && user.email}</div>
             <div className={styles.arrow}></div>
         </div>
     </Link>

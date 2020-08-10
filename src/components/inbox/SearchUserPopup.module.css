@@ -16,7 +16,16 @@
     display: flex;
     border: 1px solid white;
     width: 100%;
+    color: white !important;
+    background-color: rgba(0,0,0,0.8);
+    transition: all ease-in-out 0.5s;
     
+}
+.userDiv:hover {
+    background-color: rgba(255,255,255,0.8);
+    border: 1px solid black;
+    color: black !important;
+    cursor: pointer;
 }
 
 .userPhotoSection {
