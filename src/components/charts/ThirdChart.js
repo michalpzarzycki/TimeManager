@@ -4,7 +4,7 @@ import {db} from '../../firebase/firebase'
 import { defaults } from 'react-chartjs-2'
 
 
-defaults.global.defaultFontColor = 'white'
+defaults.global.defaultFontColor = 'black'
 defaults.global.defaultFontFamily = 'Arial'
 
 export default function ThirdChart({userId}) {
@@ -35,8 +35,8 @@ function charts() {
                         {
                             label: "Active tasks",
                             data: [...arr],
-                            backgroundColor: ['yellow', 'red', 'blue'],
-                            color: 'white'
+                            backgroundColor: ['#91e1c2', '#99c6f0', '#efdd95'],
+                            color: 'black'
                         }
                     ]
 }

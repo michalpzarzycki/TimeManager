@@ -64,12 +64,13 @@ function handleClick(email) {
 }
     return( 
         <div className={styles.inboxContainer}>
-            <button onClick={() => setIsUserSearch(!isUserSearch)}>SEARCH USER</button>
+            <button onClick={() => setIsUserSearch(!isUserSearch)} className={styles.btn}>SEARCH USER</button>
             <SearchUserPopup 
                     conversation={conversation}
                     allUserConversations={allUserConversations}
                     isUserSearch={isUserSearch}
                     allUsers={allUsers}
+                    setIsUserSearch={setIsUserSearch}
                     handleClick={handleClick}
                     />
             <InboxMesseges 

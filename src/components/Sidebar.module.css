@@ -7,7 +7,7 @@
    z-index: 5;
     width: 20%;
     min-height: 100vh;
-    background-color: grey;
+    background-color: rgb(43,62,77);
     border: 0 2px 0 0;
     border-color: white;
     opacity: 1;
@@ -20,20 +20,70 @@
    width: 0;
 
 }
-.profile, .settings, .inbox, .contact, .help, .logout {
+.profile, .settings, .inbox, .contact, .help, .logout, .myexcuses, .notes, .inspiration, .community {
     width: 100%;
     min-height: 50px;
-    background-color: grey;
+    background-color: rgb(43,62,77);
     border-bottom: 1px solid black;
     color: white;
+    line-height: 2.5;
 
 }
+
 .logout {
     cursor: pointer;
 }
-.logout:hover, .settings:hover, .inbox:hover, .contact:hover, .help:hover, .profile:hover {
+.logout:hover,
+.settings:hover, 
+.inbox:hover, 
+.contact:hover, 
+.help:hover, 
+.profile:hover, 
+.myexcuses:hover, 
+.notes:hover, 
+.inspiration:hover, 
+.community:hover {
     color: black;
     background-color: white;
+}
+.help:hover > span {
+    
+    background-image: url('../icons/sidebar/mainPageBlack.png');
+}
+.settings:hover > span {
+    
+    background-image: url('../icons/sidebar/settingsBlack.png');
+}
+.profile:hover > span {
+    
+    background-image: url('../icons/sidebar/profileBlack.png');
+}
+.inbox:hover > span {
+    
+    background-image: url('../icons/sidebar/inboxBlack.png');
+}
+.contact:hover > span {
+    
+    background-image: url('../icons/sidebar/contactBlack.png');
+}
+.community:hover > span {
+    
+    background-image: url('../icons/sidebar/communityBlack.png');
+}
+.inspiration:hover > span {
+    
+    background-image: url('../icons/sidebar/inspirationBlack.png');
+}
+.logout:hover > span {
+    background-image: url('../icons/sidebar/logoutBlack.png');
+}
+.notes:hover > span {
+    
+    background-image: url('../icons/sidebar/notesBlack.png');
+}
+.myexcuses:hover > span {
+    
+    background-image: url('../icons/sidebar/mainPageBlack.png');
 }
 .loader {
     position: absolute;
@@ -44,28 +94,80 @@
     z-index: 10;
     background-color: rgba(255,255,255,0.8);
 }
+.mainPageIcon, .profileIcon, .notesIcon, .settingsIcon, .inboxIcon, .contactIcon, .myexcusesIcon, .inspirationIcon, .communityIcon, .logoutIcon  {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-top: 15px;
+    margin-right: 8px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.mainPageIcon {
+    background-image: url('../icons/sidebar/mainPage.png');
+
+}
+.profileIcon {
+    background-image: url('../icons/sidebar/profile.png');
+
+}
+.notesIcon {
+    background-image: url('../icons/sidebar/notes.png');
+
+}
+.settingsIcon {
+    background-image: url('../icons/sidebar/settings.png');
+
+}
+.inboxIcon {
+    background-image: url('../icons/sidebar/inbox.png');
+
+}
+.contactIcon {
+    background-image: url('../icons/sidebar/contact.png');
+
+    
+}
+.myexcusesIcon {
+    background-image: url('../icons/sidebar/mainPage.png');
+
+}
+.inspirationIcon {
+    background-image: url('../icons/sidebar/inspirations.png');
+
+}
+.communityIcon {
+    background-image: url('../icons/sidebar/community.png');
+
+}
+.logoutIcon {
+    background-image: url('../icons/sidebar/logout.png');
+
+}
 @media (min-width:1000px) {
     .sidebarContainer{
         display: flex;
-     width: 20%;
+     width: 10%;
      height: 90vh;
         position: fixed;
         top: 10vh;
         left: 0;
-        background-color: grey;
+        background-color:  rgb(43,62,77);
     }
     .none {
         display: block;
         opacity: 1;
         visibility: visible;
-        background-color: grey;
+        background-color:  rgb(43,62,77);
         position: fixed;
         top: 10vh;
         left: 0;
         z-index: 10;
         height: 90vh;
-        width: 20%;
+        width: 15%;
         transform: translate(0,0);
     }
+
 
 }

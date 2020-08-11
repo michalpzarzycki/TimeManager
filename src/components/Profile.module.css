@@ -22,7 +22,9 @@
     transform: translate(-50%, -50%);
     width: 70%;
     height: 70%;
-    background-color: green;
+    background: rgb(39,182,131);
+background: linear-gradient(90deg, rgba(39,182,131,1) 0%, rgba(140,199,67,1) 100%);
+
 }
 .pictureSectionPopup {
     width: 100%;
@@ -36,7 +38,12 @@
 .exit {
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color: black;
+    cursor: pointer;
+    background-image: url('../icons/close.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     position: absolute;
     top: 0;
     right: 0;
@@ -44,7 +51,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.exit:hover {
+    background-color: rgba(0,0,0,0.7);
+}
 .picturePopup {
    width: 300PX;       
    height: 300PX;
@@ -154,10 +163,13 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+  
+
 }
 
 .infoSectionBox {
-    
+    background: rgb(241,28,97);
+    background: linear-gradient(90deg, rgba(241,28,97,1) 0%, rgba(252,90,20,1) 100%);
     min-width: 20%;
     padding: 25px;
     border-radius: 0 5px 0 5px;
@@ -165,9 +177,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    box-shadow: 0px 0px 10px 0px rgba(15,27,255,1);
-    background-color: blue;
-    color: white;
+    color: #e9eaec;
     letter-spacing: 2px;
 
 }
@@ -178,7 +188,8 @@
     height: 30px;
 }
 .infoSpanDetail {
-    color: blue;
+    margin-left: 8px;
+    color: white;
     letter-spacing: 2px;
 }
 

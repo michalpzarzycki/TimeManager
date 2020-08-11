@@ -30,7 +30,7 @@ function charts() {
                     {
                         label: "COMPLETED TASKS/WEEK",
                         data: [...arr],
-                        backgroundColor: ["rgba(255,12,33,0.5)", "blue", "green", "blue", "red", "blue", 'white', 'black'],
+                        backgroundColor: ["rgb(184,214,242, 0.8)"],
                         borderColor:'transparent',
                         borderWidth: 2
                     }

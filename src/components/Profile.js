@@ -17,12 +17,9 @@ import Loader from './Loader';
          if(user) {
         db.collection('users').where('email', '==', user.email).get().then((doc) => {
             doc.forEach(doc => {
-                console.log("DOC", doc.data(), doc.id)
                 
                 setUserData({...doc.data(), docId: doc.id})})
-            console.log("MISSION COMPLETE")
         }).catch(err => console.log("ERR", err))
-        console.log("aaa", user)
   
     }
         
@@ -34,7 +31,6 @@ import Loader from './Loader';
         if(user) {
             setIsPictureLoaded(true)
             storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL().then((url) => {
-                console.log("URL", url)
                 
                 document.getElementById('picturePopup').style.backgroundImage=`url(${url})`
                 document.getElementById('mainPicture').style.backgroundImage=`url(${url})`
@@ -89,7 +85,7 @@ import Loader from './Loader';
             <div className={openPopup ? styles.popup : styles.none}>
                 <section className={styles.pictureSectionPopup}>
                 <div className={styles.exit} onClick={() => setOpenPopup(false)}>
-                    <span>X</span>
+                  
                 </div>
                {isPictureLoaded ?  <div id="picturePopup" className={styles.picturePopup}></div> : <div className={styles.loader}><Loader /></div>}
                 </section>
@@ -101,18 +97,12 @@ import Loader from './Loader';
                         <progress className={styles.progress} value="0" max="100" id="uploader">0%</progress>
                     </div>
                 </section>
-                <section className={styles.buttonsSectionPopup}>
-                    <div className={styles.buttons}>
-                        <button className={styles.confirmButton}>CONFIRM</button>
-                        <button className={styles.cancelButton}>CANCEL</button>
-                    </div>
-                </section>
             </div>
             <div className={styles.background}></div>
             <section className={styles.photoSection}>
                 <div className={styles.picture} id="mainPicture"></div>
                 <div className={styles.name}>Selena Gomez</div>
-                <button onClick={handlePictureChange}>CHANGE PROFILE PICTURE</button>
+                <button onClick={handlePictureChange} style={{cursor:"pointer"}}>CHANGE PROFILE PICTURE</button>
             </section>
             <section className={styles.infoSection}>
                 <div className={styles.infoSectionBox}>
@@ -126,6 +116,7 @@ import Loader from './Loader';
                             readOnly 
                             onDoubleClick={event => handelDoubleClick(event)}
                             onChange = {(event) => handleChange(event)}
+                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
                             />
                     <span id='nickname' 
                             onClick={e => handleEdit(e)} 
@@ -138,6 +129,7 @@ import Loader from './Loader';
                             readOnly 
                             onDoubleClick={event => handelDoubleClick(event)}
                             onChange = {(event) => handleChange(event)}
+                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
                             />
                     <span id='telephone' 
                             onClick={e => handleEdit(e)}  
@@ -150,6 +142,7 @@ import Loader from './Loader';
                             readOnly 
                             onDoubleClick={event => handelDoubleClick(event)}
                             onChange = {(event) => handleChange(event)}
+                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
                             />
                     <span id='city' 
                             onClick={e => handleEdit(e)} 
@@ -162,6 +155,7 @@ import Loader from './Loader';
                             readOnly 
                             onDoubleClick={event => handelDoubleClick(event)}
                             onChange = {(event) => handleChange(event)}
+                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
                             />
                     <span id='city'
                             onClick={e => handleEdit(e)}
@@ -174,14 +168,13 @@ import Loader from './Loader';
                             readOnly 
                             onDoubleClick={event => handelDoubleClick(event)}
                             onChange = {(event) => handleChange(event)}
+                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
                             />
                     <span id='description' 
                             onClick={e => handleEdit(e)} 
                             className={styles.noneEdit}
                             ></span>
                     </div>
-                <div>Ilosc zrobionych taskow: <span className={styles.infoSpanDetail}>NIE WIEM JESZCZE</span></div>
-                <div>Znajomi: <span className={styles.infoSpanDetail}>....</span></div>
                 {isChanged && <button onClick={handleEdit}>SUBMIT CHANGES</button>}
                 </div>
             </section>

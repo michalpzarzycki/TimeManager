@@ -14,6 +14,8 @@ export default function Notes({user}) {
     const [note, setNote] = useState({})
     const [uniqueId, setUniqueId] = useState(uniqid())
     let [time, setTime] = useState('')
+    let [isPopup, setIsPopup] = useState(false)
+    let [popupNote, setPopupNote] = useState('')
 
     useEffect(() => {
       
@@ -23,7 +25,6 @@ export default function Notes({user}) {
             setNotes([...arr])
         
         })
-        console.log("SUCCES", notes)
     }, [])
 
 
@@ -64,6 +65,10 @@ function handleChange(event, name='') {
         let y = x.getFullYear()
         return format(new Date(miliseconds), 'do MMMM yyyy HH:mm')
     }
+    function handlePopup(doc) {
+        setPopupNote(doc)
+        setIsPopup(true)
+    }
     return(
         <div className={styles.notesContainer}>
             <section className={styles.addNoteSection}>
@@ -74,8 +79,14 @@ function handleChange(event, name='') {
                 </form>
             </section>
             <section className={styles.myNotesSection}>
-                <div className={styles.addReminderPopup}>
-                    <form>
+                <div className={isPopup ? styles.noteDetails : styles.none}>
+                    <div className={styles.exit} onClick={() => setIsPopup(false)}>X</div>
+                        <div>
+                             <div>NOTE: {popupNote && popupNote.note}</div>
+                             <div>NOTE: {}</div>
+                             <div>NOTE: {}</div>
+                        </div>
+                    {/* <form>
                         <DatePicker 
                                 autoComplete="off"
                                    selected={time}
@@ -88,12 +99,12 @@ function handleChange(event, name='') {
                                        setTime(x)
                                    }}
                         />
-                    </form>
+                    </form> */}
                 </div>
                 <div className={styles.notesList}>
              {notes.map(doc => {
                  console.log("NOTES", notes, user)
-                 return <div className={styles.note}>
+                 return <div className={styles.note} onClick={() => handlePopup(note)}>
                      <div className={styles.date}>ADDED: {formattedDate(doc.date)}</div>
                      <div className={styles.content}><p>{doc.note}</p></div>
                      {doc.reminder && <div><span className={styles.alarm}></span>: {formattedDate(doc.reminder)}</div>}

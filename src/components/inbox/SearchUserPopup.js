@@ -4,7 +4,7 @@ import ConversationWindow from './ConversationWindow';
 import {storage} from '../../firebase/firebase'
 
 
-export default function SearchUserPopup({isUserSearch, allUsers, handleClick, conversation}) {
+export default function SearchUserPopup({isUserSearch,setIsUserSearch, allUsers, handleClick, conversation}) {
     let [openConversationPopup, setOpenConversationPopup] = useState(false)
     let [urls, setUrls] = useState('')
 useEffect(() => {
@@ -35,6 +35,7 @@ setUrls(...arr)
 })
     return(
         <div className={isUserSearch ? styles.mainDiv : styles.none}>
+            <div className={styles.exit} onClick={() => setIsUserSearch(false)}></div>
             {/* <form>
                 <input type="text" />
                 <button type="submit">SEARCH</button>

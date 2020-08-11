@@ -116,7 +116,7 @@ position: relative;
     background-size: contain;
 }
 
-.addReminderPopup {
+.noteDetails {
     position: fixed;
     z-index: 5;
     top: 50%;
@@ -125,4 +125,17 @@ position: relative;
     width: 50%;
     height: 50%;
     background-color: black;
+    color: wheat;
+}
+.exit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: wheat;
+}
+
+.none {
+    display: none;
 }

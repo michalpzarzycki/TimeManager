@@ -1,12 +1,12 @@
 .routerDiv {
   position: absolute;
-  left: 20%;
-  width: 80%;
+  left: 15%;
+  width: 85%;
   height: 90vh;
   display: flex;
   flex-direction: row;
   overflow-y: scroll;
-  background-color: gray;
+  background-color: rgb(237,242,246);
   position: relative;
 }
 @media (min-width:1000px) {

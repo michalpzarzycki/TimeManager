@@ -32,11 +32,26 @@ function charts() {
                     {
                         label: "COMPLETED TASKS/MONTH",
                         data: [...arr],
-                        backgroundColor: ["rgba(255,12,33,0.5)", "blue", "green", "blue", "red", "blue", 'white', 'black'],
-                        borderColor:'transparent',
-                        borderWidth: 2
+                        backgroundColor: ["#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4", "#74b4e4"],
+                        borderColor:'rgba(255,255,255,1)',
+                        borderWidth: 1,
+                        yAxes: [{
+                            gridLines: {
+                                zeroLineColor: '#ffcc33'
+                            }
+                        }]
                     }
-                ]
+                ],
+                options: {
+                    legend:{
+                        labels: {
+                            fontColor: "black"
+
+                        }
+                    } 
+                    
+                }
+            
 }
     )
 }
