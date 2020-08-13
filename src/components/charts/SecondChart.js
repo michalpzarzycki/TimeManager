@@ -34,14 +34,18 @@ function charts() {
                         borderColor:'transparent',
                         borderWidth: 2
                     }
-                ]
+                ],
+                options: {
+                responsive: true,
+                maintainAspectRatio: false
+                }
 }
     )
 }
         return (
-            <div>
-                               <Line data={chartData} options={{ maintainAspectRatio: false }}/>
-            </div>
+            
+                               <Line data={chartData} />
+            
         )
     }
 

@@ -148,7 +148,7 @@ function setUncompletedTask(task) {
         task.importance==2 &&  "important" ||
         task.importance==3 &&  "very important"
     }</div>
-    <div className={styles.deadline}>{formatDistance(
+    <div className={styles.deadline}>{task.deadline && formatDistance(
   new Date(task.deadline),
   Date.now(),
   { addSuffix: true }

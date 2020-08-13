@@ -105,9 +105,9 @@ function handleChange(event, name='') {
              {notes.map(doc => {
                  console.log("NOTES", notes, user)
                  return <div className={styles.note} onClick={() => handlePopup(note)}>
-                     <div className={styles.date}>ADDED: {formattedDate(doc.date)}</div>
+                     <div className={styles.date}>ADDED: {doc.date && formattedDate(doc.date)}</div>
                      <div className={styles.content}><p>{doc.note}</p></div>
-                     {doc.reminder && <div><span className={styles.alarm}></span>: {formattedDate(doc.reminder)}</div>}
+                     {doc.reminder && <div><span className={styles.alarm}></span>: {doc.reminder && formattedDate(doc.reminder)}</div>}
                  </div>
              })}
                 </div>

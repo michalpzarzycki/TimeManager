@@ -34,6 +34,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     
     
 }
@@ -64,7 +65,10 @@
     border: 1px solid white;
     box-shadow: 0px 0px 5px 0px rgba(255,255,255,0.75);
     background-color: rgba(255,255,255,1);
+    top: 0;
+    
 }
+
 
 .route1TasksNav {
     min-height: 100px;
@@ -149,7 +153,6 @@ span{
     box-shadow: 2px 2px 10px 0px rgba(71,71,210,1);
 }
 .route1TasksSection {
-    min-height: 500px;
     text-align: center;
     width: 100%;
     display: flex;
@@ -194,8 +197,22 @@ span{
 .none {
     display: none;
 }
-
+.route1ChartSecond {
+    display: none;
+}
+.route1ChartThird {
+    display: none;
+}
+.route1Charts {
+}
 @media (min-width:1000px) {
+  
+    .route1ChartSecond {
+        display: flex;
+    }
+    .route1ChartThird {
+        display: flex;
+    }
     .route1Charts {
         flex-direction: row;
         height: auto;
@@ -203,7 +220,6 @@ span{
     }
     .route1ChartFirst, .route1ChartSecond, .route1ChartThird {
         width: 30%;
-        height: auto;
-        margin: 0 10px;
+    
     }
 }

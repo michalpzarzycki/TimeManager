@@ -38,7 +38,10 @@ function charts() {
                             backgroundColor: ['#91e1c2', '#99c6f0', '#efdd95'],
                             color: 'black'
                         }
-                    ]
+                    ],    options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false
+                                }
 }
     )
 }
@@ -67,9 +70,9 @@ function charts() {
     // }, []) 
     
         return (
-            <div>
-          <Doughnut data={chartData}/>
-            </div>
+            
+          <Doughnut data={chartData}   />
+            
         )
     }
 

@@ -29,10 +29,28 @@ function App(props) {
   let [userId, setUserId] = useState('')
   let [userEmail, setUserEmail] = useState('')
   let [load, setLoad] = useState(false)
-
+useEffect(()=>{
+  toggleSidebar()
+}, [])
 
   function toggleSidebar() {
+    console.log("TOGGLE", toggle)
     setToggle(!toggle)
+    if(toggle===true) {
+      if(window.innerWidth<1000) {
+        document.getElementsByClassName('routerDiv')[0].style.width="100%";
+        document.getElementsByClassName('routerDiv')[0].style.left="0"
+
+      } else {
+        document.getElementsByClassName('routerDiv')[0].style.width="85%";
+        document.getElementsByClassName('routerDiv')[0].style.left="15%"
+      }
+    } else {
+      document.getElementsByClassName('routerDiv')[0].style.width="85%";
+      document.getElementsByClassName('routerDiv')[0].style.left="15%"
+    } 
+  
+    
 }
 function userIdSetter(uid) {
 setUserId(uid)

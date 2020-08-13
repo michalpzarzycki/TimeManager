@@ -43,14 +43,10 @@ function charts() {
                     }
                 ],
                 options: {
-                    legend:{
-                        labels: {
-                            fontColor: "black"
-
-                        }
-                    } 
-                    
+                    responsive: true,
+                    maintainAspectRatio: true,
                 }
+          
             
 }
     )
@@ -58,9 +54,9 @@ function charts() {
 
 
         return (
-            <div className={styles.mainDiv}>
-                <Bar data={chartData} options={{ maintainAspectRatio: false }}/>
-            </div>
+     
+                <Bar data={chartData} />
+         
         )
     }
 
