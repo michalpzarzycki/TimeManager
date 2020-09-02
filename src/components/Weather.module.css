@@ -1,0 +1,35 @@
+.mainDiv {
+    width: 100px;
+    height: 100%;
+    position: relative;
+    border: 1px solid black;
+}
+
+.temp {
+    width: 50px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 4;
+}
+
+.city {
+    width: 75px;
+    height: 20px;
+    position: absolute;
+    bottom: 5px;
+    z-index: 3;
+}
+
+.icon {
+    width: 70px;
+    position: absolute;
+    height: 70px;
+    left: 25px;
+    top: 10px;
+    z-index: 2;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
