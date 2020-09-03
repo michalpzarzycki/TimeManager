@@ -24,16 +24,13 @@ import Loader from './components/Loader'
 
 function App(props : RouteComponentProps) : any  {
   const [toggle, setToggle] = useState(false)
-  const [user, setUser] = useState({email:"", password:""})
   let [userId, setUserId] = useState('')
   let [userEmail, setUserEmail] = useState('')
-  let [load, setLoad] = useState(false)
 useEffect(()=>{
   toggleSidebar()
 }, [])
 
   function toggleSidebar() {
-    console.log("TOGGLE", toggle)
     setToggle(!toggle)
     if(toggle===true) {
       if(window.innerWidth<1000) {
@@ -57,12 +54,10 @@ useEffect(()=>{
   
     
 }
-function userIdSetter(uid : any) {
-setUserId(uid)
-}
-function userEmailSetter(email : any) {
-  setUserEmail(email)
-  }
+const userIdSetter = (uid : any) => setUserId(uid)
+
+const userEmailSetter = (email : any) => setUserEmail(email)
+  
 
 const isLoggedIn = useAuth().isLoggedIn;
 // function getData() {

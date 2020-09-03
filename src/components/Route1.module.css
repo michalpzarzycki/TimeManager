@@ -203,8 +203,7 @@ span{
 .route1ChartThird {
     display: none;
 }
-.route1Charts {
-}
+
 @media (min-width:1000px) {
   
     .route1ChartSecond {

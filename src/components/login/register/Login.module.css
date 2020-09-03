@@ -3,13 +3,22 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    position: relative;
 
 }
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.rightSide {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
 }
@@ -17,82 +26,25 @@
     display:none;
 }
 @media (min-width: 1000px) {
-    .form {
-        width: 50%;
-    }
+  
 .leftSide{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100vh;
-    background-color: transparent;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
-    position: relative;
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 50%;
+ height: 100vh;
+ display: inline-block;
+}
+.rightSide {
+ position: fixed;
+ display: inline-block;
+ top: 0;
+ left: 50%;
+ width: 50%;
+ height: 100vh;
+}
 
-}
-.leftSideUserDiv {
-    width: 60%;
-    height: 40%;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius:30px;
-    z-index: 5;
-    background-color: violet;
-    
-}
 .form {
-    z-index: 5;
-    width: 60%;
-    background-color: white;
-}
-.leftSideUserDivHeader {
-    width: 100%;
-    height: 30%;
-    text-align: center;
-}
-.leftSideUserDivUsers {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.user1, .user2, .user3 {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-position: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
-    filter: contrast(0.5);
-    transition: all 0.2s;
-    cursor: pointer;
-    border: 1px solid transparent
-
-
-}
-.user1 {
-    background-image: url('../../../images/ariana.jpg');
-
-}
-
-.user2 {
-    background-image: url('../../../images/michal.jpg');
-}
-.user3 {
-
-    background-image: url('../../../images/selena.jpg');
-}
-.user1:hover, .user2:hover, .user3:hover {
-    filter: contrast(1);
-    border: 1px solid rgb(15,27,255);
-    box-shadow: 0px 0px 10px 0px rgba(15,27,255,1);
-
 
 }
 
