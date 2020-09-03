@@ -14,6 +14,7 @@ import AddPopup from './taskslist/AddPopup';
 import DeletePopup from './taskslist/DeletePopup';
 import Details from './taskslist/Details';
 import SearchInput from './SearchInput';
+import Route1Charts from '../components/charts/Route1Charts'
 interface ITask {
     id?:any,
     photo?:any,
@@ -159,11 +160,12 @@ function Route1({user} : any) {
             isPopup={popup} 
             handlePopup = {handlePopup}/>
     </section>
-        <section className={styles.route1Charts}>
+    <Route1Charts user={user}/>
+        {/* <section className={styles.route1Charts}>
             <div className={styles.route1ChartFirst}><FirstChart userId={user && user.uid}/></div>
             <div className={styles.route1ChartSecond}><SecondChart  userId={user && user.uid}/></div>
             <div className={styles.route1ChartThird}><ThirdChart userId={user && user.uid}/></div>
-        </section>
+        </section> */}
         <section className={styles.route1TasksNav}>
     <SearchInput />
             <div className={styles.route1TasksNav_createDiv}>

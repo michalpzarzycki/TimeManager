@@ -1,0 +1,51 @@
+@keyframes opacity {
+    from{opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes moveUp {
+    from {transform: translate(0, 0);}
+    to {transform: translate(0,-100px);}
+}
+
+
+.route1Charts {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    
+}
+
+.route1ChartSecond {
+    display: none;
+}
+.route1ChartThird {
+    display: none;
+}
+
+
+
+
+
+@media (min-width:1000px) {
+  
+    .route1ChartSecond {
+        display: flex;
+    }
+    .route1ChartThird {
+        display: flex;
+    }
+    .route1Charts {
+        flex-direction: row;
+        height: auto;
+        padding-top: 20vh;
+    }
+    .route1ChartFirst, .route1ChartSecond, .route1ChartThird {
+        width: 30%;
+    
+    }
+}
