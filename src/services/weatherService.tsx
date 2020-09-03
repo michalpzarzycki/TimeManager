@@ -9,17 +9,30 @@ export default class weatherService {
         this.data = this.getData()
     }
     async getData() {
+        try {
         let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${KEY}`)
         let jsonData = await data.json()
         return jsonData
+        } catch(err) {
+            throw Error("sth went wrong"+err)
+        }
     }
     async getTemp() {
+        try {
         let data =  await this.data
         return data.main.temp
+        } catch(err) {
+            throw Error('sth went wrong'+err)
+        }
+
     }
     async getCity() {
+        try {
         let data =  await this.data
         return data.name
+        } catch(err) {
+            throw Error('sth went wrong '+ err)
+        }
     }
     async getIcon() {
         let data =  await this.data

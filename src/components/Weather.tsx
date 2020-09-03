@@ -23,7 +23,6 @@ export default function Weather() {
             })}
     }, [])
     useEffect(()=>{
-        console.log("PPPP", weather)
         let iconElem = document.querySelector('#icon') as HTMLElement
         iconElem.style.backgroundImage = `url(http://openweathermap.org/img/w/${weather.icon}.png)`
     }, [weather])
