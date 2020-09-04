@@ -1,7 +1,8 @@
+//Function gets all user input data from register and check if there are valid.
+//Return errors messages and true if inputs are valid or false if not
 
 
-
-export function useRegisterValidate(user: any) {
+export function useRegisterValidate({ email, file, password,repeatPassword , name, surname, nickname, telephone, city, country, description}: any) {
     let errors = {
         email : '',
         password: '',
@@ -28,20 +29,30 @@ export function useRegisterValidate(user: any) {
         country:/^\w{2,20}$/,
         description:/^\w{5,140}$/
     }
-    console.log("USER",user, "USERFILE", user)
-    if(user.password && !regex.password.test(user.password)) errors.password="ZA KROTKIE"
-    if(user.repeatPassword && user.password !== user.repeatPassword) errors.repeatPassword="HASLA MUSZA BYC TAKIE SAME"
-    if(user.name && !regex.name.test(user.name)) errors.name="Name has to have from 2 to 20 characters"
-    if(user.surname && !regex.surname.test(user.surname)) errors.surname="Surname has to have from 2 to 30 characters"
-    if(user.nickname && !regex.nickname.test(user.nickname)) errors.nickname="Nickname has to have from 2 to 15 characters"
-    if(user.telephone && !regex.telephone.test(user.telephone)) errors.telephone="Telephone has to contain 9 digits"
-    if(user.city && !regex.city.test(user.city)) errors.city="City has to have from 2 to 20 characters"
-    if(user.country && !regex.country.test(user.country)) errors.country="Country has to have from 2 to 20 characters"
-    if(user.description && !regex.description.test(user.description)) errors.description="Surname has to have from 2 to 20 characters"
-    if(user.file !== 'image/jpeg') errors.file="We require .jpg files. Check your file type"
+    //Password length validation
+    if(password && !regex.password.test(password)) errors.password="ZA KROTKIE"
+    //Check if passwords are the same
+    if(repeatPassword && password !== repeatPassword) errors.repeatPassword="HASLA MUSZA BYC TAKIE SAME"
+    //Name validation
+    if(name && !regex.name.test(name)) errors.name="Name has to have from 2 to 20 characters"
+    //Surname validation
+    if(surname && !regex.surname.test(surname)) errors.surname="Surname has to have from 2 to 30 characters"
+    //Nickname validation
+    if(nickname && !regex.nickname.test(nickname)) errors.nickname="Nickname has to have from 2 to 15 characters"
+    //Telephone validation
+    if(telephone && !regex.telephone.test(telephone)) errors.telephone="Telephone has to contain 9 digits"
+    //City validation
+    if(city && !regex.city.test(city)) errors.city="City has to have from 2 to 20 characters"
+    //Country validation
+    if(country && !regex.country.test(country)) errors.country="Country has to have from 2 to 20 characters"
+    //Description validation
+    if(description && !regex.description.test(description)) errors.description="Surname has to have from 2 to 20 characters"
+    //Image file validation
+    if(file !== 'image/jpeg') errors.file="We require .jpg files. Check your file type"
 
-    function checkIfValidated() {
-        if(user.password && user.email && user.name && user.surname && user.nickname && user.repeatPassword) {
+    function checkIfValidated(): boolean {
+        // check if every input is valid and if there is no error
+        if(password && email && name && surname && nickname && repeatPassword) {
             if(!errors.password && !errors.email && !errors.name && !errors.surname && !errors.nickname && !errors.repeatPassword)
                 return true
         }
@@ -50,6 +61,6 @@ export function useRegisterValidate(user: any) {
   let isValidate = checkIfValidated()
     
 
-
+//Return errors(an object) and isValidate(boolean) 
     return { errors, isValidate }
 }

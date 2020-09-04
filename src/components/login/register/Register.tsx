@@ -36,49 +36,71 @@ interface IUser {
 export default function Register() {
     //State of all user data from register input
     const [user, setUser] = useState<IUser>({...INIT_STATE});
+    let { email, password, name, surname, nickname, telephone, city, country, description } = user
+
     //Returning all error messages from from validation and isValidate boolean
     const { errors, isValidate } = useRegisterValidate(user);
     //State of disabled button(in case of not pass validation)
     let [buttonDisabled, setButtonDisabled] = useState(true);
     //State of loading button(validation is ok, form is sending to firebase)
     let [buttonLoading, setButtonLoading] = useState(false)
+    //State of createUserWithEmailAndPassword error message
+    let [signUpErrorMessage, setSignUpErrorMessage] = useState<string>('')
     let [file, setFile] = useState<any>('')
     
 
     function handleChange(e : any) {
         setUser({...user, [e.target.name]: e.target.value})
+        //switch on/off disabled button depended on isValidate return
         isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
     }
     function handleFileChange(e : any) {
         setUser({...user, 'file': e.target.files[0].type})
         setFile(e.target.files[0])
+        //switch on/off disabled button depended on isValidate return
         isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
     }
     function handleSubmit(e : any) {
         e.preventDefault()
+        //If form inputs are validated
         if(isValidate) {
+            //Turn on Loading Button
             setButtonLoading(true)
-            firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(() => {
+            //Create User
+            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+            .then(() => {
+                //Turn off Loading Button
                 setButtonLoading(false)
-            }).catch(e => {
+                //Make sure that there can not be any error messages
+                setSignUpErrorMessage('')
+            }).catch((error) => {
+                //Turn off Loading Button
                 setButtonLoading(false)
-            })
-            storage.ref().child(`profiles/${user.email}.jpg`).put(file).then(() => {
-            }).catch((err) => {
+                //Set signInErrorMessage
+                setSignUpErrorMessage(error.message)
 
             })
-        } else {
-        }
+            //Add user image to firebase storage
+            storage.ref().child(`profiles/${user.email}.jpg`)
+            .put(file)
+            .then(() => {
+
+            })
+            .catch((error) => {
+
+            })
+        } 
+        //Add user data to firestore
         db.collection("users").add({
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            surname: user.surname,
-            nickname: user.nickname,
-            telephone: user.telephone,
-            city:user.city,
-            country: user.country,
-            description: user.description})
+            email,
+            password,
+            name,
+            surname,
+            nickname,
+            telephone,
+            city,
+            country,
+            description})
         .then(() => {
             console.log("Document successfully written!");
         })
@@ -89,6 +111,7 @@ export default function Register() {
     return <div className={styles.mainDiv}>
       <h1 className={styles.header}>REGISTER FORM</h1>
         <form className={styles.form}>
+            {signUpErrorMessage && <h1>{signUpErrorMessage}</h1>}
             <TextInput 
                 type="email" 
                 placeholder="email" 
