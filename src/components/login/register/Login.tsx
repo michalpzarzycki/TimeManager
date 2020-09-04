@@ -4,6 +4,7 @@ import TextInput from './Inputs/TextInput';
 import styles from './Login.module.css'
 import { withRouter } from 'react-router-dom'
 import Hexagon from '../../Hexagon';
+import Loader from '../../Loader';
 
 function Login({ history, userIdSetter, userEmailSetter }: any) {
     interface IUser {
@@ -11,21 +12,29 @@ function Login({ history, userIdSetter, userEmailSetter }: any) {
         password: string,
         name?: any
     }
-
+    const [isLoading, setIsLoading] = useState(false)
     //State of user inputs from Login form
     const [user, setUser] = useState<IUser>({ email: "", password: "" })
+    //State of firebase signIn error 
+    const [signInError, setSignInError] = useState<string>('')
     //Setter of inputs change
     const handleChange = (e: any) => setUser({ ...user, [e.target.name]: e.target.value })
     //Login form submit
     function handleSubmit(event: any) {
+        setIsLoading(true)
         event.preventDefault()
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((x: any) => {
+        firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((x: any) => {    
             userIdSetter(x.user.uid)
             userEmailSetter(x.user.email)
+            setIsLoading(false)
+            setSignInError('')
+            history.push("/")
         }).catch(error => {
-            console.log("OH NO, WE HAVE GOT AN ERROR ;(", error)
+            setIsLoading(false)
+            setSignInError(error.message)
         })
-        history.push("/")
+
+        
     }
 
 
@@ -40,11 +49,13 @@ function Login({ history, userIdSetter, userEmailSetter }: any) {
 
     return (
         <div className={styles.mainDiv}>
+            <div className={isLoading ?  styles.loader : styles.none}><Loader /></div>
             <section className={styles.leftSide}>
                 <Hexagon />
             </section>
             <section className={styles.rightSide}>
                 <form className={styles.form} onSubmit={handleSubmit} >
+                    {signInError && <h1 className={styles.errorMessage}>{signInError}</h1>}
                     <TextInput type="email" placeholder="email" name="email" value={user.name} handleChange={handleChange} />
                     <TextInput type="password" placeholder="password" name="password" value={user.password} handleChange={handleChange} />
                     <button type="submit">ENTER</button>

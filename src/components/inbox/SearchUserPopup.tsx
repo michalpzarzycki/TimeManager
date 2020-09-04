@@ -9,7 +9,6 @@ export default function SearchUserPopup({isUserSearch,setIsUserSearch, allUsers,
     let [urls, setUrls] = useState<any>('')
 useEffect(() => {
 
-    console.log("ALLPP", allUsers)
     let arr : any[] = []
     for(let i=0; i<allUsers.length; i++) {
         let user = allUsers[i]
@@ -31,7 +30,7 @@ setUrls([...arr])
 
     // })
    
-})
+}, [])
     return(
         <div className={isUserSearch ? styles.mainDiv : styles.none}>
             <div className={styles.exit} onClick={() => setIsUserSearch(false)}></div>

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Notes.module.css'
-import FirstChart from '../charts/FirstChart';
-import SecondChart from '../charts/SecondChart';
-import ThirdChart from '../charts/ThirdChart';
 import {db} from '../../firebase/firebase'
 import { format } from 'date-fns';
 import DatePicker from "react-datepicker";
@@ -26,17 +23,11 @@ export default function Notes({user}: any) {
         
         })
     }, [])
-
-
-
-
-
     
 function handleChange(event: any, name='') {
             if(name==='deadline') {
-                let x = new Date(event)
-    
-                setNote({...note, 'reminder':x.getTime()})
+                let date = new Date(event)    
+                setNote({...note, 'reminder': date.getTime()})
             } else {
                 setNote({...note, [event.target.name]:event.target.value, date: Date.now()})
             }
@@ -50,7 +41,6 @@ function handleChange(event: any, name='') {
         let fullNote = {
             ...note, noteId: uniqueId, userId: user.uid 
         }
-        console.log("FULL NOTE", fullNote)
         db.collection('notes').add({...fullNote}).then(() => {
             console.log("Note added")
         }).catch(err => {
@@ -59,10 +49,10 @@ function handleChange(event: any, name='') {
     }
     function formattedDate(miliseconds: any) {
         let num = Number(miliseconds)
-        let x = new Date(num)
-        let d = x.getDay()
-        let m = x.getMonth()
-        let y = x.getFullYear()
+        let date = new Date(num)
+        let day = date.getDay()
+        let month = date.getMonth()
+        let year = date.getFullYear()
         return format(new Date(miliseconds), 'do MMMM yyyy HH:mm')
     }
     function handlePopup(doc: any): void {

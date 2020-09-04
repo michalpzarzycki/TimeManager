@@ -1,9 +1,9 @@
 const KEY = '073634a91c2b50b2af6e10147e4f385e';
 export default class weatherService {
-    lat: any
-    lon: any
+    lat: number
+    lon: number
     data: any
-    constructor(lat: any, lon: any) {
+    constructor(lat: number, lon: number) {
         this.lat = lat;
         this.lon = lon
         this.data = this.getData()

@@ -3,9 +3,7 @@ import MyExcusesChart from '../charts/MyExcusesChart'
 import styles from './MyExcuses.module.css'
 import {db} from '../../firebase/firebase'
 import uniqId from 'uniqid'
-import TopExcuses from './excuses/TopExcuses';
-import NewestExcuses from './excuses/NewestExcuses';
-import AllExcuses from './excuses/AllExcuses';
+import ExcusesList from './excuses/ExcusesList'
 interface IExcuse {
     date: any,
 
@@ -23,9 +21,8 @@ export default function MyExcuses({user} : any) {
         })
     }, [])
 
-    function handleChange(event: any) {
-        setExcuse({...excuse, [event.target.name]:event.target.value, date: Date.now()})
-    }
+    const handleChange = (event: any) => setExcuse({...excuse, [event.target.name]:event.target.value, date: Date.now()})
+
 function handleSubmit(event: any) {
     event.preventDefault()
     setExcuseId(uniqId)
@@ -40,14 +37,9 @@ function handleSubmit(event: any) {
     }).catch(err => {
         console.log("error excuses", err)
     })
-
 }
- function handleCounter(docId: any, counter: any) {
-
-    db.collection('excuses').doc(docId).update({
-        excuseCounter: counter+1 
-    })
- }
+const handleCounter = (docId: any, counter: any) => db.collection('excuses').doc(docId).update({excuseCounter: counter+1})
+ 
 
     return(
         <div className={styles.myExcusesContainer}>
@@ -59,16 +51,18 @@ function handleSubmit(event: any) {
                 </form>
             </section>
             <section className={styles.excusesLists}>
-                <TopExcuses excuses={excuses} handleCounter={handleCounter}/>
-                <NewestExcuses excuses={excuses} handleCounter={handleCounter}/>
-                <AllExcuses  excuses={excuses} handleCounter={handleCounter}/>
-                {excuses.map((elem: any) => {
-                  
-                    return <div>
-                        <div>{elem.excuse}</div>
-                        <div onClick={() => handleCounter(elem.docId, elem.excuseCounter)}>UP {elem.excuseCounter}</div>
-                    </div>
-                })}
+                <ExcusesList 
+                    sorted={excuses} 
+                    handleCounter={handleCounter} 
+                    header='TOP'/>
+                <ExcusesList 
+                    sorted={excuses} 
+                    handleCounter={handleCounter} 
+                    header='NEWEST'/>
+                <ExcusesList 
+                    sorted={excuses} 
+                    handleCounter={handleCounter} 
+                    header='ALL'/>
             </section>
         </div>
     )
