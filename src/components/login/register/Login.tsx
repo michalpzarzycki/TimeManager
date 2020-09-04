@@ -26,11 +26,16 @@ function Login({ history, userIdSetter, userEmailSetter }: any) {
         firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((x: any) => {    
             userIdSetter(x.user.uid)
             userEmailSetter(x.user.email)
+            //Turn on the Loader
             setIsLoading(false)
+            //Make sure that there can not be any error messages
             setSignInError('')
+            //Switch route to /
             history.push("/")
         }).catch(error => {
+            //Turn off the Loader
             setIsLoading(false)
+            //Display error mesage
             setSignInError(error.message)
         })
 
