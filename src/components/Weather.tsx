@@ -10,17 +10,9 @@ interface IWeather  {
 export default function Weather() {
     const [weather, setWeather] = useState<IWeather>({temp:'', city:'', icon:''})
     useEffect(() => {
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(async (position) => {
-               let lat = position.coords.latitude;
-               let lon = position.coords.longitude
-               let myWeather = new weatherService(lat, lon)
-               let temp = await myWeather.getTemp();
-               let city = await myWeather.getCity();
-               let icon = await myWeather.getIcon();
-               setWeather({city:city, icon:icon, temp: temp})
-               
-            })}
+            weatherService.getWeather().then((data: any) => {
+                setWeather({city:data.name, icon:data.weather[0].icon, temp: data.main.temp})
+            })
     }, [])
     useEffect(()=>{
         let iconElem = document.querySelector('#icon') as HTMLElement
