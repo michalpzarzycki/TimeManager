@@ -15,6 +15,17 @@ export default class loginService {
                         })
                     })
     }
+    static async signOut() {
+        return new Promise((resolve, reject) => {
+            firebase.auth().signOut()
+                    .then(() => {
+                        resolve()
+                    })
+                    .catch((err) => {
+                        reject(err)
+                    })
+        })
+    }
 }
 
 
