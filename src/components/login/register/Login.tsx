@@ -41,17 +41,6 @@ function Login({ history, userIdSetter, userEmailSetter }: any) {
 
         
     }
-
-
-    function handleSignOut() {
-        firebase.auth().signOut().then(() => {
-            console.log("SignOutSuccf")
-        })
-            .catch(() => {
-                console.log("EROORSIGNOUT")
-            })
-    }
-
     return (
         <div className={styles.mainDiv}>
             <div className={isLoading ?  styles.loader : styles.none}><Loader /></div>

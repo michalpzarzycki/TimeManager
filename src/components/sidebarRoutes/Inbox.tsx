@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Inbox.module.css'
 import InboxMesseges from '../inbox/InboxMesseges';
 import SearchUserPopup from '../inbox/SearchUserPopup';
+import inboxService from '../../services/inboxService'
 import firebase, { db } from '../../firebase/firebase';
 
 
@@ -12,6 +13,11 @@ export default function Inbox() {
     let [allUsers, setAllUsers] = useState<any>([])
     let [conversation, setConversation] = useState<any>('')
     useEffect(() => {
+        let newInbox = new inboxService()
+        newInbox.getAllUserConversationsSnapshot().then(x => {
+            console.log("XXX", x)
+        })
+        newInbox.getAllUsersSnapshot()
         let dataRef: any = firebase.auth()
         db.collection('conversations').where('users', 'array-contains', dataRef.currentUser.email).onSnapshot(snapshot => {
             let arr: any[] = []

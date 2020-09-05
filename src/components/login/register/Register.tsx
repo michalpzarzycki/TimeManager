@@ -4,6 +4,7 @@ import firebase, { db, storage } from '../../../firebase/firebase'
 import TextInput from './Inputs/TextInput';
 import FileInput from './Inputs/FileInput';
 import { useRegisterValidate } from '../../../hooks/useRegisterValidate'
+import registerService from '../../../services/registerService'
 import SubmitButton from './Inputs/SubmitButton';
 
 const INIT_STATE = {
@@ -33,7 +34,8 @@ interface IUser {
     file: any
 }
 
-export default function Register() {
+export default function Register(props: any) {
+    let {setAllow} = props
     //State of all user data from register input
     const [user, setUser] = useState<IUser>({...INIT_STATE});
     let { email, password, name, surname, nickname, telephone, city, country, description } = user
@@ -64,50 +66,56 @@ export default function Register() {
         e.preventDefault()
         //If form inputs are validated
         if(isValidate) {
-            //Turn on Loading Button
-            setButtonLoading(true)
-            //Create User
-            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-            .then(() => {
-                //Turn off Loading Button
+            let newRegister = new registerService(user, file)
+            newRegister.registerUser()
+            newRegister.setUserPhotoInStorage().then(() => {
                 setButtonLoading(false)
-                //Make sure that there can not be any error messages
-                setSignUpErrorMessage('')
-            }).catch((error) => {
-                //Turn off Loading Button
-                setButtonLoading(false)
-                //Set signInErrorMessage
-                setSignUpErrorMessage(error.message)
-
             })
-            //Add user image to firebase storage
-            storage.ref().child(`profiles/${user.email}.jpg`)
-            .put(file)
-            .then(() => {
+            console.log("NEW", newRegister)
+        //     //Turn on Loading Button
+        //     setButtonLoading(true)
+        //     //Create User
+        //     firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        //     .then(() => {
+        //         //Turn off Loading Button
+        //         
+        //         //Make sure that there can not be any error messages
+        //         setSignUpErrorMessage('')
+        //     }).catch((error) => {
+        //         //Turn off Loading Button
+        //         setButtonLoading(false)
+        //         //Set signInErrorMessage
+        //         setSignUpErrorMessage(error.message)
 
-            })
-            .catch((error) => {
+        //     })
+        //     //Add user image to firebase storage
+        //     storage.ref().child(`profiles/${user.email}.jpg`)
+        //     .put(file)
+        //     .then(() => {
 
-            })
-        } 
-        //Add user data to firestore
-        db.collection("users").add({
-            email,
-            password,
-            name,
-            surname,
-            nickname,
-            telephone,
-            city,
-            country,
-            description})
-        .then(() => {
-            console.log("Document successfully written!");
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        });
-    }
+        //     })
+        //     .catch((error) => {
+
+        //     })
+        // } 
+        // //Add user data to firestore
+        // db.collection("users").add({
+        //     email,
+        //     password,
+        //     name,
+        //     surname,
+        //     nickname,
+        //     telephone,
+        //     city,
+        //     country,
+        //     description})
+        // .then(() => {
+        //     console.log("Document successfully written!");
+        // })
+        // .catch((error) => {
+        //     console.error("Error writing document: ", error);
+        // });
+    }}
     return <div className={styles.mainDiv}>
       <h1 className={styles.header}>REGISTER FORM</h1>
         <form className={styles.form}>

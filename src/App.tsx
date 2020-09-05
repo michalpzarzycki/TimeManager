@@ -26,10 +26,11 @@ function App(props : RouteComponentProps) : any  {
   const [toggle, setToggle] = useState(false)
   let [userId, setUserId] = useState('')
   let [userEmail, setUserEmail] = useState('')
+  let [allowToDownloadUserImgAfterRegister, setAllowToDownloadUserImgAfterRegister] = useState<boolean>(false)
 useEffect(()=>{
   toggleSidebar()
 }, [])
-
+  const setAllow = (bool: boolean): void => setAllowToDownloadUserImgAfterRegister(bool) 
   function toggleSidebar() {
     setToggle(!toggle)
     if(toggle===true) {
@@ -71,22 +72,9 @@ const isLoggedIn = useAuth().isLoggedIn;
   if(isLoggedIn===null) {
     return <div>
     <BrowserRouter>
-    <Navbar toggleSidebar={() => {}} toggle={{}} user={{}}/>
-
     <div className="routerDiv">
-    <Sidebar toggle={toggle}/>
       <Switch>
         <Route path='/' component={Loader}/>
-        <Route strict path='/profile' render={() => <Profile user={firebase.auth().currentUser} />} />
-        <Route strict path='/route2' component={Route2} />
-        <Route strict path='/route3' component={Route3}  />
-        <Route strict path='/settings' component={Settings}/>
-        <Route strict path='/myexcuses' render={() => <MyExcuses user={firebase.auth().currentUser} />}/>
-        <Route strict path='/notes' render={() => <Notes user={firebase.auth().currentUser}/>}/>
-        <Route strict path='/inspiration' component={Inspiration}/>
-        <Route strict path='/contact' component={Contact} />
-        <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
-        <Route strict path='/inbox' render={() => <Inbox />}/>
         <Route strict path='/hexagon' component={Hexagon} />
         <Route strict path='/loader' component={Loader} />
         <Route strict path='/login' render={() => <Redirect to="/"/>} />
@@ -98,7 +86,7 @@ const isLoggedIn = useAuth().isLoggedIn;
   else if(isLoggedIn===true) {
    return  <div>
     <BrowserRouter>
-    <Navbar toggleSidebar={toggleSidebar} toggle={toggle} user={firebase.auth().currentUser}/>
+    <Navbar toggleSidebar={toggleSidebar} toggle={toggle} user={firebase.auth().currentUser} allowToDownloadUserImgAfterRegister={allowToDownloadUserImgAfterRegister}/>
     <div className="routerDiv">
     <Sidebar toggle={toggle}/>
       <Switch>
@@ -127,7 +115,7 @@ const isLoggedIn = useAuth().isLoggedIn;
       <Switch>
         <Route exact path="/" render={()=><Redirect to="/login" />}/>
         <Route path="/login" render={() => <Login userIdSetter={userIdSetter} userEmailSetter={userEmailSetter}/>} />
-        <Route component={Register} exact path='/register'/>
+        <Route render={() => <Register setAllow={setAllow}/>} exact path='/register'/>
         <Route component={Profile}  path='/profile'/>
       </Switch>
       </div>

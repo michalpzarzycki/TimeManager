@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import styles from './FileInput.module.css'
 
 
 export default function FileInput({handleFileChange, error=false, file} : any) {
-    let [fileName, setFileName] = useState('');
-
-  
-    return(
+    return (
         <div className={styles.div}>
             <span className={styles.span || error && styles.error}>
                 <label className={styles.label}>
