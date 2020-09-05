@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import firebase from '../../../firebase/firebase'
 import TextInput from './Inputs/TextInput';
 import styles from './Login.module.css'
 import { withRouter } from 'react-router-dom'
 import Hexagon from '../../Hexagon';
 import Loader from '../../Loader';
+import loginService from '../../../services/loginService'
 
 function Login({ history, userIdSetter, userEmailSetter }: any) {
     interface IUser {
@@ -20,38 +20,44 @@ function Login({ history, userIdSetter, userEmailSetter }: any) {
     //Setter of inputs change
     const handleChange = (e: any) => setUser({ ...user, [e.target.name]: e.target.value })
     //Login form submit
-    function handleSubmit(event: any) {
+    async function handleSubmit(event: any) {
         setIsLoading(true)
         event.preventDefault()
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((x: any) => {    
-            userIdSetter(x.user.uid)
-            userEmailSetter(x.user.email)
+        let data: any = await loginService.signIn(user.email, user.password)
+            userIdSetter(data.user.uid)
+            userEmailSetter(data.user.email)
             //Turn on the Loader
             setIsLoading(false)
             //Make sure that there can not be any error messages
             setSignInError('')
             //Switch route to /
             history.push("/")
-        }).catch(error => {
-            //Turn off the Loader
-            setIsLoading(false)
-            //Display error mesage
-            setSignInError(error.message)
-        })
-
         
     }
+    
     return (
         <div className={styles.mainDiv}>
-            <div className={isLoading ?  styles.loader : styles.none}><Loader /></div>
+            <div className={isLoading ?  styles.loader : styles.none}>
+                <Loader />
+            </div>
             <section className={styles.leftSide}>
                 <Hexagon />
             </section>
             <section className={styles.rightSide}>
                 <form className={styles.form} onSubmit={handleSubmit} >
                     {signInError && <h1 className={styles.errorMessage}>{signInError}</h1>}
-                    <TextInput type="email" placeholder="email" name="email" value={user.name} handleChange={handleChange} />
-                    <TextInput type="password" placeholder="password" name="password" value={user.password} handleChange={handleChange} />
+                        <TextInput
+                            type="email"
+                            placeholder="email" 
+                            name="email" 
+                            value={user.name} 
+                            handleChange={handleChange} />
+                        <TextInput 
+                            type="password" 
+                            placeholder="password" 
+                            name="password" 
+                            value={user.password} 
+                            handleChange={handleChange} />
                     <button type="submit">ENTER</button>
                 </form>
             </section>

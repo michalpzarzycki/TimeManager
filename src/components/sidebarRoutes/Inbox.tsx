@@ -3,7 +3,6 @@ import styles from './Inbox.module.css'
 import InboxMesseges from '../inbox/InboxMesseges';
 import SearchUserPopup from '../inbox/SearchUserPopup';
 import inboxService from '../../services/inboxService'
-import firebase, { db } from '../../firebase/firebase';
 
 
 export default function Inbox() {
@@ -12,58 +11,30 @@ export default function Inbox() {
     let [isUserSearch, setIsUserSearch] = useState(false)
     let [allUsers, setAllUsers] = useState<any>([])
     let [conversation, setConversation] = useState<any>('')
+     //Create a user Inbox 
+    let newInbox = new inboxService()
     useEffect(() => {
-        let newInbox = new inboxService()
-        newInbox.getAllUserConversationsSnapshot().then(x => {
-            console.log("XXX", x)
-        })
+        //Download all user Conversation
+        newInbox.getAllUserConversationsSnapshot()
+                .then((conversations: any) => setAllUserConversations([...conversations]))
+        //Download all users info
         newInbox.getAllUsersSnapshot()
-        let dataRef: any = firebase.auth()
-        db.collection('conversations').where('users', 'array-contains', dataRef.currentUser.email).onSnapshot(snapshot => {
-            let arr: any[] = []
-            snapshot.forEach(doc => arr.push(doc.data()))
-            setAllUserConversations([...arr])
-        })
-        db.collection('users').onSnapshot(snapshot => {
-            let arr: any[] = []
-            snapshot.forEach(doc => {
-                let all = { ...doc.data(), id: doc.id }
-                arr.push(all)
-
-            })
-            setAllUsers([...arr])
-        })
+                .then((users: any) =>  setAllUsers([...users]))
     }, [])
-    function handleClick(email: any) {
+    async function handleClick(email: any) {
+        //Search if that conv already exists
         let filter = allUserConversations.filter((conv: any) => conv.users.includes(email))
+        //If that conv doesnt exist, create a new one
         if (filter.length === 0) {
-            let dataRef: any = firebase.auth()
-            db.collection('conversations').add({
-                id: '',
-                messages: [
-                    {
-                        author: 'admin',
-                        date: Date.now(),
-                        message: 'You can start conversation'
-                    }
-                ],
-                users: [email, dataRef.currentUser.email]
-            }).then((docRef) => {
-                console.log("SUCCESS", docRef.get().then(snapshot => {
-                    let arr = []
-                    arr.push({ ...snapshot.data(), id: snapshot.id })
-                    setConversation([...arr])
-
-                }))
-            }).catch(err => {
-                console.log("BLAD", err)
-            })
-
+            //Create new Conversation and return its docRef
+            let newConDocRef = await newInbox.createNewConversation(email)
+            setAllUserConversations([...allUserConversations])
+            let filter = allUserConversations.filter((conv: any) => conv.users.includes(email))
+            setConversation([...filter])
         } else {
+            //if conv exists, just set it up to state
             setConversation([...filter])
         }
-
-
     }
     return (
         <div className={styles.inboxContainer}>

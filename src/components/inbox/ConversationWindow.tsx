@@ -11,6 +11,7 @@ export default function ConversationWindow({conversation, setOpenConversationPop
 
     useEffect(() => {
         scrollToBottom()
+        console.log("KONKON")
     })
     useEffect(() => {
         // db.collection('conversations').doc('SoeqbxLBTpo5JEcORI1d').update({
@@ -50,7 +51,7 @@ export default function ConversationWindow({conversation, setOpenConversationPop
         <div className={openConversationPopup ? styles.conversationWindow : styles.none}>
         <div className={styles.mainDiv}>
             <div className={styles.exit} onClick={() =>setOpenConversationPopup(false) }></div>
-    <div id="container" className={styles.conversationDiv}>{conversation && conversation.messages.map((message : any) => {
+    <div id="container" className={styles.conversationDiv}>{conversation.messages && conversation.messages.map((message : any) => {
         console.log("MESSEGE!!!", conversation)
         let dataRef : any = firebase.auth();
         return (

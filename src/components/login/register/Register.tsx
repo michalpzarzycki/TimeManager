@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
-import firebase, { db, storage } from '../../../firebase/firebase'
 import TextInput from './Inputs/TextInput';
 import FileInput from './Inputs/FileInput';
 import { useRegisterValidate } from '../../../hooks/useRegisterValidate'
@@ -18,7 +17,7 @@ const INIT_STATE = {
     city:"",
     country:"",
     description:"",
-    file:[]
+    file:""
             }
 interface IUser {
     email : string,
@@ -35,10 +34,8 @@ interface IUser {
 }
 
 export default function Register(props: any) {
-    let {setAllow} = props
     //State of all user data from register input
     const [user, setUser] = useState<IUser>({...INIT_STATE});
-    let { email, password, name, surname, nickname, telephone, city, country, description } = user
 
     //Returning all error messages from from validation and isValidate boolean
     const { errors, isValidate } = useRegisterValidate(user);
@@ -70,51 +67,7 @@ export default function Register(props: any) {
             newRegister.registerUser()
             newRegister.setUserPhotoInStorage().then(() => {
                 setButtonLoading(false)
-            })
-            console.log("NEW", newRegister)
-        //     //Turn on Loading Button
-        //     setButtonLoading(true)
-        //     //Create User
-        //     firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-        //     .then(() => {
-        //         //Turn off Loading Button
-        //         
-        //         //Make sure that there can not be any error messages
-        //         setSignUpErrorMessage('')
-        //     }).catch((error) => {
-        //         //Turn off Loading Button
-        //         setButtonLoading(false)
-        //         //Set signInErrorMessage
-        //         setSignUpErrorMessage(error.message)
-
-        //     })
-        //     //Add user image to firebase storage
-        //     storage.ref().child(`profiles/${user.email}.jpg`)
-        //     .put(file)
-        //     .then(() => {
-
-        //     })
-        //     .catch((error) => {
-
-        //     })
-        // } 
-        // //Add user data to firestore
-        // db.collection("users").add({
-        //     email,
-        //     password,
-        //     name,
-        //     surname,
-        //     nickname,
-        //     telephone,
-        //     city,
-        //     country,
-        //     description})
-        // .then(() => {
-        //     console.log("Document successfully written!");
-        // })
-        // .catch((error) => {
-        //     console.error("Error writing document: ", error);
-        // });
+            })       
     }}
     return <div className={styles.mainDiv}>
       <h1 className={styles.header}>REGISTER FORM</h1>
