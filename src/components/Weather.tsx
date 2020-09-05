@@ -5,26 +5,23 @@ import styles from './Weather.module.css'
 interface IWeather  {
     city: string,
     temp: any, 
-    icon: string
 }
 export default function Weather() {
-    const [weather, setWeather] = useState<IWeather>({temp:'', city:'', icon:''})
+    const [weather, setWeather] = useState<IWeather>({temp:'', city:''})
     useEffect(() => {
-            weatherService.getWeather().then((data: any) => {
-                setWeather({city:data.name, icon:data.weather[0].icon, temp: data.main.temp})
-            })
+        //Get weather data
+        weatherService.getWeather()
+        .then((data: any) => {
+            //Set state and add Icon to HTML element background
+            setWeather({city:data.name, temp: data.main.temp})
+            weatherService.setIcon('#icon', data.weather[0].icon)
+        })
     }, [])
-    useEffect(()=>{
-        let iconElem = document.querySelector('#icon') as HTMLElement
-        iconElem.style.backgroundImage = `url(http://openweathermap.org/img/w/${weather.icon}.png)`
-    }, [weather])
-
     return(
-        
             <div className={styles.mainDiv}>
                 <div id='temp' className={styles.temp}>{weather.temp && (Math.round(weather.temp-273.15))}°C </div>
                  <div id='city' className={styles.city}>{weather.city && weather.city}</div>
                 <div id='icon' className={styles.icon}>{}</div>
             </div>
-    )
+           )
 }

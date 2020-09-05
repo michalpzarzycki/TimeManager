@@ -15,5 +15,9 @@ export default class weatherService {
                 }
         })
     }
+    static setIcon(querySelector: string, weatherIcon: string) {
+        let iconElem = document.querySelector(`${querySelector}`) as HTMLElement
+        iconElem.style.backgroundImage = `url(http://openweathermap.org/img/w/${weatherIcon}.png)`
+    }
 }
     
