@@ -4,6 +4,7 @@ import styles from './MyExcuses.module.css'
 import {db} from '../../firebase/firebase'
 import uniqId from 'uniqid'
 import ExcusesList from './excuses/ExcusesList'
+import myExcusesService from '../../services/myExcusesService'
 interface IExcuse {
     date: any,
 
@@ -14,10 +15,8 @@ export default function MyExcuses({user} : any) {
     const [excuseId, setExcuseId] = useState(uniqId())
 
     useEffect(() => {
-        db.collection('excuses').where('userId', '==', user.uid).onSnapshot(snapshot => {
-            let arr: any[] =[]
-            snapshot.forEach(doc => arr.push({...doc.data(), docId: doc.id}))
-            setExcuses([...arr])
+        myExcusesService.getUsersExcuses(user.uid).then((data: any) => {
+            setExcuses([...data])
         })
     }, [])
 
@@ -32,14 +31,10 @@ function handleSubmit(event: any) {
         excuseId: excuseId, 
         excuseCounter: 1
     }
-    db.collection('excuses').add(finalExcuse).then(() => {
-        console.log('excuse added')
-    }).catch(err => {
-        console.log("error excuses", err)
-    })
+    myExcusesService.addExcuseToDatabase(finalExcuse)
+  
 }
-const handleCounter = (docId: any, counter: any) => db.collection('excuses').doc(docId).update({excuseCounter: counter+1})
- 
+const handleCounter = (docId: any, counter: any) => myExcusesService.updateExcuse(docId, counter)
 
     return(
         <div className={styles.myExcusesContainer}>
