@@ -3,7 +3,6 @@ export default class inboxService {
     dataRef: any
     constructor() {
         this.dataRef = firebase.auth()
-        
     }
     docRef: any
     users: any[] = []
@@ -26,12 +25,9 @@ export default class inboxService {
                 snapshot.forEach(doc => { 
                     arr.push({ ...doc.data(), id: doc.id })
                 })
-
                 resolve(arr)
         }, reject)
-       
         })
-
     }
 
      async createNewConversation(anotherUserEmail: any) {
@@ -64,13 +60,13 @@ export default class inboxService {
             let arr = []
             arr.push({ ...snapshot.data(), id: snapshot.id })
             resolve(arr)
-
         })
         .catch(() => {
             reject()
         })
        }) 
     }
+
     static async getUserImgWithEmail(email: any) {
         return new Promise((resolve, reject) => {
             storage.ref().child(`/profiles/${email}.jpg`)
@@ -84,7 +80,3 @@ export default class inboxService {
         })
     }
 }
-
-
-
-

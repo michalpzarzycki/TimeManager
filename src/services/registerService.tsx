@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 import firebase, { db, storage } from '../firebase/firebase'
-import { resolve } from 'url'
 
 export default class registerService {
     userEmail: string
@@ -44,7 +43,6 @@ export default class registerService {
          })
     }
      async createUserInDatabase() {
-        
             return new Promise((resolve, reject) => {
                 db.collection("users")
                 .add({
@@ -60,16 +58,13 @@ export default class registerService {
                 .then(() => {
                     resolve(this.userEmail)
                 })
-
             })
-            
-           
-     
     }
     async registerUser() {
-        
-            let userCreate = await firebase.auth().createUserWithEmailAndPassword(this.userEmail, this.userPassword)            
-            this.createUserInDatabase()
+             //create user in firebase auth
+             firebase.auth().createUserWithEmailAndPassword(this.userEmail, this.userPassword)            
+             //create user in firestore
+             this.createUserInDatabase()
     }   
 }
 

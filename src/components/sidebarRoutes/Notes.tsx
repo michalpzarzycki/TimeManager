@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Notes.module.css'
-import {db} from '../../firebase/firebase'
 import { format } from 'date-fns';
+import notesService from '../../services/notesService';
 import DatePicker from "react-datepicker";
 import uniqid from 'uniqid'
+import Note from './notes/Note';
+import AddNote from './notes/AddNote';
+import NoteDetailsPopup from './notes/NoteDetailsPopup';
 
 
-export default function Notes({user}: any) {
+export default function Notes({ user }: any) {
     const [notes, setNotes] = useState<any>([])
     const [note, setNote] = useState({})
     const [uniqueId, setUniqueId] = useState(uniqid())
@@ -15,37 +18,27 @@ export default function Notes({user}: any) {
     let [popupNote, setPopupNote] = useState<any>({})
 
     useEffect(() => {
-      
-        db.collection('notes').where('userId', '==', user.uid).onSnapshot(snapshot => {
-            let arr: any[] = []
-            snapshot.forEach(doc => arr.push(doc.data()))
-            setNotes([...arr])
-        
-        })
-    }, [])
-    
-function handleChange(event: any, name='') {
-            if(name==='deadline') {
-                let date = new Date(event)    
-                setNote({...note, 'reminder': date.getTime()})
-            } else {
-                setNote({...note, [event.target.name]:event.target.value, date: Date.now()})
-            }
-      
-            
-}
-    
+        notesService.getUserNotes(user.uid).then((notes: any) => setNotes([...notes]))
+    }, [notes])
+
+    function handleChange(event: any, name = '') {
+        if (name === 'deadline') {
+            let date = new Date(event)
+            setNote({ ...note, 'reminder': date.getTime() })
+        } else {
+            setNote({ ...note, [event.target.name]: event.target.value, date: Date.now() })
+        }
+    }
+
     function handleSubmit(event: any) {
         event.preventDefault()
         setUniqueId(uniqid())
         let fullNote = {
-            ...note, noteId: uniqueId, userId: user.uid 
+            ...note,
+            noteId: uniqueId,
+            userId: user.uid
         }
-        db.collection('notes').add({...fullNote}).then(() => {
-            console.log("Note added")
-        }).catch(err => {
-            console.log("note error", err)
-        })
+        notesService.addNewNote(fullNote)
     }
     function formattedDate(miliseconds: any) {
         let num = Number(miliseconds)
@@ -56,27 +49,38 @@ function handleChange(event: any, name='') {
         return format(new Date(miliseconds), 'do MMMM yyyy HH:mm')
     }
     function handlePopup(doc: any): void {
-        setPopupNote(doc)
+        setPopupNote({ ...doc })
         setIsPopup(true)
     }
-    return(
+    return (
         <div className={styles.notesContainer}>
-            <section className={styles.addNoteSection}>
-                <form className={styles.addNoteForm} onSubmit={handleSubmit}>
-                    <input className={styles.addNoteInput} placeholder="Your note..." type="text" name="note" onChange={handleChange}/>
-                    <button className={styles.addNoteReminder}>Add reminder</button>
-                    <button type="submit" className={styles.addNoteSubmit}>Add Note</button>
-                </form>
-            </section>
+            <AddNote
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+            />
             <section className={styles.myNotesSection}>
-                <div className={isPopup ? styles.noteDetails : styles.none}>
-                    <div className={styles.exit} onClick={() => setIsPopup(false)}>X</div>
-                        <div>
-                             <div>NOTE: {popupNote && popupNote.note}</div>
-                             <div>NOTE: {}</div>
-                             <div>NOTE: {}</div>
-                        </div>
-                    {/* <form>
+                <NoteDetailsPopup
+                    isPopup={isPopup}
+                    setIsPopup={setIsPopup}
+                    popupNote={popupNote}
+                />
+                <div className={styles.notesList}>
+                    {notes.map((doc: any) => (
+                        <Note
+                            handlePopup={handlePopup}
+                            doc={doc}
+                            formattedDate={formattedDate}
+                            note={note}
+                        />))}
+                </div>
+            </section>
+        </div>
+    )
+}
+
+
+
+{/* <form>
                         <DatePicker 
                                 autoComplete="off"
                                    selected={time}
@@ -90,21 +94,3 @@ function handleChange(event: any, name='') {
                                    }}
                         />
                     </form> */}
-                </div>
-                <div className={styles.notesList}>
-             {notes.map((doc: any) => {
-                 console.log("NOTES", notes, user)
-                 return <div className={styles.note} onClick={() => handlePopup(note)}>
-                     <div className={styles.date}>ADDED: {doc.date && formattedDate(doc.date)}</div>
-                     <div className={styles.content}><p>{doc.note}</p></div>
-                     {doc.reminder && <div><span className={styles.alarm}></span>: {doc.reminder && formattedDate(doc.reminder)}</div>}
-                 </div>
-             })}
-                </div>
-            </section>
-            <section className={styles.chartsSection}>
-       
-            </section>
-        </div>
-    )
-}

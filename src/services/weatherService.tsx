@@ -1,5 +1,6 @@
 export default class weatherService {
     constructor() {}
+    //return weather data from current location
    static async getWeather() {
         return new Promise((resolve, reject) => {
             if(navigator.geolocation) {
@@ -15,6 +16,7 @@ export default class weatherService {
                 }
         })
     }
+    //set weather icon on given selector
     static setIcon(querySelector: string, weatherIcon: string) {
         let iconElem = document.querySelector(`${querySelector}`) as HTMLElement
         iconElem.style.backgroundImage = `url(http://openweathermap.org/img/w/${weatherIcon}.png)`
