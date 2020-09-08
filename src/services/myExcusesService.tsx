@@ -14,7 +14,7 @@ export default class myExcusesService {
         })
     }
     
-    static addExcuseToDatabase(excuse) {
+    static addExcuseToDatabase(excuse: any) {
         return new Promise((resolve, reject) => {
             db.collection('excuses').add(excuse).then(() => {
                 resolve()

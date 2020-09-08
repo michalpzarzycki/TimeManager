@@ -45,7 +45,10 @@ export default class inboxService {
         }
         return new Promise((resolve, reject) => {
             db.collection('conversations').add(welcomeMessage)
-              .then((docRef) => {
+              .then((docRef: any) => {
+                  console.log("DOCREF", docRef)
+                  console.log("DOCID", docRef.id)
+                 db.collection('conversations').doc(docRef.id).update({...welcomeMessage, id: docRef.id})
                   resolve(docRef)
               })
               .catch(err => {
@@ -67,6 +70,17 @@ export default class inboxService {
        }) 
     }
 
+    static getMessages(docId: any, dataContainer: any) {
+        return new Promise((resolve, reject) => {
+            db.collection('messages').doc(docId).onSnapshot(snapshot => {
+                let arr: any[] = []
+                arr.push({...snapshot.data})
+                dataContainer(...arr)
+                resolve(arr)
+            })
+        })
+      
+    }
     static async getUserImgWithEmail(email: any) {
         return new Promise((resolve, reject) => {
             storage.ref().child(`/profiles/${email}.jpg`)
@@ -79,4 +93,13 @@ export default class inboxService {
             })
         })
     }
+
+    static async getUserPhoto(userEmail: any) {
+        return new Promise((resolve, reject) => {
+            storage.ref().child(`profiles/${userEmail}.jpg`).getDownloadURL().then((url) => {
+                resolve(url)
+            }).catch((err) => reject(err))
+        })
+    }
 }
+

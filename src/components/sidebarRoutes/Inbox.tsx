@@ -21,13 +21,13 @@ export default function Inbox() {
         newInbox.getAllUsersSnapshot()
                 .then((users: any) =>  setAllUsers([...users]))
     }, [])
-    async function handleClick(email: any) {
+     function handleClick(email: any) {
         //Search if that conv already exists
         let filter = allUserConversations.filter((conv: any) => conv.users.includes(email))
         //If that conv doesnt exist, create a new one
         if (filter.length === 0) {
             //Create new Conversation and return its docRef
-            let newConDocRef = await newInbox.createNewConversation(email)
+             newInbox.createNewConversation(email)
             setAllUserConversations([...allUserConversations])
             let filter = allUserConversations.filter((conv: any) => conv.users.includes(email))
             setConversation([...filter])
@@ -46,8 +46,10 @@ export default function Inbox() {
                 allUsers={allUsers}
                 setIsUserSearch={setIsUserSearch}
                 handleClick={handleClick}
+                newInbox={newInbox}
             />
             <InboxMesseges
+            conversation={conversation}
                 allUsers={allUsers}
                 openConversationPopup={openConversationPopup}
                 setOpenConversationPopup={setOpenConversationPopup}
