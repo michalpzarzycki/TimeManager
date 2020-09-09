@@ -7,19 +7,17 @@ import inboxService from '../../services/inboxService';
 
 
 
-export default function ConversationWindow({conversation, setOpenConversationPopup, openConversationPopup} : any) {
+export default function ConversationWindow({allUserConversation, currentConversation, setOpenConversationPopup, openConversationPopup} : any) {
     let [newMessege, setNewMessege] = useState<any>({author:'', date:'', message:''})
+    
+    const [, forceUpdate] = React.useState<any>(0);
+
 
     useEffect(() => {
-        scrollToBottom()
-    })
-    useEffect(() => {
 
         scrollToBottom()
-    }, [openConversationPopup])
-   useEffect(() => {
-        
-   }, [])
+    }, [openConversationPopup, currentConversation,allUserConversation])
+
 
     function scrollToBottom() {
         animateScroll.scrollToBottom({
@@ -33,15 +31,16 @@ export default function ConversationWindow({conversation, setOpenConversationPop
         event.preventDefault()
         let dataRef : any = firebase.auth()
         let nuevo = { ...newMessege, author: dataRef.currentUser.email, date: Date.now()}
-               db.collection('messages').doc(conversation.id).update({
-                    messages: [...conversation.messages, nuevo]
+               db.collection('conversations').doc(currentConversation.id).update({
+                   ...currentConversation, 
+                    messages: [...currentConversation.messages, nuevo]
                 }) 
             }
     return(
         <div className={openConversationPopup ? styles.conversationWindow : styles.none}>
         <div className={styles.mainDiv}>
             <div className={styles.exit} onClick={() =>setOpenConversationPopup(false) }></div>
-    {/* <div id="container" className={styles.conversationDiv}>{messages && messages.messages.map((message : any) => {
+    <div id="container" className={styles.conversationDiv}>{currentConversation && currentConversation.messages.map((message: any) => {
         let dataRef : any = firebase.auth();
         return (
             <div className={dataRef.currentUser.email === message.author ? styles.isCurrentUser : styles.messege}>
@@ -55,7 +54,7 @@ export default function ConversationWindow({conversation, setOpenConversationPop
             </div> 
         )
     })}
-    </div> */}
+    </div>
         <form onSubmit={handleSubmit} className={styles.form}>
         <input type="text" placeholder="Messege..." onChange={handleChange} name="message" autoComplete="off"/>
         <button type="submit">SEND</button>

@@ -7,15 +7,16 @@ export default class inboxService {
     docRef: any
     users: any[] = []
 
-   async getAllUserConversationsSnapshot() {
-       return new Promise((resolve, reject) => {
+    getUserConversationsSnapshot(setter: any) {
+     
         db.collection('conversations').where('users', 'array-contains', this.dataRef.currentUser.email)
         .onSnapshot(snapshot => {
+            console.log("NEW DATA")
             let arr: any[] = []
             snapshot.forEach(doc => arr.push(doc.data()))
-            resolve(arr)
-        }, reject)
-       })     
+            setter([...arr])
+        })
+            
     }
 
     async getAllUsersSnapshot() {
@@ -46,8 +47,6 @@ export default class inboxService {
         return new Promise((resolve, reject) => {
             db.collection('conversations').add(welcomeMessage)
               .then((docRef: any) => {
-                  console.log("DOCREF", docRef)
-                  console.log("DOCID", docRef.id)
                  db.collection('conversations').doc(docRef.id).update({...welcomeMessage, id: docRef.id})
                   resolve(docRef)
               })
@@ -70,17 +69,6 @@ export default class inboxService {
        }) 
     }
 
-    static getMessages(docId: any, dataContainer: any) {
-        return new Promise((resolve, reject) => {
-            db.collection('messages').doc(docId).onSnapshot(snapshot => {
-                let arr: any[] = []
-                arr.push({...snapshot.data})
-                dataContainer(...arr)
-                resolve(arr)
-            })
-        })
-      
-    }
     static async getUserImgWithEmail(email: any) {
         return new Promise((resolve, reject) => {
             storage.ref().child(`/profiles/${email}.jpg`)
@@ -93,12 +81,11 @@ export default class inboxService {
             })
         })
     }
-
-    static async getUserPhoto(userEmail: any) {
+    static updateConversation(docId: any, update: any) {
         return new Promise((resolve, reject) => {
-            storage.ref().child(`profiles/${userEmail}.jpg`).getDownloadURL().then((url) => {
-                resolve(url)
-            }).catch((err) => reject(err))
+            db.collection('conversations').doc(docId).update({update}).then(() => {
+                resolve()
+            }).catch((err: any) => reject(err)) 
         })
     }
 }
