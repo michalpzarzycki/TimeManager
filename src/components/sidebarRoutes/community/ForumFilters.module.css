@@ -1,0 +1,52 @@
+.mainDiv {
+    width: 95%;
+    margin: 0 auto;
+    height: 50px;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginationDiv {
+    width: 70%;
+}
+.paginationButtons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+}
+.smallButton {
+    width: 30px;
+    height: 30px;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1px;
+    border-radius: 3px;
+}
+.longButton {
+    width: 60px;
+    height: 30px;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1px;
+    border-radius: 3px;
+}
+
+
+.sortDiv {
+    width: 30%;
+}
+.sortInput {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.selectFilter {
+    margin-right: 10px;
+}

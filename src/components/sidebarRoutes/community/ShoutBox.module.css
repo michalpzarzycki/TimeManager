@@ -1,0 +1,70 @@
+.hideShoutBox {
+    display: none;
+}
+
+.communityContainer {
+    width: 100%;
+    height: 100vh;
+    border: 1px solid black;
+}
+
+.shoutBoxSection {
+
+    width: 100%;
+    height: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shoutBoxDiv {
+    background-image: url('../../../images/communityMessenger.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forumSection {
+    width: 100%;
+    height: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messegesContainer {
+    width: 100%;
+    height: 80%;
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.sendMessegeContainer {
+    width: 100%;
+    height: 20%;
+    display: flex;
+} 
+.sendMessegeInput {
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
+}
+.sendMessegeButton {
+    width: 20%;
+    height: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}

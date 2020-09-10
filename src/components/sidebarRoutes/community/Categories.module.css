@@ -1,0 +1,11 @@
+.mainDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mainDiv > div {
+    border: 1px solid black;
+}

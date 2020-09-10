@@ -20,6 +20,7 @@ import Settings from './components/sidebarRoutes/Settings';
 import Contact from './components/sidebarRoutes/Contact';
 import Hexagon from './components/Hexagon';
 import Loader from './components/Loader'
+import CategoryTopics from './components/sidebarRoutes/community/CategoryTopics';
 
 
 function App(props : RouteComponentProps) : any  {
@@ -100,6 +101,7 @@ const isLoggedIn = useAuth().isLoggedIn;
         <Route strict path='/inspiration' component={Inspiration}/>
         <Route strict path='/contact' component={Contact} />
         <Route strict path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
+        <Route strict path='/categories/:category' render={() => <CategoryTopics />} />
         <Route strict path='/inbox' render={() => <Inbox />}/>
         <Route strict path='/hexagon' component={Hexagon} />
         <Route strict path='/loader' component={Loader} />
