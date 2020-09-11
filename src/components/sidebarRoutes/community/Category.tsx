@@ -1,12 +1,16 @@
 import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
 import styles from './Category.module.css';
 
-export default function Category({categoryName, handleClick}: any) {
+function Category({categoryName, match}: any) {
     return(
-        <section className={styles.mainSection} onClick={() => handleClick(categoryName)}>
-            <div className={styles.contentDiv}>
-                <p className={styles.categoryName}>{categoryName}</p>
-            </div>
-        </section>
+        <Link to={`/community/${categoryName}`} className={styles.mainSection}>
+                <div className={styles.contentDiv}>
+                    <p className={styles.categoryName}>{categoryName}</p>
+                </div>
+        </Link>
+        
     )
 }
+
+export default withRouter(Category)
