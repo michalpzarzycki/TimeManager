@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Switch, Route, BrowserRouter, Redirect, withRouter, RouteComponentProps} from 'react-router-dom'
+import { BrowserRouter as Router, MemoryRouter, Switch, Route, BrowserRouter, Redirect, withRouter, RouteComponentProps} from 'react-router-dom'
 import './App.css';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
@@ -22,6 +22,7 @@ import Hexagon from './components/Hexagon';
 import Loader from './components/Loader'
 import CategoryTopics from './components/sidebarRoutes/community/CategoryTopics';
 import TopicDiscuss from './components/sidebarRoutes/community/TopicDiscuss';
+import CreateTopic from './components/sidebarRoutes/community/CreateTopic';
 
 
 function App(props : RouteComponentProps) : any  {
@@ -103,6 +104,7 @@ const isLoggedIn = useAuth().isLoggedIn;
         <Route strict path='/contact' component={Contact} />
         <Route strict exact path='/community' render={() => <Community userId={userId} userEmail={userEmail}/>}/>
         <Route strict exact path='/community/:category' render={() => <CategoryTopics />} />
+        <Route strict exact path='/community/:category/createtopic' render={() => <CreateTopic />}/>
         <Route strict exact path='/community/:category/:topic' render={() => <TopicDiscuss />}/>
         <Route strict path='/inbox' render={() => <Inbox />}/>
         <Route strict path='/hexagon' component={Hexagon} />

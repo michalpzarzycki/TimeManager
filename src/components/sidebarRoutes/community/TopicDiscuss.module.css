@@ -4,35 +4,53 @@
     border: 1px solid black;
     min-height: 100px;
     display: flex;
-
 }
 .userBox {
     width: 20%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-right: 1px solid black;
 }
 .userNameBox {
     width: 100%;
     height: 25%;
+    font-size: 80%;
+    text-align: center;
 }
 .pictureBox {
     width: 100%;
     height: 50%;
+    display: flex;
+    justify-content: center;
+}
+.picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: violet;
+    color: white;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .infoBox {
-    width: 100%;
+    padding-top: 5px;
+    width: calc(100% - 5px);
     height: 25%;
+    font-size: 50%;
+    text-align: center;
 }
 .postBox {
-    width: 80%;
+    width: calc(80% - 10px);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-left: 10px;
 }
 .messageBox {
     width: 100%;
@@ -40,7 +58,11 @@
     display: flex;
     flex-direction: column;
 }
+.messageDate {
+    font-size: 50%;
+}
 .signatureBox {
     width: 100%;
     height: 50%;
+    border-top: 1px solid black;
 }

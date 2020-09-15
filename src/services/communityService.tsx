@@ -19,5 +19,23 @@ export default class communityService {
             console.log("SOMETHING WENT WRONG: ", err)
         })
     }
+    static createForumPost(post: any) {
+        db.collection('forum').add(post).then(() => {console.log("GOOD")}).catch((err: any) => {console.log("BAD", err)})
+    }
+    static getCategoryTopics(category: any) {
+        return new Promise((resolve, reject) => {
+            db.collection('forum').where('category', '==', category).get().then((data: any) => {
+                let arr: any[] = []
+                data.forEach((element: any) => {
+                  arr.push(element.data()) 
+                   
+                });
+                resolve(arr)
+            }).catch((err: any) => {
+                reject(err)
+            })
+        })
+        
+    }
 
 }

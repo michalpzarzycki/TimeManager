@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Pagination from './Pagination'
 import styles from './ForumFilters.module.css'
 
-export default function ForumFilters() {
+export default function ForumFilters({topics, paginateTopics}: any) {
+    const [numberOfElems, setNumberOfElems] = useState<any>(0)
+    useEffect(() => {
+        console.log("TOPICSLENGTH", topics)
+        if(topics) {
+            setNumberOfElems(topics.length)
+        }
+    }, [topics])
     return(
         <div className={styles.mainDiv}>
-           <div className={styles.paginationDiv}>
-               <div className={styles.paginationButtons}>
-                    <div className={styles.longButton}>{`<<`}</div>
-                    <div className={styles.smallButton}>1</div>
-                    <div className={styles.smallButton}>2</div>
-                    <div className={styles.smallButton}>3</div>
-                    <div className={styles.longButton}>{`>>`}</div>
-               </div>
-           </div>
+        <Pagination numberOfElems={numberOfElems} elemsOnPage={5} topics={topics} paginateTopics={paginateTopics}/>
            <div className={styles.sortDiv}>
                <div className={styles.sortInput}>
                    <select className={styles.selectFilter}> 
