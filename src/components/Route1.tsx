@@ -34,16 +34,16 @@ function Route1({ user }: any) {
     })
     const [taskList, setTaskList] = useState<any[]>([])
     const [tasksArray, setTasksArray] = useState([])
-    let [uniqueId, setUniqueId] = useState(uniqid())
-    let [currUser, setCurrUser] = useState('')
-    let [isEdited, setIsEdited] = useState(false)
-    let [isLoading, setIsLoading] = useState(false)
-    let [detailsPopup, setDetailsPopup] = useState(false)
-    let [taskToDelete, setTaskToDel] = useState("")
-    let [taskDetails, setTaskDetails] = useState("")
-    let [searchValue, setSearchValue] = useState<any>("")
-    let [file, setFile] = useState({});
-    let [isAllChecked, setIsAllChecked] = useState< any | never>(false);
+    const [uniqueId, setUniqueId] = useState(uniqid())
+    const [currUser, setCurrUser] = useState('')
+    const [isEdited, setIsEdited] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [detailsPopup, setDetailsPopup] = useState(false)
+    const [taskToDelete, setTaskToDel] = useState("")
+    const [taskDetails, setTaskDetails] = useState("")
+    const [searchValue, setSearchValue] = useState<any>("")
+    const [file, setFile] = useState({});
+    const [isAllChecked, setIsAllChecked] = useState< any | never>(false);
 
     useEffect(() => {
         let unsubscribe: any;
