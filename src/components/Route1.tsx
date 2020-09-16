@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from 'react';
 import styles from './Route1.module.css'
 import FilterBar from './taskslist/FilterBar';
@@ -5,13 +7,12 @@ import TasksList from './taskslist/TasksList';
 import TasksInfoBar from './taskslist/TasksInfoBar';
 import { withRouter, Route } from 'react-router-dom';
 import uniqid from 'uniqid'
-import firebase, { db, storage } from '../firebase/firebase'
-import { useAuth } from '../hooks/useAuth'
 import AddPopup from './taskslist/AddPopup';
 import DeletePopup from './taskslist/DeletePopup';
 import Details from './taskslist/Details';
 import SearchInput from './SearchInput';
 import Route1Charts from '../components/charts/Route1Charts'
+import route1Service from '../services/route1Service'
 interface ITask {
     id?: any,
     photo?: any,
@@ -41,26 +42,16 @@ function Route1({ user }: any) {
     let [taskToDelete, setTaskToDel] = useState("")
     let [taskDetails, setTaskDetails] = useState("")
     let [searchValue, setSearchValue] = useState<any>("")
-    let [file, setFile] = useState({})
-    let [isAllChecked, setIsAllChecked] = useState<any>(false)
-    let unsubscribe;
+    let [file, setFile] = useState({});
+    let [isAllChecked, setIsAllChecked] = useState< any | never>(false);
 
     useEffect(() => {
         let unsubscribe: any;
         if (user) {
-            unsubscribe = db.collection("tasks").where("userId", "==", `${user.uid}`)
-                .onSnapshot(function (querySnapshot) {
-                    let arr: any[] = []
-                    querySnapshot.forEach(function (doc) {
-                        arr.push()
-                        arr.push({ ...doc.data(), docId: doc.id })
-                    });
-
-                    setTaskList([...arr])
-
-                });
+            unsubscribe = route1Service.getUserTasksSnapshot(user.id).then((arr: any) => {
+                setTaskList([...arr])
+            })  
         }
-        
         return () => user && unsubscribe()
     }, [user])
 
@@ -69,13 +60,9 @@ function Route1({ user }: any) {
     }
     function handlePopup() {
         setPopup(!popup)
-        console.log("USER INFO", db.collection('users').get().then(x => {
-
-        }))
     }
     function handleDeletePopup(taskId: any) {
         setDeletePopup(!deletePopup)
-        console.log("handle delete")
         setTaskToDel(taskId)
     }
     function handleChange(event: any, name: any = '') {
@@ -92,46 +79,36 @@ function Route1({ user }: any) {
     function handleSubmit(e: any) {
         e.preventDefault()
         setIsLoading(true)
-        const tasksRef = db.collection('tasks');
         setUniqueId(uniqid())
-        tasksRef.doc(`${uniqueId}`).set({
-            dataId: uniqueId,
-            userId: user.uid,
-            id: uniqueId,
-            photo: task.photo,
-            task: task.task,
-            importance: task.importance,
-            deadline: task.deadline,
-            done: false,
-            keyword: task.task.toLowerCase().split(" ")
-        }).then(() => {
+
+        let createdTask =  { dataId: uniqueId,
+        userId: user.uid,
+        id: uniqueId,
+        photo: task.photo,
+        task: task.task,
+        importance: task.importance,
+        deadline: task.deadline,
+        done: false,
+        keyword: task.task.toLowerCase().split(" ")
+        }
+        route1Service.createTask(uniqid, createdTask).then(() => {
             setTimeout(() => {
                 setIsLoading(false)
                 setIsEdited(true)
             }, 1000)
         })
-
-
     }
-    function handleDelete() {
-        console.log("DOC ID", taskToDelete)
-        db.collection('tasks').doc(taskToDelete).delete().then(() => {
-            console.log("Deleted complete")
-        }).catch(err => {
-            console.log("Erroro", err)
-        }).then(() => {
-            setDeletePopup(false)
-        })
-    }
+    const handleDelete = () =>  route1Service.deleteTask(taskToDelete)
+
     function handleDetailsPopup(task: any) {
         setDetailsPopup(!detailsPopup)
         console.log("UUU", task)
         setTaskDetails(task)
 
     }
-    function handleAllChecked(e: any) {
-        e.target.checked ? setIsAllChecked(true) : setIsAllChecked(false)
-    }
+    // function handleAllChecked(e: any) {
+    //     e.target.checked ? setIsAllChecked(true) : setIsAllChecked(false)
+    // }
 
 
     return (
@@ -161,7 +138,7 @@ function Route1({ user }: any) {
             <section className={styles.route1TasksSection}>
                 <FilterBar />
                 <div className={styles.route1TaskSectionTasks}>
-                    <TasksInfoBar handleAllChecked={handleAllChecked} />
+                    <TasksInfoBar handleAllChecked={()=>{}} />
                     {/* <TasksList  
                         isAllChecked={isAllChecked} 
                         taskList={taskList}  
