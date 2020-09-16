@@ -1,0 +1,32 @@
+.id, .done,.notDone{
+    display: none;
+}
+.done {
+    background-image: url('../../icons/done.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+.notDone {
+    background-image: url('../../icons/notDone.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+}
+
+@media (min-width:1000px) {
+
+       .id {
+           width: 10%;
+           display: block;
+       }
+       .done, .notDone
+        {
+           width: 10%;
+           display: block;
+       }
+
+}

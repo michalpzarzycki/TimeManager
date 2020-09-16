@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import Task from './Task';
 import styles from './TasksList.module.css'
- function TasksList({ isAllChecked, taskList, handleDeletePopup, handleDetailsPopup}: any) {
+ function TasksList({ isAllChecked, taskList, handleDeletePopup, handleDetailsPopup}: any): any {
 
 
     return <div className={styles.tasksListContainer}>

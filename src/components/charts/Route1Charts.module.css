@@ -37,6 +37,7 @@
     .route1Charts {
         flex-direction: row;
         height: auto;
+        margin-bottom: 25px;
     }
     .route1ChartFirst, .route1ChartSecond, .route1ChartThird {
         width: 30%;

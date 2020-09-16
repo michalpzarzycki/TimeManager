@@ -107,22 +107,7 @@ span{
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     border: 1px solid rgb(0,191,255);
 }
-.span::before {
-   content: "";
-   display: block;
-   position: absolute;
-   width: 30px;
-   height: 30px;
-   top: 50%;
-   left: 15%;
-   transform: translate(-50%, -50%);
-   background-image:url('../icons/searchIcon.png');
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: contain;
-   z-index: 2;
-    
-}
+
 .route1TasksNav_createDiv {
     width: 40%;
     border: 1px solid transparent;

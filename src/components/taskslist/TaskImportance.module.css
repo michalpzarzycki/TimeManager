@@ -1,0 +1,12 @@
+.importance {
+    display: none;
+}
+
+@media (min-width:1000px) {
+
+       .importance {
+       width: 15%;
+       display: block;
+       }
+
+}

@@ -6,3 +6,40 @@
     justify-content: center;
     align-items: flex-start;
 }
+.deletePopupContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    font-family: Advent;
+    font-weight: bolder;
+    z-index: 25;
+
+}
+.none {
+    display: none;
+}
+.deletePopupContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    font-family: Advent;
+    font-weight: bolder;
+    z-index: 25;
+
+}

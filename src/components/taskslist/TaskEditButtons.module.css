@@ -1,0 +1,26 @@
+.details, .edit, .delete {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+.details:hover, .edit:hover, .delete:hover {
+    transform: scale(1.1);
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.details {
+    background-image: url('../../icons/eye.png');
+}
+.edit {
+    background-image: url('../../icons/edit.png');
+}
+.delete {
+    background-image: url('../../icons/delete.png');
+}

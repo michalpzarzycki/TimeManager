@@ -1,15 +1,20 @@
 import { db } from "../firebase/firebase"
 import { resolve } from "url"
+import Task from "../components/taskslist/Task"
 
 export default class route1Service {
     constructor() {}
 
 
-    static createTask(id: any, createdTask: any) {
+    static createTask(createdTask: any) {
         return new Promise((resolve, reject) => {
-            db.collection('tasks').doc(id).set({createdTask}).then(() => {
+            db.collection('tasks').add({...createdTask}).then(() => {
+                console.log("ADDED", createdTask)
                 resolve()
-            }).catch(() => {reject()})
+            }).catch((err: any) => {
+                console.log("STH WENT WRONG", err)
+                reject()
+            })
         })
     }
     static deleteTask(taskToDeleteId: any) {
@@ -19,19 +24,60 @@ export default class route1Service {
             }).catch((err: any) => reject(err) )
         })
     }
-    static getUserTasksSnapshot(userId: any) {
-        return new Promise((resolve) => {
-            db.collection("tasks").where("userId", "==", userId)
+    static getUserTasksSnapshot(userEmail: any, setter: any) {
+            db.collection("tasks").where("user", "==", `${userEmail}`)
             .onSnapshot(function (querySnapshot) {
                 let arr: any[] = []
                 querySnapshot.forEach(function (doc) {
-                    arr.push()
                     arr.push({ ...doc.data(), docId: doc.id })
                 });
-                resolve(arr)
+                setter([...arr])
+            })    
+}
+    static editTask(taskId: any, updatedTask: any) {
+            return new Promise((resolve, reject) => {
+                db.collection('tasks').doc(taskId).update({...updatedTask})
+                    .then(() => {
+                        resolve()
+                    })
+                    .catch(() => {
+                        reject()
+                    })
+            })
+    }
+    static changeDoneTask(taskId: any, taskDone: any) {
+        return new Promise((resolve, reject) => {
+            db.collection('tasks').doc(taskId).update({
+                done: !taskDone
+            })
+            .then(() => resolve())
+            .catch(() => reject())
+        })
+    }
+
+    static setTaskCompleted(doneTask: any, taskId: any) {
+        return new Promise((resolve, reject) => {
+            Promise.all([ db.collection('doneTasks').add({ ...doneTask }), db.collection('tasks').doc(taskId).delete()])
+                    .then(() => {
+                        console.log("DONE COMPLETED")
+                        resolve()
+                    })
+                    .catch(() => {
+                        console.log("STH WENT WRON")
+                        reject()
+                    })
+            
+        })
+    }
+    static setTaskUncompleted(uncompletedTask: any, taskId: any) {
+        return new Promise((resolve, reject) => {
+            Promise.all([db.collection('uncompletedTasks').add({...uncompletedTask}), db.collection('tasks').doc(taskId).delete()]).then(() => {
+                resolve()
+            }).catch(() => {
+                reject()
             })
         })
-     
+    }
 }
-}
+
 

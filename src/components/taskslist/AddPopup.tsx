@@ -30,7 +30,8 @@ export default function AddPopup({ handlePopup,handleChange, handleSubmit, isLoa
     }
 
     return(<>
-        <div className={isLoading ? styles.loader : ''}>
+    <section className={isPopup ? styles.createTaskPopup : styles.none}>
+    <div className={isLoading ? styles.loader : ''}>
         <span className={isLoading ? styles.loadIcon : ''}></span>
     </div>
     <div className={isPopup ? styles.popup : styles.none}>
@@ -89,6 +90,8 @@ export default function AddPopup({ handlePopup,handleChange, handleSubmit, isLoa
         </form>
         
     </div>
+              </section>
+        
     </>
 )
 }
