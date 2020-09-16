@@ -10,10 +10,9 @@
     justify-content: flex-end;
     align-items: center;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    background-color: rgba(255,255,255,1);
+    background-color: #042a4a;
     color: black;
     position: relative;
-    text-shadow: 0px 0px 5px rgba(20, 167, 177, 1);
 }
 .clockAndWeather{
     display: none;
@@ -30,8 +29,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);   
-     text-shadow: 0px 0px 5px rgba(20, 167, 177, 1);
      cursor: default;
+     color: #ffb300;
 
 
 }
@@ -59,8 +58,20 @@ display: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
-
+.belt {
+    margin: 0 auto;
+    width: 90%;
+    height: 5px;
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: black;
+   
+}
 @media (min-width:1000px) {
     .clockAndWeather{
         display: flex;
@@ -68,7 +79,6 @@ display: none;
         align-items: center;
         width: 20%;
         height: 100%;
-        background-color: white;
         position: absolute;
         top: 0;
         left: 0;

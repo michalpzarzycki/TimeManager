@@ -20,13 +20,18 @@
    width: 0;
 
 }
-.profile, .settings, .inbox, .contact, .help, .logout, .myexcuses, .notes, .inspiration, .community {
+.mainPage {
+    border-top: 1px solid black;
+}
+.profile,.mainPage, .settings, .inbox, .contact, .help, .logout, .myexcuses, .notes, .inspiration, .community {
     width: 100%;
-    min-height: 50px;
-    background-color: rgb(43,62,77);
+    height: 25px;
+    background-color: #042a4a;
     border-bottom: 1px solid black;
     color: white;
     line-height: 2.5;
+    font-size: 75%;
+    text-decoration: none;
 
 }
 
@@ -42,7 +47,8 @@
 .myexcuses:hover, 
 .notes:hover, 
 .inspiration:hover, 
-.community:hover {
+.community:hover,
+.mainPage:hover {
     color: black;
     background-color: white;
 }
@@ -96,9 +102,8 @@
 }
 .mainPageIcon, .profileIcon, .notesIcon, .settingsIcon, .inboxIcon, .contactIcon, .myexcusesIcon, .inspirationIcon, .communityIcon, .logoutIcon  {
     display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin-top: 15px;
+    width: 20px;
+    height: 20px;
     margin-right: 8px;
     background-position: center;
     background-repeat: no-repeat;

@@ -30,12 +30,12 @@ function charts() {
     })
     console.log("CHARTS import", arr)
     setChartData({
-        labels: ["Super Important", "Important", "Not Important"],
+        labels: ["Super Important", "Important", "Normal"],
                     datasets: [
                         {
                             label: "Active tasks",
                             data: [...arr],
-                            backgroundColor: ['#91e1c2', '#99c6f0', '#efdd95'],
+                            backgroundColor: ['#F41A1A', '#E2ED11', '#71716F'],
                             color: 'black'
                         }
                     ],    options: {

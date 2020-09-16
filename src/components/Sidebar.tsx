@@ -22,7 +22,7 @@ function Sidebar({toggle, history} : any) {
     return <div className={toggle ? styles.sidebarContainer : styles.none}>
         <div className={isLoader ? styles.loader : ''}></div>
         <Link to='/'>
-          <div className={styles.help}>
+          <div className={styles.mainPage}>
             <span className={styles.mainPageIcon}></span>{size>800 ? 'Main Page' : ''}
           </div>
         </Link>

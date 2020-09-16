@@ -28,7 +28,7 @@ export default function Community({userId, userEmail} : any) {
     }
     return(
         <div className={styles.communityContainer}>
-                <button onClick={() => setToggleShoutBox(!toggleShoutBox)}>SHOUTBOX</button>
+                <button className={styles.shoutBoxButton} onClick={() => setToggleShoutBox(!toggleShoutBox)}>SHOUTBOX</button>
                 <ShoutBox handleChange={handleChange} handleSubmit={handleSubmit} messeges={messeges} toggleShoutBox={toggleShoutBox}/>
             <section className={styles.forumSection}>
                 <Forum />

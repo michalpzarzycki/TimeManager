@@ -39,7 +39,9 @@ useEffect(() => {
         <h1 className={styles.header}>TaskManager</h1>
     <Link to="/profile">
     <div className={styles.userSection}>
-            <div id="userPicture" className={styles.picture}></div>
+            <div id="userPicture" className={styles.picture}>
+                <div className={styles.belt}>1505</div>
+            </div>
 <div className={styles.user}>{user && user.email}</div>
             <div className={styles.arrow}></div>
         </div>

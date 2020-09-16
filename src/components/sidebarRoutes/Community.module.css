@@ -1,7 +1,6 @@
 .communityContainer {
     width: 100%;
     height: 100vh;
-    border: 1px solid black;
 }
 
 .shoutBoxSection {
@@ -12,6 +11,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.shoutBoxButton {
+    width: 90%;
+    margin: 0 auto;
+    border: 2px solid black;
+    background-color: black;
+    color: wheat;
+    font-size: 80%;
+    display: block;
 }
 .shoutBoxDiv {
     background-image: url('../../images/communityMessenger.svg');
@@ -29,7 +37,6 @@
 .forumSection {
     width: 100%;
     height: 50%;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
