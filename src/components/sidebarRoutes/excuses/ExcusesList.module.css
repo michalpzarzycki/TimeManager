@@ -1,9 +1,8 @@
 .mainDiv {
-    width: 90%;
-    height: 200px;
-    margin: 0 auto;
+    width: 30%;
+    height: 150px;
+    margin: 5px auto;
     background-color: white;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;

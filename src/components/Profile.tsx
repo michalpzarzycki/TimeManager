@@ -2,29 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.css'
 import { withRouter } from 'react-router-dom';
-import firebase, { db, storage } from '../firebase/firebase'
-import Loader from './Loader';
+import  { db, storage } from '../firebase/firebase'
+import ChangePicturePopup from './sidebarRoutes/profile/ChangePicturePopup';
+import PhotoSection from './sidebarRoutes/profile/PhotoSection';
+import ChangeUserDataField from './sidebarRoutes/profile/ChangeUserDataField';
+import profileService from '../services/profileService';
+import UserDataField from './sidebarRoutes/profile/UserDataField';
 
  function Profile({user} : any) {
-     let [userEmail, setUserEmail] = useState('')
-     let [openPopup, setOpenPopup] = useState(false)
-     let [isNew, setIsNewPic] = useState(false)
-     let [userData, setUserData] = useState<any>({})
-     let [allowToChange, setAllowToChange] = useState(false)
-     let [isChanged, setIsChanged] = useState(false)
-     let [isPictureLoaded, setIsPictureLoaded] = useState(false)
+     const [openPopup, setOpenPopup] = useState(false)
+     const [isNew, setIsNewPic] = useState(false)
+     const [userData, setUserData] = useState<any>({})
+     const [isChanged, setIsChanged] = useState(false)
+     const [isPictureLoaded, setIsPictureLoaded] = useState(false)
+     const [allChangebleFields] = useState<any>([
+        {label: 'Nickname', inputName: 'nickname', inputValue: userData.nickname, spanId: 'nickname'},
+        {label: 'Telephone', inputName: 'telephone', inputValue: userData.telephone, spanId: 'telephone'},
+        {label: 'Miejscowosc', inputName: 'city', inputValue: userData.city, spanId: 'city'},
+        {label: 'Country', inputName: 'country', inputValue: userData.country, spanId: 'country'},
+        {label: 'Description', inputName: 'description', inputValue: userData.description, spanId: 'description'}
+     ])
      useEffect(() => {
          if(user) {
-        db.collection('users').where('email', '==', user.email).get().then((doc) => {
-            doc.forEach(doc => {
-                
-                setUserData({...doc.data(), docId: doc.id})})
-        }).catch(err => console.log("ERR", err))
-  
+             profileService.getUserData(user.email).then((data: any) => setUserData({...data}))
     }
-        
-
-        //  console.log("AUTH", db.collection('users').where('email', '==', firebase.auth().currentUser.email).get())
      } ,[isNew])
      useEffect(() =>{
 
@@ -39,31 +40,16 @@ import Loader from './Loader';
             }).catch(err => console.log("ERROR", err))
         }
      }, [])
-     function handlePictureChange() {
-        setOpenPopup(true)
-     }
-     function handleFile(event : any) {
-        console.log("filr", event.target.files[0])
-        let file = event.target.files[0]
-        storage.ref().child(`profiles/${user.email}.jpg`).put(file)
-        .on('state_changed',
-            function progress(snapshot) {
-                let percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-                console.log("%%%", percentage)
-                let elem1 : any=  document.getElementById('uploader')
-                elem1.value = percentage
-            },
-            function error() {
-
-            },
-            function complete() {
-                setIsNewPic(!isNew)
-
-            }
-        )
-       
-   
-    }
+     const handlePictureChange = () => setOpenPopup(true)
+     
+     const handleFile = (event : any) => profileService.uploadPictureSnapshot(user.email, event.target.files[0], () => {}, (error: any) => console.log(error), () => setIsNewPic(!isNew))
+      
+            // function progress(snapshot) {
+            //     let percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+            //     let elem1 : any=  document.getElementById('uploader')
+            //     elem1.value = percentage
+            // },
+    
 
     function handelDoubleClick(e : any) {
         e.target.readOnly=false
@@ -71,13 +57,8 @@ import Loader from './Loader';
         elem1.style.display = 'block'
     }
 
-    function handleEdit() {
-        db.collection('users').doc(userData.docId).update({
-            ...userData
-        }).then(() => {
-            console.log("UPDATED")
-        }).catch(err => console.log(err))
-    }
+    const handleEdit = () => profileService.updateUserData(userData)
+    
 
     function handleChange(e : any) {
         setIsChanged(true)
@@ -85,106 +66,30 @@ import Loader from './Loader';
     }
     return(
         <div className={styles.mainDiv}>
-            <div className={openPopup ? styles.popup : styles.none}>
-                <section className={styles.pictureSectionPopup}>
-                <div className={styles.exit} onClick={() => setOpenPopup(false)}>
-                  
-                </div>
-               {isPictureLoaded ?  <div id="picturePopup" className={styles.picturePopup}></div> : <div className={styles.loader}><Loader /></div>}
-                </section>
-                <section className={styles.inputSectionPopup}>
-                    <div className={styles.inputDivInput}>
-                        <input type="file" onChange={handleFile}/>
-                    </div>
-                    <div className={styles.inputDivLoader}>
-                        <progress className={styles.progress} value="0" max="100" id="uploader">0%</progress>
-                    </div>
-                </section>
-            </div>
-            <div className={styles.background}></div>
-            <section className={styles.photoSection}>
-                <div className={styles.picture} id="mainPicture"></div>
-                <div className={styles.name}>Selena Gomez</div>
-                <button onClick={handlePictureChange} style={{cursor:"pointer"}}>CHANGE PROFILE PICTURE</button>
-            </section>
+            <ChangePicturePopup
+                 openPopup={openPopup} 
+                 isPictureLoaded={isPictureLoaded} 
+                 setOpenPopup={setOpenPopup} 
+                 handleFile={handleFile}
+            />
+            <PhotoSection handlePictureChange={handlePictureChange} />
             <section className={styles.infoSection}>
                 <div className={styles.infoSectionBox}>
-                <div>Email: <span className={styles.infoSpanDetail}>{userData.email}</span></div>
-                <div>Imie: <span className={styles.infoSpanDetail}>{userData.name}</span></div>
-                <div>Nazwisko: <span className={styles.infoSpanDetail}>{userData.surname}</span></div>
-                <div>Nickname: 
-                     <input name='nickname'
-                            className={styles.infoSpanDetail} 
-                            value={userData.nickname} 
-                            readOnly 
-                            onDoubleClick={event => handelDoubleClick(event)}
-                            onChange = {(event) => handleChange(event)}
-                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
-                            />
-                    <span id='nickname' 
-                            onClick={handleEdit} 
-                            className={styles.noneEdit}
-                    ></span></div>
-                <div>Nr tel: 
-                    <input name='telephone' 
-                            className={styles.infoSpanDetail} 
-                            value={userData.telephone} 
-                            readOnly 
-                            onDoubleClick={event => handelDoubleClick(event)}
-                            onChange = {(event) => handleChange(event)}
-                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
-                            />
-                    <span id='telephone' 
-                            onClick={handleEdit}  
-                            className={styles.noneEdit}
-                            ></span></div>
-                <div>Miejscowosc:
-                    <input name='city' 
-                            className={styles.infoSpanDetail} 
-                            value={userData.city} 
-                            readOnly 
-                            onDoubleClick={event => handelDoubleClick(event)}
-                            onChange = {(event) => handleChange(event)}
-                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
-                            />
-                    <span id='city' 
-                            onClick={handleEdit} 
-                            className={styles.noneEdit}
-                            ></span></div>
-                <div>Kraj: 
-                    <input name='city' 
-                            className={styles.infoSpanDetail} 
-                            value={userData.country} 
-                            readOnly 
-                            onDoubleClick={event => handelDoubleClick(event)}
-                            onChange = {(event) => handleChange(event)}
-                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
-                            />
-                    <span id='city'
-                            onClick={handleEdit}
-                            className={styles.noneEdit}
-                            ></span></div>
-                <div>Opis: 
-                    <input name='description' 
-                            className={styles.infoSpanDetail} 
-                            value={userData.description} 
-                            readOnly 
-                            onDoubleClick={event => handelDoubleClick(event)}
-                            onChange = {(event) => handleChange(event)}
-                            style={{background:'transparent', outline:"none", border:"0px", display:"inline-block", width:"auto"}}
-                            />
-                    <span id='description' 
-                            onClick={handleEdit} 
-                            className={styles.noneEdit}
-                            ></span>
-                    </div>
+                    <UserDataField userData={userData} />
+                    {allChangebleFields.map(({label, inputName, inputValue, spanId}: any) => (
+                    <ChangeUserDataField 
+                        label={label} 
+                        inputName={inputName} 
+                        inputValue={inputValue} 
+                        handelDoubleClick={handelDoubleClick} 
+                        handleChange={handleChange} 
+                        handleEdit={handleEdit} 
+                        spanId={spanId}/>
+                    ))}
                 {isChanged && <button onClick={handleEdit}>SUBMIT CHANGES</button>}
                 </div>
             </section>
-            <section className={styles.restSection}></section>
         </div>
     )
 }
-
-
 export default withRouter(Profile)

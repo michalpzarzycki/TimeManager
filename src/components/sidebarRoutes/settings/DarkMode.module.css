@@ -1,7 +1,15 @@
+@import '../../../variables.css';
 .mainDiv {
     width: 200px;
     height: 200px;
-    border: 1px solid black;
+    border: 1px solid var(--darkmode-white);
+}
+.mainDivDark{
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--darkmode-color);
+    background-color: var(--darkmode-background);
+    color: var(--darkmode-color);
 }
 .toggleBox {
     width: 100%;

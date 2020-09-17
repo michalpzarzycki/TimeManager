@@ -1,12 +1,14 @@
 import {
     CHANGE_SEARCH_FILTER_FIELD,
+    CHANGE_DARK_MODE,
     REQUEST_TASKS_FAIL,
     REQUEST_TASKS_SUCCESS,
     REQUEST_TASKS_PENDING
 } from './constanst'
 
 const initialState = {
-    searchFilterField: ''
+    searchFilterField: '',
+    darkMode: false
 }
 const taskInitialState = {
     tasks: ''
@@ -14,6 +16,14 @@ const taskInitialState = {
 interface IAction {
     type?: any,
     payload?: any
+}
+export const setDarkMode = (state=initialState, action:IAction={}) => {
+    switch(action.type) {
+        case CHANGE_DARK_MODE:
+            return {...state, darkMode: action.payload}
+        default:
+        return state
+    }
 }
 export const searchTasks = (state=initialState, action: IAction={}) => {
     switch(action.type) {
