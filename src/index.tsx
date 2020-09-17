@@ -6,21 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import{createStore, applyMiddleware, compose} from 'redux'
-import { searchTasks } from './redux/reducer'
 import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-import { reactReduxFirebase } from "react-redux-firebase";
 import firebase from './firebase/firebase'
-
+import reducer from './redux/reducers/index'
 const logger = createLogger()
-const createStoreWithFirebase = compose(reactReduxFirebase(firebase, {}))(
-  createStore
-);
-const store = createStoreWithFirebase(
-  searchTasks,
-  {},
-  applyMiddleware(thunkMiddleware, logger)
-);
+const store = createStore(reducer,applyMiddleware(logger))
+
 ReactDOM.render(
   
 
