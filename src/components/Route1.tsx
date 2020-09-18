@@ -9,6 +9,10 @@ import Route1Charts from '../components/charts/Route1Charts'
 import route1Service from '../services/route1Service'
 import SearchOrCreateTask from './taskslist/SearchOrCreateTask';
 import TasksSection from './taskslist/TasksSection';
+import { connect } from 'react-redux';
+import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
+const { darkBackground, darkColor} = DARK_ROUTE1;
+const { lightBackground, lightColor} = LIGHT_ROUTE1
 interface ITask {
     id?: any,
     photo?: any,
@@ -18,7 +22,7 @@ interface ITask {
 }
 
 
-function Route1({ user }: any): any {
+function Route1({ user, darkMode }: any): any {
     const [popup, setPopup] = useState<any>(false)
     const [deletePopup, setDeletePopup] = useState<any>(false)
     const [task, setTask] = useState<ITask>({
@@ -88,7 +92,7 @@ function Route1({ user }: any): any {
 
 
     return (
-        <div className={styles.route1Container}>
+        <div className={styles.route1Container} style={{backgroundColor: darkMode ? darkBackground : lightBackground}}>
             <Details 
                 taskDetails={taskDetails} 
                 detailsPopup={detailsPopup} 
@@ -117,5 +121,9 @@ function Route1({ user }: any): any {
         </div>)
 }
 
-
-export default withRouter(Route1)
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
+export default connect(mapStateToProps)(withRouter(Route1))

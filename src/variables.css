@@ -1,5 +1,7 @@
 :root {
+    --darkMode-settings-backgroundColor: black;
+    --lightMode-settings-backgroundColor: white;
     --darkmode-color: white;
     --darkmode-background: black;
-    
+
 }

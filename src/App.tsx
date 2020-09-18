@@ -26,6 +26,7 @@ import CreateTopic from './components/sidebarRoutes/community/CreateTopic';
 
 
 function App(props : RouteComponentProps) : any  {
+  const [isLogged, setIsLogged] = useState(useAuth().isLoggedIn)
   const [toggle, setToggle] = useState(false)
   let [userId, setUserId] = useState('')
   let [userEmail, setUserEmail] = useState('')
@@ -33,6 +34,9 @@ function App(props : RouteComponentProps) : any  {
 useEffect(()=>{
   toggleSidebar()
 }, [])
+useEffect(() => {
+  if(isLogged) {}
+}, [isLogged])
   const setAllow = (bool: boolean): void => setAllowToDownloadUserImgAfterRegister(bool) 
   function toggleSidebar() {
     setToggle(!toggle)

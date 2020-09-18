@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import firebase, { db } from '../../firebase/firebase';
 import styles from './Contact.module.css';
-
-export default function Contact() {
+import {DARK_CONTACT, LIGHT_CONTACT} from '../../variables'
+import { connect } from 'react-redux';
+const {darkBackground, darkColor} = DARK_CONTACT;
+const {lightBackground, lightColor} = LIGHT_CONTACT
+ function Contact({darkMode}: any) {
     const [suggestion, setSuggestion] = useState<any>({})
     const [isAnnonymous, setIsAnnonymous] = useState<any>(false)
     const [user] = useState<any>(firebase.auth().currentUser.email)
@@ -31,11 +34,10 @@ export default function Contact() {
         }).catch(() => {
             console.log("STH WENT WRONG")
             setHeaderContent('STH WENT WRONG ;(, TRY AGAIN')
-
         })
     } 
     return(
-    <div className={styles.contactContanier}>
+    <div className={styles.contactContanier} style={{backgroundColor: darkMode ? darkBackground : lightBackground}}>
         <div className={styles.formContainer}>
             <h1 className={styles.header}>{headerContent}</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
@@ -49,3 +51,9 @@ export default function Contact() {
         </div>
     </div>)
 }
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
+export default connect(mapStateToProps)(Contact)

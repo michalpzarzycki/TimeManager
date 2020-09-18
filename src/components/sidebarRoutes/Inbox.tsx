@@ -5,9 +5,12 @@ import SearchUserPopup from '../inbox/SearchUserPopup';
 import inboxService from '../../services/inboxService'
 import ConversationWindow from '../inbox/ConversationWindow';
 import {db} from '../../firebase/firebase'
+import { connect } from 'react-redux';
+import {DARK_INBOX, LIGHT_INBOX} from '../../variables'
+const {darkBackground, darkColor} = DARK_INBOX;
+const {lightBackground, lightColor} = LIGHT_INBOX
 
-
-export default function Inbox() {
+function Inbox({darkMode}: any) {
     let [openConversationPopup, setOpenConversationPopup] = useState(false)
     let [allUserConversations, setAllUserConversations] = useState<any>('')
     let [isUserSearch, setIsUserSearch] = useState(false)
@@ -31,7 +34,7 @@ export default function Inbox() {
       
    }
     return (
-        <div className={styles.inboxContainer}>
+        <div className={styles.inboxContainer} style={{background: darkMode ? darkBackground : lightBackground}}>
             <button onClick={() => setIsUserSearch(!isUserSearch)} className={styles.btn}>SEARCH USER</button>
             <SearchUserPopup
                 conversation={conversation}
@@ -53,14 +56,19 @@ export default function Inbox() {
                 convId={convId}
                 handleClick={handleClick}
             />
-            {/* Optional ConversationWindow
+            {/* Optional ConversationWindowP
             {openConversationPopup && <ConversationWindow setOpenConversationPopup={setOpenConversationPopup} openConversationPopup={openConversationPopup} 
             convId={convId} conversation={conversation}/>} */}
         </div>
     )
 }
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
 
-
+export default connect(mapStateToProps)(Inbox)
 
 
 

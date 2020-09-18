@@ -15,6 +15,9 @@ export default class registerService {
     userCountry: string
     userDescripion: string
     userPhoto: any
+    darkMode: any
+    font: any
+    locations: any
     constructor(user: any, file: any) {
         let {email, password, name, surname, nickname, telephone, city, country, description} = user
         this.userEmail = email,
@@ -29,6 +32,9 @@ export default class registerService {
         this.errorMessage = '',
         this.isLoading = false
         this.userPhoto = file
+        this.darkMode = false
+        this.font = ''
+        this.locations=[]
     }
      async setUserPhotoInStorage() {
          return new Promise((resolve, reject) => {
@@ -54,7 +60,11 @@ export default class registerService {
                     telephone: this.userTelephone,
                     city: this.userCity,
                     country: this.userCountry,
-                    description: this.userDescripion})
+                    description: this.userDescripion,
+                    darkMode:this.darkMode,
+                    font:this.font,
+                    locations:this.locations=[]
+            })
                 .then(() => {
                     resolve(this.userEmail)
                 })

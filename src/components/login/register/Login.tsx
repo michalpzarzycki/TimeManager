@@ -24,6 +24,7 @@ function Login({ history, userIdSetter, userEmailSetter }: any) {
         setIsLoading(true)
         event.preventDefault()
         let data: any = await loginService.signIn(user.email, user.password)
+        console.log("DATA", data)
             userIdSetter(data.user.uid)
             userEmailSetter(data.user.email)
             //Turn on the Loader

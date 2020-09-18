@@ -1,16 +1,9 @@
-@import '../../../variables.css';
 .mainDiv {
     width: 200px;
     height: 200px;
-    border: 1px solid var(--darkmode-white);
+    border: 1px solid;
 }
-.mainDivDark{
-    width: 200px;
-    height: 200px;
-    border: 1px solid var(--darkmode-color);
-    background-color: var(--darkmode-background);
-    color: var(--darkmode-color);
-}
+
 .toggleBox {
     width: 100%;
     display: flex;

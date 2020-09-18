@@ -6,11 +6,15 @@ import uniqId from 'uniqid'
 import ExcusesList from './excuses/ExcusesList'
 import myExcusesService from '../../services/myExcusesService'
 import AddExcuse from './excuses/AddExcuse';
+import { connect } from 'react-redux';
+import {DARK_MYEXCUSES, LIGHT_MYEXCUSES} from '../../variables'
+const {darkBackground, darkColor} = DARK_MYEXCUSES;
+const {lightBackground, lightColor} = LIGHT_MYEXCUSES
 interface IExcuse {
     date: any,
 
 }
-export default function MyExcuses({ user }: any) {
+ function MyExcuses({ user, darkMode }: any) {
     const [excuse, setExcuse] = useState<any>([]);
     const [excuses, setExcuses] = useState<any>([]);
     const [excuseId, setExcuseId] = useState(uniqId())
@@ -37,7 +41,7 @@ export default function MyExcuses({ user }: any) {
     const handleCounter = (docId: any, counter: any) => myExcusesService.updateExcuse(docId, counter)
 
     return (
-        <div className={styles.myExcusesContainer}>
+        <div className={styles.myExcusesContainer} style={{backgroundColor: darkMode ? darkBackground : lightBackground}}>
                 <MyExcusesChart />
                 <AddExcuse handleSubmit={handleSubmit} handleChange={handleChange}/>
                 <ExcusesList
@@ -55,3 +59,9 @@ export default function MyExcuses({ user }: any) {
         </div>
     )
 }
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
+export default connect(mapStateToProps)(MyExcuses)

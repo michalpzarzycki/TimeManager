@@ -7,9 +7,12 @@ import uniqid from 'uniqid'
 import Note from './notes/Note';
 import AddNote from './notes/AddNote';
 import NoteDetailsPopup from './notes/NoteDetailsPopup';
+import { connect } from 'react-redux';
+import {DARK_NOTES, LIGHT_NOTES} from '../../variables'
 
-
-export default function Notes({ user }: any) {
+const {darkBackground, darkColor} = DARK_NOTES;
+const {lightBackground, lightColor} = LIGHT_NOTES
+function Notes({ user, darkMode }: any) {
     const [notes, setNotes] = useState<any>([])
     const [note, setNote] = useState({})
     const [uniqueId, setUniqueId] = useState(uniqid())
@@ -53,7 +56,7 @@ export default function Notes({ user }: any) {
         setIsPopup(true)
     }
     return (
-        <div className={styles.notesContainer}>
+        <div className={styles.notesContainer} style={{backgroundColor: darkMode ? darkBackground : lightBackground}}>
             <AddNote
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
@@ -77,8 +80,12 @@ export default function Notes({ user }: any) {
         </div>
     )
 }
-
-
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
+export default connect(mapStateToProps)(Notes)
 
 {/* <form>
                         <DatePicker 

@@ -8,8 +8,11 @@ import PhotoSection from './sidebarRoutes/profile/PhotoSection';
 import ChangeUserDataField from './sidebarRoutes/profile/ChangeUserDataField';
 import profileService from '../services/profileService';
 import UserDataField from './sidebarRoutes/profile/UserDataField';
-
- function Profile({user} : any) {
+import { connect } from 'react-redux';
+import {DARK_PROFILE, LIGHT_PROFILE} from '../variables'
+const { darkBackground, darkColor} = DARK_PROFILE
+const { lightBackground, lightColor} = LIGHT_PROFILE
+ function Profile({user, darkMode} : any) {
      const [openPopup, setOpenPopup] = useState(false)
      const [isNew, setIsNewPic] = useState(false)
      const [userData, setUserData] = useState<any>({})
@@ -23,9 +26,7 @@ import UserDataField from './sidebarRoutes/profile/UserDataField';
         {label: 'Description', inputName: 'description', inputValue: userData.description, spanId: 'description'}
      ])
      useEffect(() => {
-         if(user) {
-             profileService.getUserData(user.email).then((data: any) => setUserData({...data}))
-    }
+         if(user) profileService.getUserData(user.email).then((data: any) => setUserData({...data}))
      } ,[isNew])
      useEffect(() =>{
 
@@ -65,7 +66,7 @@ import UserDataField from './sidebarRoutes/profile/UserDataField';
         setUserData({...userData, [e.target.name]: e.target.value })
     }
     return(
-        <div className={styles.mainDiv}>
+        <div className={styles.mainDiv} style={{backgroundColor: darkMode ? darkBackground : lightBackground}}>
             <ChangePicturePopup
                  openPopup={openPopup} 
                  isPictureLoaded={isPictureLoaded} 
@@ -92,4 +93,9 @@ import UserDataField from './sidebarRoutes/profile/UserDataField';
         </div>
     )
 }
-export default withRouter(Profile)
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
+export default connect(mapStateToProps)(withRouter(Profile))

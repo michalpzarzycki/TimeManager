@@ -6,10 +6,6 @@
 .notesContainer {
     width: 100%;
     height: 100vh;
-    background-image: url('../../images/notesBackground.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     font-family: Advent;
     font-weight: bolder;
 }
