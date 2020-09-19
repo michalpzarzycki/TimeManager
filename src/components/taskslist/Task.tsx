@@ -9,8 +9,12 @@ import TaskTitle from './TaskTitle';
 import TaskDone from './TaskDone';
 import TaskLoader from './TaskLoader';
 import route1Service from '../../services/route1Service';
+import { connect } from 'react-redux';
+import {DARK_ROUTE1, LIGHT_ROUTE1} from '../../variables'
+const { darkBackground, darkColor} = DARK_ROUTE1;
+const { lightBackground, lightColor} = LIGHT_ROUTE1
 
-export default function Task({ task, handleDeletePopup, handleDetailsPopup }: any) {
+function Task({ task, handleDeletePopup, handleDetailsPopup, darkMode }: any) {
     const [popup, setPopup] = useState(false);
     const [editedTask, setEditedTask] = useState("")
     const [editedDeadline, setEditedDeadline] = useState("")
@@ -56,7 +60,7 @@ export default function Task({ task, handleDeletePopup, handleDetailsPopup }: an
     
     const setUncompletedTask = (task: any) => route1Service.setTaskUncompleted({...task, uncompletedDate: Date.now()}, task.docId)
 
-    return <div className={styles.tasksInfoBarContainer}>
+    return <div className={styles.tasksInfoBarContainer} style={{backgroundColor: darkMode ? darkBackground : lightBackground, borderColor: darkMode ? darkColor : lightColor}}>
                 <TaskLoader 
                     isLoading={isLoading} />
                 <TaskEditPopup
@@ -85,3 +89,9 @@ export default function Task({ task, handleDeletePopup, handleDetailsPopup }: an
                     task={task} />
         </div>
 }
+const mapStateToProps = (state: any) => {
+    return {
+        darkMode: state.darkmode
+    }
+}
+export default connect(mapStateToProps)(Task)

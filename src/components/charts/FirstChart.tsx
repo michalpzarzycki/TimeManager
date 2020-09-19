@@ -18,12 +18,7 @@ import { defaults } from 'react-chartjs-2';
             setDoneTasks(arr2)
         })
     }, []) 
-    useEffect(() => {
-        darkMode ? defaults.scale.gridLines.color = "#white" : defaults.scale.gridLines.color = "grey"
-        darkMode ? defaults.global.defaultFontColor='white' : defaults.global.defaultFontColor='grey';
-        darkMode ? defaults.global.tooltips.titleFontColor='white' : defaults.global.tooltips.titleFontColor='grey';
-        defaults.global.defaultFontFamily=fontFamily
-    }, [darkMode, fontFamily])
+
     useEffect(()=>{
         charts()
     }, [doneTasks])

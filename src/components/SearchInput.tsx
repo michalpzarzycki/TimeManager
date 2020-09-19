@@ -1,37 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './SearchInput.module.css';
 import { connect } from 'react-redux'
-import { db } from '../firebase/firebase';
-import { setSearchFilterField } from '../redux/action';
+import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
+const { darkBackground, darkColor} = DARK_ROUTE1;
+const { lightBackground, lightColor} = LIGHT_ROUTE1
 
-function SearchInput({searchFilterField ,onSearchChange} : any) {
-    useEffect(() => {
-        console.log("STATE", searchFilterField)
-    },[searchFilterField])
-    //  async function searchFunction(search) {
-    //      let result=""
-    //     console.log("PRZD SNAP", search)
-    //     const snapshot = await db.collection('tasks')
-    //                             .where('keyword', 'array-contains', search.toLowerCase())
-    //                             .get().then(x => {
-    //                               result = x.forEach(x => setSearchResult([...searchResult, x.data()]))
-    //                             })
-    //             return result            
-            
-    // }
-//     function handleChange(event) {
-//         searchValueSetter(event.target.value)
-//     //     db.collection('tasks').where('keyword', 'array-contains', event.target.value).get().then(snapshot => {
-//     //         snapshot.docs.forEach(doc => {
-//     //             console.log("DONE", doc.id, doc.data())
-//     //         })
-          
-//     // })
-// }
+function SearchInput({darkMode} : any) {
+
     return (<>
-        <div className={styles.route1TasksNav_searchDiv}>
+        <div className={styles.route1TasksNav_searchDiv} style={{backgroundColor: darkMode ? darkBackground : lightBackground}}>
         <span className={styles.span}>
-        <input onChange={onSearchChange} name="search" type="search" placeholder="Search Task" autoComplete="off" className={styles.route1TasksNav_searchDiv_input}/>
+        <input onChange={() => {}} name="search" type="search" placeholder="Search Task" autoComplete="off" className={styles.route1TasksNav_searchDiv_input} 
+        style={{
+                backgroundColor: darkMode ? darkBackground : lightBackground,
+                color: darkMode ? darkColor : lightColor,
+                borderColor: darkMode ? darkColor : lightColor
+                }}/>
         </span>
     </div>
     </>
@@ -40,12 +24,8 @@ function SearchInput({searchFilterField ,onSearchChange} : any) {
 
 const mapStateToProps = (state : any) => {
     return {
-        searchFilterField: state.searchFilterField
+        darkMode: state.darkmode
     }
 }
-const mapDisatchToProps = (dispatch : any) => {
-    return {
-        onSearchChange: (event : any) => dispatch(setSearchFilterField(event.target.value))
-    }
-}
-export default connect(mapStateToProps, mapDisatchToProps)(SearchInput)
+
+export default connect(mapStateToProps)(SearchInput)

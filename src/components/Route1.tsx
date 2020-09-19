@@ -11,6 +11,8 @@ import SearchOrCreateTask from './taskslist/SearchOrCreateTask';
 import TasksSection from './taskslist/TasksSection';
 import { connect } from 'react-redux';
 import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
+import { defaults } from 'react-chartjs-2';
+
 const { darkBackground, darkColor} = DARK_ROUTE1;
 const { lightBackground, lightColor} = LIGHT_ROUTE1
 interface ITask {
@@ -22,7 +24,7 @@ interface ITask {
 }
 
 
-function Route1({ user, darkMode }: any): any {
+function Route1({ user, darkMode, fontFamily }: any): any {
     const [popup, setPopup] = useState<any>(false)
     const [deletePopup, setDeletePopup] = useState<any>(false)
     const [task, setTask] = useState<ITask>({
@@ -47,7 +49,12 @@ function Route1({ user, darkMode }: any): any {
         // return () => user && unsubscribe()
     }, [user])
 
-
+    useEffect(() => {
+        darkMode ? defaults.scale.gridLines.color = "#white" : defaults.scale.gridLines.color = "grey"
+        darkMode ? defaults.global.defaultFontColor='white' : defaults.global.defaultFontColor='grey';
+        darkMode ? defaults.global.tooltips.titleFontColor='white' : defaults.global.tooltips.titleFontColor='grey';
+        defaults.global.defaultFontFamily=fontFamily
+    }, [darkMode])
     const handlePopup = () => setPopup(!popup)
 
     function handleDeletePopup(taskId: any) {
@@ -123,7 +130,9 @@ function Route1({ user, darkMode }: any): any {
 
 const mapStateToProps = (state: any) => {
     return {
-        darkMode: state.darkmode
+        darkMode: state.darkmode,
+        fontFamily: state.fontfamily
+
     }
 }
 export default connect(mapStateToProps)(withRouter(Route1))

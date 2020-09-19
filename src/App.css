@@ -5,10 +5,13 @@
   height: 90vh;
   display: flex;
   flex-direction: row;
-  overflow-y: scroll;
   background-color: rgb(237,242,246);
   position: relative;
 }
 @media (min-width:1000px) {
 
 }
+
+
+
+
