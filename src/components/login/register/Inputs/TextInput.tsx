@@ -3,6 +3,7 @@ import styles from './TextInput.module.css'
 
 
 export default function TextInput({ value, placeholder = "Please, set placeholder", type = "text", handleChange, name = "", error = false, onClick = () => { } }: any) {
+
     return (
         <div className={styles.mainDiv}>
             <span className={styles.inputContainer}>

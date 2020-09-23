@@ -82,7 +82,8 @@ function Notes({ user, darkMode }: any) {
 }
 const mapStateToProps = (state: any) => {
     return {
-        darkMode: state.darkmode
+        darkMode: state.darkmode,
+        notesReminder: state.notesreminder
     }
 }
 export default connect(mapStateToProps)(Notes)

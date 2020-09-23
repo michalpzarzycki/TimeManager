@@ -14,8 +14,10 @@ import { db } from '../../../firebase/firebase';
             snapshot.forEach((element: any) => {
                arr.push(element.data())
           });
+          if(arr[0]) {
+            setUserLocations(arr[0].locations)
 
-          setUserLocations(arr[0].locations)
+          }
         })
     }, [])
     return(

@@ -28,10 +28,10 @@ export default class registerService {
         this.userTelephone = telephone,
         this.userCity = city,
         this.userCountry = country,
-        this.userDescripion = description,
+        this.userDescripion = description && null,
         this.errorMessage = '',
         this.isLoading = false
-        this.userPhoto = file
+        this.userPhoto = file && null
         this.darkMode = false
         this.font = ''
         this.locations=[]
@@ -63,7 +63,7 @@ export default class registerService {
                     description: this.userDescripion,
                     darkMode:this.darkMode,
                     font:this.font,
-                    locations:this.locations=[]
+                    locations:this.locations
             })
                 .then(() => {
                     resolve(this.userEmail)

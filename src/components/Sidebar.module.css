@@ -32,6 +32,7 @@
     line-height: 2.5;
     font-size: 75%;
     text-decoration: none;
+    position: relative;
 
 }
 
@@ -52,44 +53,48 @@
     color: black;
     background-color: white;
 }
-.help:hover > span {
+.help:hover + span {
     
     background-image: url('../icons/sidebar/mainPageBlack.png');
 }
-.settings:hover > span {
+.settings:hover + span {
     
     background-image: url('../icons/sidebar/settingsBlack.png');
 }
-.profile:hover > span {
+.profile:hover + span {
     
     background-image: url('../icons/sidebar/profileBlack.png');
 }
-.inbox:hover > span {
+.inbox:hover + span {
     
     background-image: url('../icons/sidebar/inboxBlack.png');
 }
-.contact:hover > span {
+.contact:hover + span {
     
     background-image: url('../icons/sidebar/contactBlack.png');
 }
-.community:hover > span {
+.community:hover + span {
     
     background-image: url('../icons/sidebar/communityBlack.png');
 }
-.inspiration:hover > span {
+.inspiration:hover + span {
     
     background-image: url('../icons/sidebar/inspirationBlack.png');
 }
-.logout:hover > span {
+.logout:hover + span {
     background-image: url('../icons/sidebar/logoutBlack.png');
 }
-.notes:hover > span {
+.notes:hover + span {
     
     background-image: url('../icons/sidebar/notesBlack.png');
 }
-.myexcuses:hover > span {
+.myexcuses:hover + span {
     
     background-image: url('../icons/sidebar/mainPageBlack.png');
+}
+.reminder:hover {
+    background-color: red;
+    color: white;
 }
 .loader {
     position: absolute;
@@ -148,6 +153,20 @@
 }
 .logoutIcon {
     background-image: url('../icons/sidebar/logout.png');
+
+}
+.reminder {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top:50%;
+    right: 5px;
+    transform: translate(0,-50%);
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 @media (min-width:1000px) {

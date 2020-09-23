@@ -11,7 +11,7 @@ import thunkMiddleware from 'redux-thunk'
 import firebase from './firebase/firebase'
 import reducer from './redux/reducers/index'
 const logger = createLogger()
-const store = createStore(reducer,applyMiddleware(logger))
+const store = createStore(reducer,applyMiddleware(logger, thunkMiddleware))
 
 ReactDOM.render(
   

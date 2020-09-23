@@ -26,9 +26,7 @@ function Inbox({darkMode}: any) {
         newInbox.getAllUsersSnapshot()
             .then((users: any) => setAllUsers([...users]))
     }, [])
-    useEffect(() => {
 
-    }, [allUserConversations])
    function handleClick(conv: any) {
       setConversation(conv)
       

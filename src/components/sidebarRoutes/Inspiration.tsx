@@ -15,7 +15,10 @@ useEffect(() => {
     inspirationService.getInspirationFromDatabase()
                       .then((inspirations: any) => {
                             setInspirations(inspirations)
-                            inspirationService.setInspirationQuote('quoteContent', inspirations[0].quote)
+                            if(inspirations[0]) {
+                                inspirationService.setInspirationQuote('quoteContent', inspirations[0].quote)
+                            }
+                            
                         })
 }, [])
 

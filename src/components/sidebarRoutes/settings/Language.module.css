@@ -1,0 +1,155 @@
+.mainDiv {
+    width: 200px;
+    height: auto;
+    border: 1px solid black;
+}
+.header {
+    text-align: center;
+    opacity: 0;
+    transition: all 2s ease-in-out;
+}
+.selectBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.radioRussia {
+    margin: 5px;
+    padding: 0;
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/russia.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent
+
+}
+.radioChina {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/china.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent
+}
+.radioPoland {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/poland.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent
+}
+.radioSpain {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/spain.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent
+}
+.radioUsa {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/usa.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent
+}
+.radioPortugal {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/portugal.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent;
+
+    
+}
+.radioGermany {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/germany.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid transparent;
+}
+.radioItaly {
+    margin: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    background-image: url('../../../icons/italy.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid;
+    border: 2px solid transparent;
+
+}
+.radioButton {
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+
+}
+.selectedBorder {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    border: 2px solid blue;
+    box-shadow: 0px 0px 5px 0px rgba(27,0,230,1);
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+
+}

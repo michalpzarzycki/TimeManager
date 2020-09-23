@@ -37,6 +37,9 @@ useEffect(()=>{
 useEffect(() => {
   if(isLogged) {}
 }, [isLogged])
+function changeCssVariables() {
+
+}
   const setAllow = (bool: boolean): void => setAllowToDownloadUserImgAfterRegister(bool) 
   function toggleSidebar() {
     setToggle(!toggle)
@@ -125,7 +128,7 @@ const isLoggedIn = useAuth().isLoggedIn;
       <Switch>
         <Route exact path="/" render={()=><Redirect to="/login" />}/>
         <Route path="/login" render={() => <Login userIdSetter={userIdSetter} userEmailSetter={userEmailSetter}/>} />
-        <Route render={() => <Register setAllow={setAllow}/>} exact path='/register'/>
+        <Route render={() => <Register />} exact path='/register'/>
         <Route component={Profile}  path='/profile'/>
       </Switch>
       </div>

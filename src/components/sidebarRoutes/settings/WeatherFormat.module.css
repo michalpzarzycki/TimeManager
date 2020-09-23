@@ -1,0 +1,14 @@
+.mainDiv {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+}
+.header {
+    text-align: center;
+}
+.selectBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

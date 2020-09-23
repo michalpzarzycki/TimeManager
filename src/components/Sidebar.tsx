@@ -2,8 +2,9 @@ import React, { useState, useLayoutEffect } from 'react';
 import {Link, withRouter} from 'react-router-dom'
 import styles from './Sidebar.module.css'
 import loginService from '../services/loginService';
+import {connect} from 'react-redux'
 
-function Sidebar({toggle, history} : any) {
+function Sidebar({toggle, history, inboxReminder, notesReminder} : any) {
     let [isLoader, setIsLoader] = useState(false)
     const [size, setSize] = useState(window.innerWidth);
   useLayoutEffect(() => {
@@ -23,7 +24,7 @@ function Sidebar({toggle, history} : any) {
         <div className={isLoader ? styles.loader : ''}></div>
         <Link to='/'>
           <div className={styles.mainPage}>
-            <span className={styles.mainPageIcon}></span>{size>800 ? 'Main Page' : ''}
+          <span className={styles.mainPageIcon}></span>{size>800 ? 'Main Page' : ''}  
           </div>
         </Link>
         <Link to='/profile'>
@@ -39,6 +40,7 @@ function Sidebar({toggle, history} : any) {
         <Link to='/inbox'>
           <div className={styles.inbox}>
             <span className={styles.inboxIcon}></span>{size>800 ? 'Inbox' : ''}
+            {inboxReminder &&  <span className={styles.reminder}>{inboxReminder}</span>}
           </div>
         </Link>
         <Link to='/contact'>
@@ -54,6 +56,7 @@ function Sidebar({toggle, history} : any) {
         <Link to='/notes'>
           <div className={styles.notes}>
             <span className={styles.notesIcon}></span>{size>800 ? 'Notes' : ''}
+            {notesReminder && <span className={styles.reminder}>{notesReminder}</span>}
           </div>
         </Link>
         <Link to='/inspiration'>
@@ -72,5 +75,10 @@ function Sidebar({toggle, history} : any) {
     </div>
 }
 
-
-export default withRouter(Sidebar)
+const mapStateToProps = (state: any) => {
+  return {
+    inboxReminder: state.inboxreminder,
+    notesReminder: state.notesreminder
+  }
+}
+export default connect(mapStateToProps)(withRouter(Sidebar))

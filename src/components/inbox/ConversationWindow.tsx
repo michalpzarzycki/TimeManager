@@ -34,6 +34,9 @@ export default function ConversationWindow({allUserConversation, currentConversa
                db.collection('conversations').doc(currentConversation.id).update({
                    ...currentConversation, 
                     messages: [...currentConversation.messages, nuevo]
+                })
+                db.collection('reminders').doc('4QqnM140RmRMHTburBcu').update({
+                    reminders: [{section:'inbox',where: currentConversation.id, who: dataRef.currentUser.email, when: Date.now()}]
                 }) 
             }
     return(

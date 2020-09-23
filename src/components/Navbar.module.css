@@ -72,6 +72,27 @@ display: none;
     color: black;
    
 }
+.reminder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color:white;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.language {
+    background-image: url(../icons/poland_sq.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 30px;
+    height: 10px;
+}
 @media (min-width:1000px) {
     .clockAndWeather{
         display: flex;

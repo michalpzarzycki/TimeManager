@@ -10,9 +10,11 @@ import route1Service from '../services/route1Service'
 import SearchOrCreateTask from './taskslist/SearchOrCreateTask';
 import TasksSection from './taskslist/TasksSection';
 import { connect } from 'react-redux';
-import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
 import { defaults } from 'react-chartjs-2';
-
+import {getTasksRequest, getTasksSuccess, getTasksFailure} from '../redux/action'
+import axios from 'axios'
+import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
+import tasks from '../redux/reducers/tasks';
 const { darkBackground, darkColor} = DARK_ROUTE1;
 const { lightBackground, lightColor} = LIGHT_ROUTE1
 interface ITask {
@@ -24,7 +26,7 @@ interface ITask {
 }
 
 
-function Route1({ user, darkMode, fontFamily }: any): any {
+function Route1({ user, darkMode, fontFamily, setTasksToStore, tasks }: any): any {
     const [popup, setPopup] = useState<any>(false)
     const [deletePopup, setDeletePopup] = useState<any>(false)
     const [task, setTask] = useState<ITask>({
@@ -45,10 +47,13 @@ function Route1({ user, darkMode, fontFamily }: any): any {
 
     useEffect(() => {
         let unsubscribe: any;
-        if (user) unsubscribe = route1Service.getUserTasksSnapshot(user.email, setTaskList)
+        if (user) unsubscribe = route1Service.getUserTasksSnapshot(user.email, setTasksToStore)
         // return () => user && unsubscribe()
     }, [user])
+useEffect(() => {
+    if(tasks.tasks) setTaskList(tasks.tasks)
 
+}, [tasks])
     useEffect(() => {
         darkMode ? defaults.scale.gridLines.color = "#white" : defaults.scale.gridLines.color = "grey"
         darkMode ? defaults.global.defaultFontColor='white' : defaults.global.defaultFontColor='grey';
@@ -131,8 +136,21 @@ function Route1({ user, darkMode, fontFamily }: any): any {
 const mapStateToProps = (state: any) => {
     return {
         darkMode: state.darkmode,
-        fontFamily: state.fontfamily
+        fontFamily: state.fontfamily,
+        tasks: state.tasks
 
     }
 }
-export default connect(mapStateToProps)(withRouter(Route1))
+const mapDispatchToProps = (dispatch: any) => {
+    return{
+     setTasksToStore: (data: any) => {
+        dispatch(getTasksRequest([]))
+        if(data) {
+            dispatch(getTasksSuccess(data))
+        } else {
+            dispatch(getTasksFailure([]))
+        }
+    }
+}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Route1))

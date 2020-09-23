@@ -2,43 +2,22 @@ import React, { useState } from 'react';
 import styles from './Register.module.css';
 import TextInput from './Inputs/TextInput';
 import FileInput from './Inputs/FileInput';
-import { useRegisterValidate } from '../../../hooks/useRegisterValidate'
 import registerService from '../../../services/registerService'
 import SubmitButton from './Inputs/SubmitButton';
+import { validate } from '../../../validates/registerFormValidation'
+import { useFormValidation } from '../../../hooks/useFormValidation'
 
-const INIT_STATE = {
-    email : '',
-    password: "",
-    repeatPassword:"",
-    name:"",
-    surname:"",
-    nickname:"",
-    telephone:"",
-    city:"",
-    country:"",
-    description:"",
-    file:""
-            }
-interface IUser {
-    email : string,
-    password: string,
-    repeatPassword: string,
-    name: string,
-    surname: string,
-    nickname: string,
-    telephone: string,
-    city: string,
-    country: string,
-    description: string,
-    file: any
-}
+export default function Register() {
+    const submitCallback = () => {
+                    let newRegister = new registerService(values, file)
+                    newRegister.registerUser()
+                    // newRegister.setUserPhotoInStorage().then(() => {
+                    // setButtonLoading(false)
+            // })     
+    }
+    const {handleChange, handleSubmit, errors, values} = useFormValidation(submitCallback, validate)
 
-export default function Register(props: any) {
-    //State of all user data from register input
-    const [user, setUser] = useState<IUser>({...INIT_STATE});
 
-    //Returning all error messages from from validation and isValidate boolean
-    const { errors, isValidate } = useRegisterValidate(user);
     //State of disabled button(in case of not pass validation)
     let [buttonDisabled, setButtonDisabled] = useState(true);
     //State of loading button(validation is ok, form is sending to firebase)
@@ -47,33 +26,22 @@ export default function Register(props: any) {
     let [signUpErrorMessage, setSignUpErrorMessage] = useState<string>('')
     let [file, setFile] = useState<any>('')
     
-
-    function handleChange(e : any) {
-        setUser({...user, [e.target.name]: e.target.value})
-        //switch on/off disabled button depended on isValidate return
-        isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
-    }
-    function handleFileChange(e : any) {
-        setUser({...user, 'file': e.target.files[0].type})
-        setFile(e.target.files[0])
-        //switch on/off disabled button depended on isValidate return
-        isValidate ? setButtonDisabled(false) : setButtonDisabled(true)
-    }
-    function handleSubmit(e : any) {
-        e.preventDefault()
-        //If form inputs are validated
-        if(isValidate) {
-            let newRegister = new registerService(user, file)
-            newRegister.registerUser()
-            newRegister.setUserPhotoInStorage().then(() => {
-                setButtonLoading(false)
-            })       
-    }}
     return <div className={styles.mainDiv}>
       <h1 className={styles.header}>REGISTER FORM</h1>
         <form className={styles.form}>
             {signUpErrorMessage && <h1>{signUpErrorMessage}</h1>}
-            <TextInput 
+            {[{type:'email', name:"email", placeholder:"E-mail"},
+            {type:'password', name:"password", placeholder:"Password"},
+            {type:'password', name:"repeatPassword", placeholder:"Repeat Password"},
+            {type:'text', name:"name", placeholder:"Name"},
+            {type:'text', name:"surname", placeholder:"Surname"},
+            {type:'text', name:"nickname", placeholder:"Nickaname"},
+            {type:'text', name:"telephone", placeholder:"Telephone"},
+            {type:'text', name:"city", placeholder:"City"},
+            {type:'text', name:"country", placeholder:"Country"}].map((input: any) => {
+                return <TextInput type={input.type} placeholder={input.placeholder} handleChange={handleChange} name={input.name} error={errors[input.name]} />
+            })}
+            {/* <TextInput 
                 type="email" 
                 placeholder="email" 
                 handleChange={handleChange} 
@@ -86,7 +54,7 @@ export default function Register(props: any) {
                 name="password"/>
             <TextInput 
                 error={errors.repeatPassword} 
-                placeholder="ResetPassword" 
+                placeholder="repeatPassword" 
                 type="password" 
                 handleChange={handleChange} 
                 name="repeatPassword"/>
@@ -104,13 +72,13 @@ export default function Register(props: any) {
                 error={errors.nickname} 
                 placeholder="Nickname" 
                 handleChange={handleChange} 
-                name="nickname"/>
-            <FileInput 
+                name="nickname"/> */}
+            {/* <FileInput 
                 error={errors.file} 
                 handleFileChange={handleFileChange} 
                 name="file" 
-                file={file}/>
-            <TextInput 
+                file={file}/> */}
+            {/* <TextInput 
                 error={errors.telephone} 
                 placeholder="Telephone" 
                 handleChange={handleChange} 
@@ -124,13 +92,13 @@ export default function Register(props: any) {
                 error={errors.country} 
                 placeholder="Country" 
                 handleChange={handleChange} 
-                name="country"/>
+                name="country"/> */}
             <textarea  
                 placeholder="opis" 
                 name="description" 
                 onChange={handleChange}/>
             <SubmitButton 
-                buttonDisabled={buttonDisabled} 
+                buttonDisabled={false} 
                 buttonLoading={buttonLoading} 
                 placeholder="SUBMIT" 
                 handleSubmit={handleSubmit} />
