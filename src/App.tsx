@@ -102,8 +102,6 @@ const isLoggedIn = useAuth().isLoggedIn;
       <Switch>
         <Route exact path='/' render={() => <Route1 user={firebase.auth().currentUser}/>} />
         <Route strict path='/profile' render={() => <Profile user={firebase.auth().currentUser} />} />
-        <Route strict path='/route2' component={Route2} />
-        <Route strict path='/route3' component={Route3}  />
         <Route strict path='/settings' component={Settings}/>
         <Route strict path='/myexcuses' render={() => <MyExcuses user={firebase.auth().currentUser} />}/>
         <Route strict path='/notes' render={() => <Notes user={firebase.auth().currentUser}/>}/>
