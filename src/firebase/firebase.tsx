@@ -13,6 +13,17 @@ var firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  export function signInWithEmailAndPassword(email: any, password: any) {
+    return new Promise((resolve, reject) => {
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((result: any) => {
+        resolve(result)
+      })
+      .catch(reject)
+    })
+  }
   export let db = firebase.firestore()
   export let storage = firebase.storage();
 
