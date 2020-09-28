@@ -62,7 +62,7 @@ function Task({ task, handleDeletePopup, handleDetailsPopup, darkMode }: any) {
 
     return <div className={styles.tasksInfoBarContainer} style={{backgroundColor: darkMode ? darkBackground : lightBackground, borderColor: darkMode ? darkColor : lightColor}}>
                 <TaskLoader 
-                    isLoading={isLoading} />
+            j         isLoading={isLoading} />
                 <TaskEditPopup
                     handleChange={handleChange}
                     isEdited={isEdited}

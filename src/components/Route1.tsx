@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import styles from './Route1.module.css'
 import { withRouter } from 'react-router-dom';
@@ -12,9 +13,7 @@ import TasksSection from './taskslist/TasksSection';
 import { connect } from 'react-redux';
 import { defaults } from 'react-chartjs-2';
 import {getTasksRequest, getTasksSuccess, getTasksFailure} from '../redux/action'
-import axios from 'axios'
 import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
-import tasks from '../redux/reducers/tasks';
 const { darkBackground, darkColor} = DARK_ROUTE1;
 const { lightBackground, lightColor} = LIGHT_ROUTE1
 interface ITask {

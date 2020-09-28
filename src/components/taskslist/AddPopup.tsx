@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import {db} from '../../firebase/firebase';
+import React, {useState} from 'react';
 import styles from './AddEditPopup.module.css';
 import DatePicker from "react-datepicker";
 import { storage } from '../../firebase/firebase';
@@ -10,10 +9,7 @@ import TextInput from '../login/register/Inputs/TextInput';
 export default function AddPopup({ handlePopup,handleChange, handleSubmit, isLoading, isEdited, isPopup}: any) {
     
     
-    const [editedTask, setEditedTask] = useState("")
-    const [editedDeadline, setEditedDeadline] = useState("")
-    const [editedImportance, setEditedImportance] = useState("")
-    const [editedPhoto, setEditedPhoto] = useState("")
+ 
     let [time, setTime] = useState<Date | undefined>(undefined)
  
 

@@ -21,7 +21,7 @@ var firebaseConfig = {
       .then((result: any) => {
         resolve(result)
       })
-      .catch(reject)
+      .catch((err: any) => reject(err))
     })
   }
   export let db = firebase.firestore()

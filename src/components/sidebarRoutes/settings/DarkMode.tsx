@@ -6,9 +6,7 @@ import { setChangeDarkMode } from '../../../redux/action';
 // import { withRouter } from 'react-router-dom';
 
 function DarkMode({darkMode, handleToggle, darkColor}: any) {
-    useEffect(() => {
-        console.log("DARKCOLOR", darkColor)
-    }, [darkMode])
+
 
 
     return(
