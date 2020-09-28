@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom'
 import styles from './Sidebar.module.css'
 import loginService from '../services/loginService';
 import {connect} from 'react-redux'
+import Loader from './Loader';
 
 function Sidebar({toggle, history, inboxReminder, notesReminder} : any) {
     let [isLoader, setIsLoader] = useState(false)
@@ -18,10 +19,16 @@ function Sidebar({toggle, history, inboxReminder, notesReminder} : any) {
     function handleLogout() {
         setIsLoader(true)
         //signOut and change route
-        loginService.signOut().then(() => history.push('/'))
+        setTimeout(()=>{
+          loginService.signOut().then(() => {
+            history.push('/login')
+            setIsLoader(false)
+          })
+        }, 1500)
+      
     }
     return <div className={toggle ? styles.sidebarContainer : styles.none}>
-        <div className={isLoader ? styles.loader : ''}></div>
+        <div className={isLoader ? styles.loader : styles.none}><Loader /></div>
         <Link to='/'>
           <div className={styles.mainPage}>
           <span className={styles.mainPageIcon}></span>{size>800 ? 'Main Page' : ''}  

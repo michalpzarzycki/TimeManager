@@ -31,17 +31,19 @@ function Navbar({ toggleSidebar, user, toggle, inboxReminderSetter, navbarRemind
 
 
 
+if(user) {
 
-        storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL()
-            .then((url: any) => {
-                let elem1: any = document.getElementById('userPicture');
-                elem1.style.backgroundImage = `url(${url})`
-            })
-            .catch(err => console.log("ERROR", err))
-        setInterval(() => {
-            let obj = new Date()
-            setDate(`${obj.getHours()}:${obj.getMinutes()}:${obj.getSeconds()}`)
-        }, 1000)
+    storage.ref().child(`profiles/${user.email}.jpg`).getDownloadURL()
+    .then((url: any) => {
+        let elem1: any = document.getElementById('userPicture');
+        elem1.style.backgroundImage = `url(${url})`
+    })
+    .catch(err => console.log("ERROR", err))
+setInterval(() => {
+    let obj = new Date()
+    setDate(`${obj.getHours()}:${obj.getMinutes()}:${obj.getSeconds()}`)
+}, 1000)
+}
     }, [user])
     function handleSignOut() {
         firebase.auth().signOut().then(() => {

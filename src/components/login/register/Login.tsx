@@ -16,14 +16,17 @@ function Login({ history }: any) {
     const {handleChange, handleSubmit, errors, values} = useFormValidation(callback, validate)
 
     function callback() {
+        console.log("CB")
         setIsLoading(true)
         loginService.signIn(values.email, values.password)
         .then((data: any) => {
+            console.log("SUVVESS")
             setIsLoading(false)
             history.push("/")
 
         })
         .catch((error: any) => {
+            console.log("AJC")
             setIsLoading(false)
             setSignInError(error.message)
         })

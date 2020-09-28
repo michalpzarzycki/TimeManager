@@ -97,13 +97,15 @@
     color: white;
 }
 .loader {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
+    z-index: 10;
     width: 100vw;
     height: 100vh;
-    z-index: 10;
-    background-color: rgba(255,255,255,0.8);
+}
+.none{
+    display: none;
 }
 .mainPageIcon, .profileIcon, .notesIcon, .settingsIcon, .inboxIcon, .contactIcon, .myexcusesIcon, .inspirationIcon, .communityIcon, .logoutIcon  {
     display: inline-block;
@@ -179,19 +181,7 @@
         left: 0;
         background-color:  rgb(43,62,77);
     }
-    .none {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-        background-color:  rgb(43,62,77);
-        position: fixed;
-        top: 10vh;
-        left: 0;
-        z-index: 10;
-        height: 90vh;
-        width: 15%;
-        transform: translate(0,0);
-    }
+
 
 
 }

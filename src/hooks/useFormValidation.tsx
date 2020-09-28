@@ -14,9 +14,10 @@ useEffect(() => {
     const handleChange = (event: any) => {
         event.persist();
         setValues((values: any) => ({...values, [event.target.name]: event.target.value}))
-        setErrors(validate(values))
+        setErrors({...validate(values)})
     }
     const handleSubmit = (event: any) => {
+      console.log("ERRORS", errors)
         event.preventDefault();
         setIsSubmit(true)
     }
