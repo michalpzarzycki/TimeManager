@@ -28,12 +28,12 @@ export default class registerService {
         this.userTelephone = telephone,
         this.userCity = city,
         this.userCountry = country,
-        this.userDescripion = description && null,
+        this.userDescripion = '',
         this.errorMessage = '',
-        this.isLoading = false
-        this.userPhoto = file && null
-        this.darkMode = false
-        this.font = ''
+        this.isLoading = false,
+        this.userPhoto = file,
+        this.darkMode = false,
+        this.font = '',
         this.locations=[]
     }
      async setUserPhotoInStorage() {
