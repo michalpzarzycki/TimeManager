@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInput from './Inputs/TextInput';
 import styles from './Login.module.css'
 import { withRouter } from 'react-router-dom'
@@ -7,13 +7,17 @@ import Loader from '../../Loader';
 import loginService from '../../../services/loginService'
 import { validate } from '../../../validates/loginFormValidation'
 import { useFormValidation } from '../../../hooks/useFormValidation';
+import { useFirebaseErrors} from '../../../hooks/useFirebaseErrors'
 
 function Login({ history }: any) {
 
     const [isLoading, setIsLoading] = useState(false)
     //State of firebase signIn error 
+    const [isError, setIsError] = useState<any>('')
     const [signInError, setSignInError] = useState<string>('')
     const {handleChange, handleSubmit, errors, values} = useFormValidation(callback, validate)
+    const {handleAuthError, authError}  = useFirebaseErrors(isError)
+    
 
     function callback() {
         console.log("CB")
@@ -26,7 +30,9 @@ function Login({ history }: any) {
 
         })
         .catch((error: any) => {
-            console.log("AJC")
+            console.log("err", error)
+            handleAuthError(error)
+            setIsError({...error})
             setIsLoading(false)
             setSignInError(error.message)
         })
@@ -42,7 +48,7 @@ function Login({ history }: any) {
             </section>
             <section className={styles.rightSide}>
                 <form className={styles.form} onSubmit={handleSubmit} >
-                    {signInError && <h1 className={styles.errorMessage}>{signInError}</h1>}
+                    {authError && <h1 className={styles.errorMessage}>{authError}</h1>}
                         <TextInput
                             type="email"
                             placeholder="email" 

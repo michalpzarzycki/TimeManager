@@ -9,7 +9,7 @@ useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmit) {
       callback();
     }
-  }, [errors, isSubmit]);
+  }, [isSubmit]);
 
     const handleChange = (event: any) => {
         event.persist();
