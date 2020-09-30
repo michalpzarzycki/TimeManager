@@ -3,7 +3,7 @@ import styles from './FontFamily.module.css';
 import { connect } from 'react-redux';
 import { setFontFamily } from '../../../redux/action';
 
- function FontFamily({font, handleChange}: any) {
+ function FontFamily({font, handleChange, header}: any) {
     let arial = 'Arial, Helvetica, sans-serif'
     let gill = '"Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif'
     // 'Times New Roman', Times, serif
@@ -11,7 +11,7 @@ import { setFontFamily } from '../../../redux/action';
     // Verdana, Geneva, Tahoma, sans-serif
     return(
         <div className={styles.mainDiv}>
-            <h1 className={styles.header}>FONT FAMILY</h1>
+            <h1 className={styles.header}>{header}</h1>
             <div className={styles.selectBox}>
                 <select onChange={handleChange}>
                     <option value={arial}>Arial</option>

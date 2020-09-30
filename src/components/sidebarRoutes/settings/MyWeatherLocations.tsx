@@ -6,7 +6,7 @@ import AddWeatherLocation from './AddWeatherLocation';
 import ChooseWeatherLocation from './ChooseWeatherLocation'
 import { db } from '../../../firebase/firebase';
 
- function MyWeatherLocation({ location, handleChange }: any) {
+ function MyWeatherLocation({ location, handleChange, header }: any) {
     const [userLocations, setUserLocations] = useState<any>()
     useEffect(() => {
         db.collection('users').where('email','==', 'michal50166@wp.pl').get().then((snapshot: any) => {
@@ -22,7 +22,7 @@ import { db } from '../../../firebase/firebase';
     }, [])
     return(
         <div className={styles.mainDiv}>
-            <h1 className={styles.header}>Weather Locations</h1>
+            <h1 className={styles.header}>{header}</h1>
             <ChooseWeatherLocation userLocations={userLocations}/>
             {/* <div className={styles.myLocationBox}>
                 <select  onChange={handleChange}>

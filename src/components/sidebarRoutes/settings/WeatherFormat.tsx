@@ -4,10 +4,10 @@ import { defaults } from 'react-chartjs-2';
 import { connect } from 'react-redux';
 import { setWeatherFormat } from '../../../redux/action';
 
-function WeatherFormat({weatherFormat ,handleWeatherFormat}: any) {
+function WeatherFormat({weatherFormat ,handleWeatherFormat, header}: any) {
     return(
         <div className={styles.mainDiv}>
-        <h1 className={styles.header}>WEATHER FORMAT</h1>
+        <h1 className={styles.header}>{header}</h1>
         <div className={styles.selectBox}>
           <select onChange={handleWeatherFormat}>
               <option>KELVIN [K]</option>

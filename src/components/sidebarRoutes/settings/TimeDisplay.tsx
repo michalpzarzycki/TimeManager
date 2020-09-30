@@ -2,10 +2,10 @@ import React from 'react';
 import styles from './TimeDisplay.module.css';
 import {connect} from 'react-redux'
 import { setTimeFormat } from '../../../redux/action';
-function TimeDisplay({timeFormat, changeTimeFormat}: any) {
+function TimeDisplay({timeFormat, changeTimeFormat, header}: any) {
     return(
         <div className={styles.mainDiv}>
-        <h1 className={styles.header}>TIME FORMAT</h1>
+        <h1 className={styles.header}>{header}</h1>
         <div className={styles.selectBox}>
           <select onChange={changeTimeFormat}>
               <option>TIME ZONE 1</option>

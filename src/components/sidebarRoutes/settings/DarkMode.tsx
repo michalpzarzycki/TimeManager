@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 import { setChangeDarkMode } from '../../../redux/action';
 // import { withRouter } from 'react-router-dom';
 
-function DarkMode({darkMode, handleToggle, darkColor}: any) {
+function DarkMode({darkMode, handleToggle, darkColor, header}: any) {
 
 
 
     return(
         <div className={styles.mainDiv} style={{borderColor: darkMode ? darkColor : 'black'}}>
-                <h1>DARK MODE</h1>
+                <h1>{header}</h1>
                 <div className={styles.toggleBox}>
                     <ToggleSwitch handleToggle={handleToggle}/>
                 </div>

@@ -2,36 +2,11 @@ import React, { useState } from 'react';
 import styles from './Language.module.css';
 import { connect } from 'react-redux';
 import { setLanguage } from '../../../redux/action';
-const LANGUAGE: any = {
-    pol:{
-        header: "WYBIERZ JEZYK"
-    },
-    spa:{
-        header: "ELIGE LENGUA"
-    },
-    usa:{
-        header: "CHOOSE LANGUAGE"
-    },
-    it:{
-        header: "SCEGLI LA LINGUA"
-    },
-    ger:{
-        header: "SPRACHE WÄHLEN"
-    },
-    chin:{
-        header: "选择语言"
-    },
-    ru:{
-        header: "ВЫБЕРИТЕ ЯЗЫК"
-    },
-    pg:{
-        header: "ESCOLHA O SEU IDIOMA"
-    }
-}
-function Language({language, handleChange}: any) {
+
+function Language({language, handleChange, header}: any) {
     return(
         <div className={styles.mainDiv}>
-        <h1 className={styles.header} style={{opacity: language ?  '1' : '0' }}>{language && LANGUAGE[language].header}</h1>
+        <h1 className={styles.header} style={{opacity: language ?  '1' : '0' }}>{header}</h1>
         <div className={styles.selectBox}>
             
                 <label className={styles.radioPoland}> 

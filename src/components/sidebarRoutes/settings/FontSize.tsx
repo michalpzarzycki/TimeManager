@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { setFontSize } from '../../../redux/action';
 
 
-function FontSize({fontSize, handleChange}: any) {
+function FontSize({fontSize, handleChange, header}: any) {
 
     return(
         <div className={styles.mainDiv}>
-        <h1 className={styles.header}>FONT FAMILY</h1>
+        <h1 className={styles.header}>{header}</h1>
         <div className={styles.selectBox}>
             <label>
                 <input type="radio" value="bigFontSize" checked={fontSize==='bigFontSize'} onChange={handleChange}/>
