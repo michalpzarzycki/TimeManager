@@ -8,14 +8,16 @@ export default class inboxService {
     users: any[] = []
 
     getUserConversationsSnapshot(setter: any) {
-     
+        try {
         db.collection('conversations').where('users', 'array-contains', this.dataRef.currentUser.email)
         .onSnapshot(snapshot => {
-            console.log("NEW DATA")
             let arr: any[] = []
             snapshot.forEach(doc => arr.push(doc.data()))
             setter([...arr])
         })
+    } catch(err) {
+        console.log(err)
+    }
             
     }
 
@@ -69,15 +71,15 @@ export default class inboxService {
        }) 
     }
 
-    static async getUserImgWithEmail(email: any) {
+    static getUserImgWithEmail(email: any) {
         return new Promise((resolve, reject) => {
             storage.ref().child(`/profiles/${email}.jpg`)
             .getDownloadURL()
             .then((url) => {
                 resolve(url)
             })
-            .catch(() => {
-                reject()
+            .catch((err) => {
+                reject(err)
             })
         })
     }

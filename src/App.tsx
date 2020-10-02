@@ -23,9 +23,10 @@ import Loader from './components/Loader'
 import CategoryTopics from './components/sidebarRoutes/community/CategoryTopics';
 import TopicDiscuss from './components/sidebarRoutes/community/TopicDiscuss';
 import CreateTopic from './components/sidebarRoutes/community/CreateTopic';
+import {connect} from 'react-redux'
+import { getUserRequest, getUserSuccess, getUserFailure } from './redux/action';
 
-
-function App(props : RouteComponentProps) : any  {
+function App() : any  {
   const [isLogged, setIsLogged] = useState(useAuth().isLoggedIn)
   const [toggle, setToggle] = useState(false)
   let [userId, setUserId] = useState('')
@@ -33,10 +34,9 @@ function App(props : RouteComponentProps) : any  {
   let [allowToDownloadUserImgAfterRegister, setAllowToDownloadUserImgAfterRegister] = useState<boolean>(false)
 useEffect(()=>{
   toggleSidebar()
+
+
 }, [])
-useEffect(() => {
-  if(isLogged) {}
-}, [isLogged])
 function changeCssVariables() {
 
 }

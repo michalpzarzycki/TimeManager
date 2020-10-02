@@ -7,25 +7,35 @@ import ConversationWindow from '../inbox/ConversationWindow';
 import {db} from '../../firebase/firebase'
 import { connect } from 'react-redux';
 import {DARK_INBOX, LIGHT_INBOX} from '../../variables'
+import { useInboxConversation } from '../../hooks/useInboxConversation';
+
 const {darkBackground, darkColor} = DARK_INBOX;
 const {lightBackground, lightColor} = LIGHT_INBOX
 
 function Inbox({darkMode}: any) {
-    let [openConversationPopup, setOpenConversationPopup] = useState(false)
     let [allUserConversations, setAllUserConversations] = useState<any>('')
     let [isUserSearch, setIsUserSearch] = useState(false)
-    let [allUsers, setAllUsers] = useState<any>([])
     let [conversation, setConversation] = useState<any>('')
     let [convId, setConvId] = useState<any>('')
+    const [users, setUsers] = useState<any>([])
+    
     //Create a user Inbox 
     let newInbox = new inboxService()
-    useEffect(() => {
+ 
         //Download all user Conversation
-        newInbox.getUserConversationsSnapshot(setAllUserConversations)
+        useEffect(() => {
+            newInbox.getUserConversationsSnapshot(setAllUserConversations)
+             newInbox.getAllUsersSnapshot()
+            .then((users: any) => setUsers(users))
+            .catch((err: any) => console.log('NIE MA ZDJECIA'))
+        }, [])
         //Download all users info
-        newInbox.getAllUsersSnapshot()
-            .then((users: any) => setAllUsers([...users]))
-    }, [])
+        // newInbox.getAllUsersSnapshot()
+        //     .then((users: any) => {
+     
+        //     })
+ 
+    const { currentConversation, openConversationPopup } = useInboxConversation(allUserConversations, newInbox.createNewConversation, newInbox.getCreatedConversation, newInbox.getAllUsersSnapshot)
 
    function handleClick(conv: any) {
       setConversation(conv)
@@ -38,18 +48,18 @@ function Inbox({darkMode}: any) {
                 conversation={conversation}
                 allUserConversations={allUserConversations}
                 isUserSearch={isUserSearch}
-                allUsers={allUsers}
+                allUsers={users}
                 setIsUserSearch={setIsUserSearch}
                 handleClick={() => {}}
                 newInbox={newInbox}
-                setOpenConversationPopup={setOpenConversationPopup}
                 openConversationPopup={openConversationPopup}
+                currentConversation={currentConversation}
             />
             <InboxMesseges
                 conversation={conversation}
-                allUsers={allUsers}
+                allUsers={users}
                 openConversationPopup={openConversationPopup}
-                setOpenConversationPopup={setOpenConversationPopup}
+                setOpenConversationPopup={{}}
                 allUserConversations={allUserConversations}
                 convId={convId}
                 handleClick={handleClick}

@@ -11,7 +11,7 @@ import timezone from './timezone'
 import timeformat from './timeformat'
 import weatherformat from './weatherformat'
 import tasks from './tasks'
-
+import user from './user'
 export default combineReducers({
   darkmode,
   fontfamily,
@@ -24,8 +24,8 @@ export default combineReducers({
   timezone,
   timeformat,
   weatherformat,
-  tasks
-
+  tasks,
+  user
 })
 
 

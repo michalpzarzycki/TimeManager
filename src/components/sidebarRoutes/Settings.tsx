@@ -30,7 +30,7 @@ const LANGUAGES: any = {
         settingsDarkModeHeader: "DARK MODE",
         settingFontFamilyHeader: "FONT FAMILY",
         settingsFontSizeHeader: "FONT SIZE",
-        settingsMyWeatherLocationHeader: "MYT LOCATIONS",
+        settingsMyWeatherLocationHeader: "MY LOCATIONS",
         settingsLanguageHeader: "CHOOSE LANGUAGE",
         settingsTimeZoneHeader: "TIME ZONE",
         settingsTimeDisplayHeader: "TIME FORMAT",

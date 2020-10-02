@@ -21,6 +21,7 @@ export const useAuth = () => {
         setIsLoggedIn(false);
       }
     });
+  
   }, [user]);
 //return info about who is or not logged
   return { isLoggedIn, user };

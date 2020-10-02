@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 import { defaults } from 'react-chartjs-2';
 import {getTasksRequest, getTasksSuccess, getTasksFailure} from '../redux/action'
 import {DARK_ROUTE1, LIGHT_ROUTE1} from '../variables'
-const { darkBackground, darkColor} = DARK_ROUTE1;
-const { lightBackground, lightColor} = LIGHT_ROUTE1
+const { darkBackground} = DARK_ROUTE1;
+const { lightBackground} = LIGHT_ROUTE1
 interface ITask {
     id?: any,
     photo?: any,

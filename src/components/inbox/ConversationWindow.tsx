@@ -43,10 +43,10 @@ export default function ConversationWindow({allUserConversation, currentConversa
         <div className={openConversationPopup ? styles.conversationWindow : styles.none}>
         <div className={styles.mainDiv}>
             <div className={styles.exit} onClick={() =>setOpenConversationPopup(false) }></div>
-    <div id="container" className={styles.conversationDiv}>{currentConversation && currentConversation.messages.map((message: any) => {
+    <div id="container" className={styles.conversationDiv}>{currentConversation && currentConversation.messages.map((message: any, index: any) => {
         let dataRef : any = firebase.auth();
         return (
-            <div className={dataRef.currentUser.email === message.author ? styles.isCurrentUser : styles.messege}>
+            <div key={index} className={dataRef.currentUser.email === message.author ? styles.isCurrentUser : styles.messege}>
                 <div className={styles.messegeContainer}>
                <div className={styles.author}> </div>
                <div className={styles.text}>

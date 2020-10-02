@@ -8,8 +8,10 @@ import loginService from '../../../services/loginService'
 import { validate } from '../../../validates/loginFormValidation'
 import { useFormValidation } from '../../../hooks/useFormValidation';
 import { useFirebaseErrors} from '../../../hooks/useFirebaseErrors'
+import {connect} from 'react-redux'
+import { getUserRequest, getUserSuccess, getUserFailure } from '../../../redux/action';
 
-function Login({ history }: any) {
+function Login({ history, setUserToStore }: any) {
 
     const [isLoading, setIsLoading] = useState(false)
     //State of firebase signIn error 
@@ -27,6 +29,7 @@ function Login({ history }: any) {
             console.log("SUVVESS")
             setIsLoading(false)
             history.push("/")
+            setUserToStore(data.user.email)
 
         })
         .catch((error: any) => {
@@ -67,5 +70,21 @@ function Login({ history }: any) {
         </div>)
 }
 
-
-export default withRouter(Login)
+const mapStateToProps = (state: any) => {
+    return {
+      user: state.user
+    }
+  }
+  const mapDispatchToProps = (dispatch: any) => {
+    return{
+     setUserToStore: async (data: any) => {
+        dispatch(getUserRequest(null))
+        if(data) {
+            dispatch(getUserSuccess(data))
+        } else {
+            dispatch(getUserFailure(null))
+        }
+    }
+  }
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

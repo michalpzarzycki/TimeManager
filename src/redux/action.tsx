@@ -13,7 +13,10 @@ import {
     CHANGE_WEATHER_FORMAT,
     GET_TASKS_REQUEST,
     GET_TASKS_SUCCESS,
-    GET_TASKS_FAILURE
+    GET_TASKS_FAILURE,
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
+    GET_USER_FAILURE
 
 } from './constanst';
 
@@ -79,4 +82,18 @@ export const getTasksSuccess = (tasks: any) => ({
 export const getTasksFailure = (tasks: any) => ({
     type: GET_TASKS_FAILURE,
     payload: tasks
+})
+
+//get user
+export const getUserRequest = (user:any) => ({
+    type: GET_USER_REQUEST,
+    payload: user
+}) 
+export const getUserSuccess = (user: any) => ({
+    type: GET_USER_SUCCESS,
+    payload: user
+})
+export const getUserFailure = (user: any) => ({
+    type: GET_USER_FAILURE,
+    payload: user
 })
